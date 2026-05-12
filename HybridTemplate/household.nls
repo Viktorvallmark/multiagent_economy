@@ -1,0 +1,247 @@
+; ********************************************************************************************************************************************************
+; ***          household.NLS  (contains all the code for the household)                                                                                ****
+; *********************************************************************************************************************************************************
+; DESCRIPTION OF THE AGENT
+; - Hybrid two-pass
+; - 1.uppdatera environment
+; - 2.kör proactive del (pass 1 uppåt)
+; - 3.kör reactive del (pass 2 neråt)
+
+
+; INTE LAGT TILL SÅ ATT STORE ÄR FIRM EGENTLIGEN
+;*********************************************************************************************************************************************************
+; LOCAL VARIABLES
+households-own [
+  ; --- variabler från reaktiv del ---
+  wealth              ; hushållets pengar (ersätter wealth)
+  income             ; senaste lönen
+  pension-savings    ; sparade pensionspengar
+  financial-state    ; FSM: "har-pengar", "har-lite-pengar", "har-inga-pengar"
+  spending-limit     ; max att spendera (budget som styr)
+  
+  ; --- variabeler från proaktiv del ---
+  proState ; "Proaktiva FSM "Stable", "Saving", "Stocking-up"
+  pension-goal ; målet för pensionen
+  prev-total-price ; förra tickens totala pris på food + supplies
+  price-trend ; positiv --> priserna går upp, negativ <-- priser går ner
+  
+] 
+
+to setup-household ; det som händer när man trycker "setup" knappen i interfacet
+  ; TEMPORÄRA TILLS INTEGRATIONEN
+  set food-price 5
+
+  set supplies-price 3
+  set tax-return-available false
+  set tax-return-amount 0
+  set average-income 20 ; start värde för average inkomst
+ 
+  
+  create-households 10 [ ; skapar 10 hushåll
+    ; --- reaktiva initial värdena ---
+    set incoming-queue []
+    set wealth 50 + random 50 ; random startpengar för variation
+    set income 0 ; lön
+    set pension-savings 0 ; börjar med inget pensionsparande
+    set financial-state "har-pengar" ; FSM startar i "har-pengar" läget
+    set spending-limit 999 ; inte lagt någon budget gräns
+    
+    ; --- proaktiva initial värdena --- 
+    set proState "Stable" ; startar i normal ekonomisk situation
+    set pension-goal average-income * 30 * 6 ;???????????????????
+    set prev-total-price food-price + supplies-price ; start totalpris
+    set price-trend 0 ; startar inte med någon trend i pris
+    
+    ; --- Interface grejer ---
+    set shape "person" ; person symbol på kartan
+    set color green ; grön = har pengar
+    set size 8 ; storlek på personen
+    setxy random-xcor random-ycor ; random spawn på personen
+  ]
+end
+; PASS 1 UPPÅT--- Observera världen o uppdatera variabler
+to updateEnvironmentInfo_households
+  ; räknar ut pristrend
+  let current-total food-price + supplies-price
+  set price-trend current-total - prev-total-price
+  set prev-total-price current-total
+  
+  ; FULL INTEGRATION: FIRM SÄTTER PRISER
+  update-prices
+  
+  ; FULL INTEGRATION GOVERNEMNT HANTERAR
+  update-tax-return
+  
+  ; FULL INTEGRATION FIRM BESTÄMMER LÖN, lön var 30e tick
+    if (ticks > 0 and ticks mod 30 = 0) [
+    set income 20 + random 10 ; random lön (FIRM BESTÄMEMR DETTA EGENTLIGEN)
+    set wealth wealth + income ; lägger till nuvarande pengar på lönen som kom
+  ]
+ 
+  ; uppdatera financial state
+  update-financial-state
+end
+
+; --- Bestämma strategi, FSM 3 states, proState som reactive använder sen ---
+to proactive_households
+  ; FSM
+  if proState = "Stable" [
+    ; pensionsmål ej nått --> spara
+    if pension-savings < pension-goal [
+      set proState "Saving"
+      stop
+    ]
+    ; pristrend uppåt --> stocka upp
+    if price-trend > 3 [
+      set proState "Stocking-up"
+      stop
+    ]
+  ]
+  
+  if proState = "Saving" [
+    ; pensionsmål nått --> Stable
+    if pension-savings >= pension-goal [
+      set proState "Stable"
+      stop
+    ]
+    ; pristrend uppåt --> stocka upp
+    if price-trend > 3 [
+      set proState "Stocking-up"
+      stop
+    ]
+  ]
+  
+  if proState = "Stocking-up" [
+    ; normal pristrend --> checka pensionsmål för state
+    if price-trend <= 1 [
+      ifelse pension-savings >= pension-goal [
+        set proState "Stable"
+      ] [
+        set proState "Saving"
+      ]
+      stop
+    ]
+  ]
+end
+
+; PASS 2 NERÅT --- wannabe subsumption? ---
+to reactive_households
+  ; Lager 1 - Läs igenom alla meddelanden som kan ha skickats till hushållet
+  while [not empty? incoming-queue] [ ; Loopa igenom alla meddelanden. Finns det inga kommer den inte köras alls
+    let msg get-message ; Skaffa meddelandet
+    let performative get-performative msg ; Skaffa vad för typ av meddelande det är
+    let content get-content msg ; Skaffa innehållet
+    
+    if performative = "propose" [
+      let msg-type item 0 content ; Få fram vad för typ av propose meddelande det är
+      if msg-type = "tax-rebate" [
+        let amount item 1 content ; Få fram mängden tax-rebate
+        retrieve-tax amount ; Kör funktionen för att lägga in det på kontot
+      ]
+    ]
+  ]
+
+  ; Lager 2 — sätt budget utifrån financial-state
+  budget-household
+  if spending-limit <= 0 [ stop ]
+
+  ; Lager 3 — handla (påverkas av proState)
+  limit-purchases
+
+  ; Lager 4 (lägst prio) — pensionssparande (påverkas av proState)
+  save-pension
+end
+
+; --- ENVIRONMENT FUNKTIONER--- 
+
+to update-prices ; uppdaterar "Store" så att priserna varierar random
+  set food-price (average-income * 0.25) + random 5 ; random 0-4, varierar priset (mat)
+  set supplies-price (average-income * 0.25) + random 5 ; random 0-4, varierar priset (essentials)
+end
+
+to update-tax-return ; returnen för tax varje år
+  ifelse (ticks > 0 and ticks mod 365 = 0) [
+    set tax-return-available true ; finns en tax return
+    set tax-return-amount 10 + random 20 ; random, TEMPORÄR INNAN INTEGRATION
+  ] [
+    set tax-return-available false ; ingen tax return
+  ]
+end
+
+to update-financial-state
+  ifelse wealth > 50 [
+    set financial-state "har-pengar"
+    set color green ; grön = bra pengarsituation
+  ] [
+    ifelse wealth > 0 [
+      set financial-state "har-lite-pengar"
+      set color yellow ; gul = tight pengarsituation
+    ] [
+      set financial-state "har-inga-pengar"
+      set wealth 0 ; så en household inte kan få minus pengar (kanske vill ha minus om man implementerar lån?)
+      set color red ; röd = inga pengar
+    ]
+  ]
+end
+
+
+; --- REACTIVE FUNKTIONER ---
+to retrieve-tax [amount] ; sätt in skatteåterbäringen på kontot
+  set wealth wealth + amount
+end
+
+to budget-household ; budgetterar pengarna för hushållet
+  if financial-state = "har-pengar" [
+    set spending-limit wealth * 0.4 ; spenderar 40%
+  ]
+  if financial-state = "har-lite-pengar" [
+    set spending-limit wealth * 0.2 ; spenderar 20% pga tajt ekonomi
+  ]
+  if financial-state = "har-inga-pengar" [
+    set spending-limit 0 ; inga pengar, inget o budgettera med
+  ]
+end
+
+to limit-purchases
+  if (ticks mod 7 != 0) [stop] ; gör inget om inte handlingsdag, varje vecka 7:e dag
+
+  if proState = "Stocking-up" [
+    set spending-limit spending-limit * 1.5
+  ]
+  
+  if proState = "Saving" [
+    set spending-limit food-price
+  ]
+  
+  ; if "Stable" gör inget
+  
+  let total-cost food-price + supplies-price ; kostnad för handlingen
+
+   ifelse total-cost > spending-limit [ ; inte råd med bara
+      if food-price <= spending-limit [ ; finns det pengar för mat
+      set wealth wealth - food-price ; köp bara mat, viktigast
+    ]
+      ; inget här, om inga pengar för ens mat, köp inget
+  ] [
+    set wealth wealth - total-cost ; råd med båda, köp allt då
+  ]
+end
+
+
+to save-pension ; pensionssparande
+  if financial-state != "har-pengar" [stop] ; pensionssparar bara om man har pengar till det
+  if (ticks mod 30 != 0) [stop] ; sparar bara om 30:e dag, alltså varje månad
+
+  let pension-rate 0.1
+  if proState = "Saving" [
+    set pension-rate 0.2
+  ]
+  
+  let pension-contribution wealth * pension-rate 
+  if pension-contribution > 1 [ ; inte lönt o spara mindre än 1 kr
+    set wealth wealth - pension-contribution ; tar bort pengar från nuvarande pengar pga spara
+    set pension-savings pension-savings + pension-contribution ; lägger till sparandet i nuvarande pensionssparande
+  ]
+end
+
+

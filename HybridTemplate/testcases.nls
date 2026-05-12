@@ -1,0 +1,95 @@
+; ; ********************************************************************************************************************************************************
+; ;***          testcases.nls  (contains the code for the speciic testfunctions)                                                                                    ****
+; ;*********************************************************************************************************************************************************
+; ; TEST-CASE VERSION NUMMER: TC02
+; ;*********************************************************************************************************************************************************
+; ; DESCRIPTION OF THE TESTCASE
+; ; - The testcase creates two specific agents:
+; ;              - "wolf" as agentA, double normal size
+; ;              - "sheep" as agentB, double the normal size
+; ; - The testcase overrides the setup values and update_environment_info for "wolf" by forcing moveFlag=false and followFlag=true. It also sets
+; ;   friendList, friend and follower to the "sheep" agentB.
+; ;   As a consequence, "wolf" is following "sheep" which identifies "wolf" as stalker and escapes into sanctuary. 
+; ; - The simulation run is terminated when "sheep" is successfully escaping to sanctuary
+; ; - The monitor-functions monitor_wolf and monitor_sheep save the changes in the agent-specific variables into 
+; ;   the text file "BasicTemplate-testcase_TC01.txt"
+; ;*********************************************************************************************************************************************************
+; ;*********************************************************************************************************************************************************
+; ; LOGBOOK OF UPDATES IN THIS FILE
+; ; --Date--- |-----Description--------------------------------------------------------------------------------|---Person(s)-------------------------------
+; ; 20260304    Initial testcase with a wolf for agentA and a sheep for agentB                                     Gion
+; ; 20260506  | Testcase for the Distribute welfare behaviour                                                  |   Nicolas, Mimoza
+; ;
+; ;
+; ;********************end logbook ************************************************************************************************************************
+
+
+; ;*********************************************************************************************************************************************************
+; ; GLOBAL VARIABLES ONLY FOR TEST CASES
+; ; do not include it in globals.nls
+globals [
+  
+  
+]
+; ; government-specific variables for the test case
+; ; do not include in the agents declaration files
+governments-own [
+  test-initial-budget
+]
+
+; ; household-specific variables for the test case
+; ; do not include in the agents declaration files
+households-own [
+  test-initial-wealth
+]
+
+; ; firm-specific variables for the test case
+; ; do not include in the agents declaration files
+firms-own [
+  
+]
+; ;*********************************************************************************************************************************************************
+
+to setup-test-government
+  file-open "government-testcase.txt"
+  
+  ask governments [
+    set gov-budget 250
+    set test-initial-budget gov-budget
+    
+    file-print "=== TEST STARTED ==="
+    
+    file-print (word "Initial gov-budget: " test-initial-budget)
+    
+  ]
+  
+  ask households [
+    set income 20
+    set test-initial-wealth income
+  ]
+  
+  
+end
+
+; ;*********************************************************************************************************************************************************
+; ; Testfunctions to be called in the to-go part, 
+; ; after the ask turtles, in the observer-section 
+; ;
+to monitor_testagents
+  
+  
+  
+end
+
+to monitor-government-test
+  ask governments [
+    
+    file-print (word "Current gov-budget: " gov-budget)
+    
+    if gov-budget < test-initial-budget [
+      file-print "Test 1 PASS - Government budget decreased after redistribution"
+    ]
+  ]
+end
+
+; ;****************** end specific testfunctions in agent's code *************************************************************************************************

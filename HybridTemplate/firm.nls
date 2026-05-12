@@ -1,0 +1,373 @@
+;; firm variables
+firms-own [
+  production
+  revenue
+  wage-cost
+  machine-cost
+  tax-paid
+  profit
+  last-profit
+  price
+  chosen-method
+  demand
+  last-demand
+  expected-demand
+  target-production
+  current-production
+  max-capacity
+]
+
+;; human variables
+human-workers-own [ ; bör vara households?
+  wage
+  productivity
+  employer
+]
+
+;; machine variables
+machine-workers-own [
+  productivity
+  employer
+  maintenance-cost
+]
+
+to setup-firm
+
+  create-firms 1 [
+    set shape "square"
+    set color blue
+    set size 4
+    setxy 50 50
+
+    set production 0
+    set revenue 0
+    set wage-cost 0
+    set machine-cost 0
+    set tax-paid 0
+    set profit 0
+    set last-profit 0
+    set price 10
+    set chosen-method "human"
+
+    set demand 20
+    set last-demand 20
+    set expected-demand 20
+    set target-production 20
+    set current-production 0
+    set max-capacity 100
+  ]
+
+  create-human-workers 10 [ ; bör vara households väll? 
+    set shape "person"
+    set color white
+    set size 1.5
+    set wage 5
+    set productivity 2
+
+    let my-firm one-of firms
+    set employer my-firm
+    move-to my-firm
+    rt random 360
+    fd 15
+  ]
+
+  create-machine-workers 4 [
+    set shape "square"
+    set color gray
+    set size 1.5
+    set maintenance-cost 3
+    set productivity 8
+
+    let my-firm one-of firms
+    set employer my-firm
+    move-to my-firm
+    rt random 360
+    fd random 20
+  ]
+
+end
+
+to reactive-firm
+
+  ask firms [
+    calculate-production
+    set current-production production
+
+    calculate-revenue
+    calculate-wages
+    calculate-machine-cost
+    calculate-tax
+    calculate-profit
+  ]
+
+end
+
+to proactive-firm
+
+  ask firms [
+    decide-dynamic-price
+    decide-production-amount
+    decide-fire-hire
+
+    if ticks mod 5 = 0 [
+      print (word
+        "Tick: " ticks
+        " | Price: " price
+        " | Prod: " production
+        " | Target: " target-production
+        " | Demand: " demand
+        " | Profit: " profit
+        " | Government money: " governemnt-money
+      )
+    ]
+  ]
+
+end
+
+to calculate-production
+
+  let human-workers-set human-workers with [employer = myself]
+  let machine-workers-set machine-workers with [employer = myself]
+
+  let human-output sum [productivity] of human-workers-set
+  let machine-output sum [productivity] of machine-workers-set
+
+  if human-output >= machine-output [
+    set production human-output
+    set chosen-method "human"
+  ]
+
+  if machine-output > human-output [
+    set production machine-output
+    set chosen-method "machine"
+  ]
+
+end
+
+to calculate-revenue
+
+  set revenue production * price
+
+end
+
+to calculate-wages
+
+  if chosen-method = "human" [
+    let my-humans human-workers with [employer = myself]
+    set wage-cost sum [wage] of my-humans
+  ]
+
+  if chosen-method != "human" [
+    set wage-cost 0
+  ]
+
+end
+
+to calculate-machine-cost
+
+  if chosen-method = "machine" [
+    let my-machines machine-workers with [employer = myself]
+    let variable-cost sum [maintenance-cost] of my-machines
+
+    if any? my-machines [
+      set machine-cost variable-cost + machine-fixed-cost
+    ]
+
+    if not any? my-machines [
+      set machine-cost 0
+    ]
+  ]
+
+  if chosen-method != "machine" [
+    set machine-cost 0
+  ]
+
+end
+
+to calculate-tax ;skatta profit eller revenue
+
+  set tax-paid revenue * tax-rate-firms
+  set governemnt-money governemnt-money + tax-paid
+
+end
+
+to calculate-profit
+
+  set profit revenue - wage-cost - machine-cost - tax-paid
+
+end
+
+to decide-dynamic-price
+
+  if demand > production [
+    set price price + 1
+  ]
+
+  if demand < production [
+    set price price - 1
+  ]
+
+  if price < 1 [
+    set price 1
+  ]
+
+end
+
+to decide-production-amount
+
+  set expected-demand (0.7 * demand + 0.3 * last-demand)
+
+  set target-production expected-demand
+
+  let human-capacity sum [productivity] of human-workers with [employer = myself]
+  let machine-capacity sum [productivity] of machine-workers with [employer = myself]
+
+  set max-capacity human-capacity + machine-capacity
+
+  if profit > last-profit [
+    set target-production target-production + 3
+  ]
+
+  if profit < last-profit [
+    set target-production target-production - 3
+  ]
+
+  if target-production > max-capacity [
+    set target-production max-capacity
+  ]
+
+  if target-production < 0 [
+    set target-production 0
+  ]
+
+end
+
+to decide-fire-hire
+
+  let current-workers count human-workers with [employer = myself]
+  let current-machines count machine-workers with [employer = myself]
+
+  let max-workers 50
+  let max-machines 20
+
+  if target-production > current-production [
+
+    if chosen-method = "human" and current-workers < max-workers [
+      print (word "Tick " ticks ": HIRING human worker")
+
+      hatch-human-workers 1 [
+        set employer myself
+        set color white
+        set shape "person"
+        set size 1.5
+        set wage 5
+        set productivity 2
+        rt random 360
+        fd 15
+      ]
+    ]
+
+    if chosen-method = "machine" and current-machines < max-machines [
+      print (word "Tick " ticks ": BUYING machine worker")
+
+      hatch-machine-workers 1 [
+        set employer myself
+        set color gray
+        set shape "square"
+        set size 1.5
+        set maintenance-cost 3
+        set productivity 8
+        rt random 360
+        fd 15
+      ]
+    ]
+  ]
+
+  if target-production < current-production and profit < last-profit [
+
+    if chosen-method = "human" and current-workers > 1 [
+      print (word "Tick " ticks ": FIRING human worker")
+
+      let worker-to-fire one-of human-workers with [employer = myself]
+
+      ask worker-to-fire [
+        die
+      ]
+    ]
+
+    if chosen-method = "machine" and current-machines > 1 [
+      print (word "Tick " ticks ": SELLING machine worker")
+
+      let machine-to-sell one-of machine-workers with [employer = myself]
+
+      ask machine-to-sell [
+        die
+      ]
+    ]
+  ]
+
+end
+
+to update-environment-firms
+
+  update-worker-visibility
+  move-humans-inside-firm
+
+  ask firms [
+    set last-profit profit
+    set last-demand demand
+
+    set demand demand + random 5 - random 5
+
+    if demand < 0 [
+      set demand 0
+    ]
+  ]
+
+end
+
+to move-humans-inside-firm
+
+  ask human-workers [
+    let my-firm employer
+
+    if my-firm != nobody [
+      rt random 60
+      lt random 60
+      fd 2
+
+      if distance my-firm > 20 [
+        face my-firm
+        fd 2
+      ]
+    ]
+  ]
+
+end
+
+to update-worker-visibility
+
+  ask firms [
+
+    if chosen-method = "human" [
+      ask human-workers with [employer = myself] [
+        show-turtle
+      ]
+
+      ask machine-workers with [employer = myself] [
+        hide-turtle
+      ]
+    ]
+
+    if chosen-method = "machine" [
+      ask human-workers with [employer = myself] [
+        hide-turtle
+      ]
+
+      ask machine-workers with [employer = myself] [
+        show-turtle
+      ]
+    ]
+  ]
+
+end

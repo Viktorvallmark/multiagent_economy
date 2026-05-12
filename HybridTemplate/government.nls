@@ -1,0 +1,122 @@
+
+; ============================================================
+; GOVERNMENT HYBRID AGENT
+; Plan:
+;   PROACTIVE: hämta info → beräkna skatt → sätt flagga
+;   REACTIVE:  sätt skatt → distribuera om flagga är sann
+; ============================================================
+
+governments-own [ 
+  gov-budget                ; Statens budget, vi får in skatt och lägger in det här, sedan delar vi eventuellt ut pengar.
+  spending                  ; Informationsvariabel som håller koll på hur mycket vi har spenderat på skatteåterbäring   
+  redistribution-rate       ; Rate variabel: Hur "generösa" government är vid återbäring. Desto högre desto högre bidrag får hushållen.
+  observed-firm-profit      ; Variabel som innehåller mängden profit från firm.
+  observed-household-wage   ; Variabel som innehåller mängden wage från household.
+  observed-firm-tax         ; Beräknad avdragen skatt från firm.
+  observed-household-tax    ; Beräknad avdragen skatt från household.
+  planned-tax-rate-firms
+  planned-tax-rate-households
+  chosen-action
+  
+]
+
+
+to setup-government
+  
+  create-governments 1 [
+    set gov-budget 0
+    set spending 0
+    set redistribution-rate 0.2
+    set shape "house"
+    set color white
+    set size 3
+    setxy 10 10
+  ]
+  
+end
+
+to updateEnvironmentInfo_government
+  ; --- Hämta info från firm och household ---
+  set observed-firm-profit     [profit] of one-of firms
+  set observed-household-wage  [income]   of one-of households ; 1 hushåll eller flera?
+  
+  ; --- Observera skattepengar från firm och household ---
+  set observed-firm-tax      observed-firm-profit     * tax-rate-firms
+  set observed-household-tax observed-household-wage  * tax-rate-households
+  
+  set gov-budget gov-budget + observed-firm-tax + observed-household-tax
+end
+
+
+; ============================================================
+; GOVERNMENT HYBRID AGENT
+; PROACTIVE LAYER
+; ============================================================
+to proactive_government
+  ; --- Sätt flagga om budgeten överstiger tröskel ---
+  if gov-budget > 200 [
+    set chosen-action "redistribute"
+    stop
+  ]
+  
+  ; --- Beräkna lämplig skattesats ---
+  let new-firm-tax-rate 0
+  ifelse observed-firm-profit > 100 [
+    set new-firm-tax-rate 0.30
+  ] [
+    ifelse observed-firm-profit > 50 [
+      set new-firm-tax-rate 0.20
+    ] [
+      set new-firm-tax-rate 0.10
+    ]
+  ]
+  
+  let new-household-tax-rate 0
+  ifelse observed-household-wage > 20 [
+    set new-household-tax-rate 0.30
+  ] [
+    ifelse observed-household-wage > 10 [
+      set new-household-tax-rate 0.20
+    ] [
+      set new-household-tax-rate 0.10
+    ]
+  ]
+  
+  ; --- Spara beräknade skattesatser ---
+  set planned-tax-rate-firms      new-firm-tax-rate
+  set planned-tax-rate-households new-household-tax-rate
+  
+  set chosen-action "adjust-tax"
+  
+end
+
+; ============================================================
+; GOVERNMENT HYBRID AGENT
+; REACTIVE LAYER
+; ============================================================
+to reactive_government
+  
+  ifelse chosen-action = "redistribute" [
+    
+    ; --- Distribuera återbäring om flaggan är sann ---
+    let rebate gov-budget * redistribution-rate   ; 
+    
+    let per-household rebate / count households
+    let msg create-message "propose"
+    set msg add-content (list "tax-rebate" per-household) msg
+    set msg add-multiple-receivers [who] of households msg
+    send msg
+    
+    set gov-budget  gov-budget - rebate
+    set spending     spending    + rebate
+    stop
+    ] [ ifelse chosen-action = "adjust-tax" [
+      set tax-rate-firms planned-tax-rate-firms
+      set tax-rate-households planned-tax-rate-households
+      stop
+    ] [
+      stop
+    ]
+  ] 
+ 
+end
