@@ -1092,13 +1092,5 @@ end ; - to go part
       <go>test-government-run</go>
       <exitCondition>true</exitCondition>
     </experiment>
-    <experiment name="test-household" repetitions="1" sequentialRunOrder="true" runMetricsEveryStep="true">
-      <go>test-household-run</go>
-      <exitCondition>true</exitCondition>
-    </experiment>
-    <experiment name="test-firm" repetitions="1" sequentialRunOrder="true" runMetricsEveryStep="true">
-      <go>test-firm-run</go>
-      <exitCondition>true</exitCondition>
-    </experiment>
   </experiments>
 </model>

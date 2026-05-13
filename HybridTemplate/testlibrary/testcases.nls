@@ -114,15 +114,15 @@ to test-government-run
   monitor-government-test
 end 
 
-to test-firm-run
-  clear-all
-  setup-test-firm
-end
+;to test-firm-run
+ ; clear-all
+;  setup-test-firm
+;end
 
-to test-household-run
-  clear-all
-  setup-test-household
-end
+;to test-household-run
+  ;clear-all
+  ;setup-test-household
+;end
 
 
 
