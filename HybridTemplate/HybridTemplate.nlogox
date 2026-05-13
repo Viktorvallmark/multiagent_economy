@@ -16,12 +16,21 @@
 ;
 ;********************end logbook ************************************************************************************************************************
 ;*********************************************************************************************************************************************************
+
+; EXTENSIONS
+extensions [
+  vid bitmap; used for recording the simulation
+]
+; ********************end extensions *********************************************************************************************************************
+;*********************************************************************************************************************************************************
 ; INCLUDED FILES
+
+;**********************************************************************************************************************************************************
 __includes [
   "environment.nls" ; setup-functions for setting up the environment
   "globals.nls"; list with global variables
                ;"observer.nls"; code for observer-functions
-  "testcases.nls"; 
+  "testlibrary/testcases.nls"; 
   
   ; your own files that you program:--------------------------------------------------------------
   "household.nls"
@@ -36,13 +45,7 @@ __includes [
                       ;------------------------------------------------------------------------------------------------------------------------------------------------
 ]
 ; ********************end included files *****************************************************************************************************************
-;**********************************************************************************************************************************************************
-; EXTENSIONS
-extensions [
-  vid bitmap; used for recording the simulation
-]
-; ********************end extensions *********************************************************************************************************************
-;*********************************************************************************************************************************************************
+
 ; ========== BREEDS OF AGENTS ===========
 ; ==== FIRMS ====
 breed [firms firm]
@@ -115,7 +118,6 @@ to go
   ;------- Time updates
   tick ;- update time
        ;timeWrapAround; skips the night from 23:00 to 6:00 ;; Osäker om vi behåller
-  
   ;------ Update of Global Variables
   
   
@@ -183,9 +185,9 @@ to go
   ;if TERMINATE [stop]
   
 end ; - to go part
-
 ;***************************end to go part ******************************************************************************************************************
-;************************************************************************************************************************************************************]]></code>
+;************************************************************************************************************************************************************;
+]]></code>
   <widgets>
     <view x="646" wrappingAllowedX="true" y="21" frameRate="60.0" minPycor="0" height="599" showTickCounter="true" patchSize="17.5224" fontSize="10" wrappingAllowedY="true" width="1178" tickCounterLabel="ticks" maxPycor="33" updateMode="0" maxPxcor="66" minPxcor="0"></view>
     <note x="1594" y="652" backgroundDark="0" fontSize="13" width="240" markdown="false" height="27" textColorDark="-1" textColorLight="-16777216" backgroundLight="0">_________ Simulation Recorder________</note>
@@ -1085,4 +1087,18 @@ end ; - to go part
     </shape>
   </linkShapes>
   <previewCommands>setup repeat 75 [ go ]</previewCommands>
+  <experiments>
+    <experiment name="test-government" repetitions="1" sequentialRunOrder="true" runMetricsEveryStep="true">
+      <go>test-government-run</go>
+      <exitCondition>true</exitCondition>
+    </experiment>
+    <experiment name="test-household" repetitions="1" sequentialRunOrder="true" runMetricsEveryStep="true">
+      <go>test-household-run</go>
+      <exitCondition>true</exitCondition>
+    </experiment>
+    <experiment name="test-firm" repetitions="1" sequentialRunOrder="true" runMetricsEveryStep="true">
+      <go>test-firm-run</go>
+      <exitCondition>true</exitCondition>
+    </experiment>
+  </experiments>
 </model>

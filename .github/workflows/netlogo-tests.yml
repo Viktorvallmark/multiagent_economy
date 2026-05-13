@@ -1,0 +1,33 @@
+name: NetLogo tests
+
+on:
+  pull_request:
+    branches: [ trunk ]
+  push:
+    branches: [ trunk ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: danielvartan/logoactions/setup-netlogo@v1
+
+      - name: Select experiment based on branch
+        id: exp
+        run: |
+          case "${{ github.head_ref }}" in
+            government) echo "name=test-government" >> $GITHUB_OUTPUT ;;
+            firm)       echo "name=test-firm" >> $GITHUB_OUTPUT ;;
+            household)  echo "name=test-household" >> $GITHUB_OUTPUT ;;
+            *)          echo "name=" >> $GITHUB_OUTPUT ;;
+          esac
+
+      - name: Run branch-specific experiment
+        if: steps.exp.outputs.name != ''
+        run: |
+          /opt/netlogo/netlogo-headless.sh \
+            --model ./HybridTemplate/HybridTemplate.nlogox \
+            --experiment ${{ steps.exp.outputs.name }} \
+            --table /dev/null
