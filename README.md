@@ -1,9 +1,9 @@
-** Project group 7 Autonomous economy and taxation
+## Project group 7 Autonomous economy and taxation
 
 
 Simulations of a human/AI mixed economy and how taxation might work in this economy.
 
-* Introduction
+### Introduction
 
 Project has three agents, the firm, the household and the government. Depending on how demand evolves,
 the firm hires people from the households and spin up new AI agents. Money is paid to the human workers,
