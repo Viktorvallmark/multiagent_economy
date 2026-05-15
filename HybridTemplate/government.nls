@@ -35,8 +35,6 @@ governments-own [
   households-needing-aid
   firms-needing-aid
   firms-wanting-expansion
-  requested-firm-money
-  requested-firm-production
   
 ]
 
@@ -78,16 +76,18 @@ to updateEnvironmentInfo_government
     if performative = "request" [
       let msg-type item 0 content
       if msg-type = "want-to-expand" [
-        set firms-wanting-expansion item 1 content
+        let firm-who item 1 content
+        let requested-firm-money item 2 content
+        let requested-firm-production item 3 content
+        set firms-wanting-expansion lput (list firm-who requested-firm-money requested-firm-production) firms-wanting-expansion
       ]
-      if msg-type = "households-need-aid" [
+      if msg-type = "household-need-aid" [
         set households-needing-aid item 1 content
       ]
-      if msg-type = "firms-need-aid" [
+      if msg-type = "firm-need-aid" [
         let firm-who item 1 content
-        set requested-firm-money item 2 content
-        set requested-firm-production item 3 content
-        set firms-needing-aid lput (list firm-who requested-firm-money requested-firm-production) firms-needing-aid
+        let requested-firm-money item 2 content
+        set firms-needing-aid lput (list firm-who requested-firm-money) firms-needing-aid
       ]
     ]
   ]
@@ -181,21 +181,26 @@ to reactive_government                                                    ; GLÖ
   ; --- Evaluera utökande av företag ---
   if chosen-action = "evaluate-expansion" [
     let msg create-message "inform"
-    ifelse gov-budget > 100 [                                              ; ÄNDRA VILLKOR. KOLLAS VILLKOREN PROAKTIVT?
-      set msg add-content (list "approve-expansion") msg
+    foreach firms-needing-aid [
+      current-firm ->
+      let current-firm-who item 0 current-firm
+      let current-firm-money item 1 current-firm
+      let current-firm-production item 2 current-firm
+      ifelse current-firm-money >= 10000 and current-firm-production < 100 [  ; ÄNDRA TRÖSKELVÄRDEN. KOLLAS VILLKOREN PROAKTIVT?
+        set msg add-content (list "approve-expansion") msg
+      ] [ 
+        set msg add-content (list "deny-expansion") msg
+      ]
+      set msg add-receiver current-firm-who msg
+      send msg
     ]
-    [ 
-      set msg add-content (list "deny-expansion") msg
-    ]
-    set msg add-multiple-receivers firms-wanting-expansion msg
-    send msg
-    set firms-wanting-expansion []
-    stop
+      set firms-wanting-expansion []
+      stop
   ]
   
-  ; --- Uppmuntra arbetssökande om det finns långtidssarbetslösa hushåll ---
+  ; --- Uppmuntra till arbetssökande om det finns långtidssarbetslösa hushåll ---
   if chosen-action = "encourage-work" [
-    let msg create-message "propose"
+    let msg create-message "propose"                                   ; PROPOSE ELLER INFORM?
     set msg add-content (list "seek-work") msg
     set msg add-multiple-receivers longterm-unemployed-households msg
     send msg
@@ -215,24 +220,24 @@ to reactive_government                                                    ; GLÖ
     stop
   ]
   
+    ; --- Dela ut ekonomiskt bistånd till fattiga företag ---
   if chosen-action = "give-firm-aid" [
-  let aid-amount 100                                                   ; ÄNDRA AMOUNT
-  foreach firms-needing-aid [
-    current-firm ->
-    let current-firm-who item 0 current-firm
-    let current-firm-money item 1 current-firm
-    let current-firm-production item 2 current-firm
-    if current-firm-money < 5000 and current-firm-production > 50 [   ; ÄNDRA TRÖSKELVÄRDEN
-      let msg create-message "propose"
-      set msg add-content (list "aid" aid-amount) msg
-      set msg add-receiver current-firm-who msg
-      send msg
-      set gov-budget gov-budget - aid-amount
+    let aid-amount 100                                                   ; ÄNDRA AMOUNT
+    foreach firms-needing-aid [
+      current-firm ->
+      let current-firm-who item 0 current-firm
+      let current-firm-money item 1 current-firm
+      if current-firm-money < 5000 [                                     ; ÄNDRA TRÖSKELVÄRDEN
+        let msg create-message "propose"
+        set msg add-content (list "aid" aid-amount) msg
+        set msg add-receiver current-firm-who msg
+        send msg
+        set gov-budget gov-budget - aid-amount
+      ]
     ]
+    set firms-needing-aid []
+    stop
   ]
-  set firms-needing-aid []
-  stop
-]
   
   ; --- Distribuera återbäring om flaggan är sann ---
   ifelse chosen-action = "redistribute" [
