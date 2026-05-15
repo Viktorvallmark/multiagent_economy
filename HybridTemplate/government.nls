@@ -19,6 +19,7 @@ governments-own [
   chosen-action
   longterm-unemployed-households
   households-needing-aid
+  firms-wanting-expansion
   
 ]
 
@@ -28,6 +29,7 @@ to setup-government
   create-governments 1 [
     set longterm-unemployed-households []
     set households-needing-aid []
+    set firms-wanting-expansion []
     set gov-budget 0
     set spending 0
     set redistribution-rate 0.2
@@ -56,6 +58,13 @@ to updateEnvironmentInfo_government
         set households-needing-aid item 1 content
       ]
     ]
+    
+    if performative = "request" [
+      let msg-type item 0 content
+      if msg-type = "want-to-expand" [
+        set firms-wanting-expansion item 1 content
+      ]
+]
   ]
   
   ; --- Hämta info från firm och household ---
@@ -76,6 +85,12 @@ end
 ; PROACTIVE LAYER
 ; ============================================================
 to proactive_government                                                   ; GLÖM INTE: KOLLA SATSERNAS PRIORITET OCH PLACERING
+  
+  ; --- Sätt flagga om det finns företag i behov av utökning ---
+  if not empty? firms-wanting-expansion [
+    set chosen-action "evaluate-expansion"
+    stop
+  ]
   
   ; --- Sätt flagga om det finns långtidsarbetslösa hushåll ---
   if not empty? longterm-unemployed-households [
@@ -131,6 +146,21 @@ end
 ; REACTIVE LAYER
 ; ============================================================
 to reactive_government                                                    ; GLÖM INTE: KOLLA SATSERNAS PRIORITET OCH PLACERING
+  
+  ; --- Evaluera utökande av företag ---
+  if chosen-action = "evaluate-expansion" [
+    let msg create-message "inform"
+    ifelse gov-budget > 100 [                                              ; ÄNDRA VILLKOR. KOLLAS VILLKOREN PROAKTIVT?
+      set msg add-content (list "approve-expansion") msg
+    ]
+    [ 
+      set msg add-content (list "deny-expansion") msg
+    ]
+    set msg add-multiple-receivers firms-wanting-expansion msg
+    send msg
+    set firms-wanting-expansion []
+    stop
+  ]
   
   ; --- Uppmuntra arbetssökande om det finns långtidssarbetslösa hushåll ---
   if chosen-action = "encourage-work" [
