@@ -25,11 +25,10 @@ households-own [
   prev-total-price ; förra tickens totala pris på food + supplies
   price-trend ; positiv --> priserna går upp, negativ <-- priser går ner
   
+  ; VARIABLER FRÅN FIRM, 
   productivity
-  employer
+  employer     ;antingen employer eller employed? inte båda (said får bestämma det)
   employed?
-  
-  
   reservation-income
   warning-count
   happiness
@@ -167,7 +166,7 @@ to reactive_households
       ;; JOB OFFER
       if msg-type = "job-offer" [
 
-        let offered-income item 1 content
+        set offered-income item 1 content
         let hiring-firm item 2 content
 
         if not employed? and offered-income >= reservation-income [

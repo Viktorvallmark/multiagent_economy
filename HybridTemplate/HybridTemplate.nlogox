@@ -13,7 +13,7 @@
 ; 20250423    Initial template to be adapted to the group's project template                                   Gion
 ; 20260505    Integration test #1                                                                              Nicolas, Mimoza, Said, Elliot, Hampus
 ; 20260512    Integration test #2                                                                              Nicolas, Said, Elliot, Hampus
-;
+; 20260515    Integration test #2.5      Added updated code for Firm, household, government, observer          Nicolas
 ;********************end logbook ************************************************************************************************************************
 ;*********************************************************************************************************************************************************
 
@@ -141,7 +141,7 @@ to go
     ]
     
     if (breed = firms) [
-      ;update-environment-firms Finns ej längre?
+      ;update-environment-firms Finns ej längre? bör återskapas.
       proactive-firm
       reactive-firm
       
