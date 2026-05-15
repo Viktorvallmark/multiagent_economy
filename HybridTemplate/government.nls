@@ -19,6 +19,7 @@ governments-own [
   chosen-action
   longterm-unemployed-households
   households-needing-aid
+  firms-needing-aid
   firms-wanting-expansion
   
 ]
@@ -29,6 +30,7 @@ to setup-government
   create-governments 1 [
     set longterm-unemployed-households []
     set households-needing-aid []
+    set firms-needing-aid []
     set firms-wanting-expansion []
     set gov-budget 0
     set spending 0
@@ -43,7 +45,7 @@ end
 
 to updateEnvironmentInfo_government
   
-  ; --- Hämta information från household ---
+  ; --- Hämta meddelanden ---
   while [not empty? incoming-queue] [
     let msg get-message
     let performative get-performative msg
@@ -54,8 +56,11 @@ to updateEnvironmentInfo_government
       if msg-type = "longterm-unemployed" [
         set longterm-unemployed-households item 1 content
       ]
-      if msg-type = "need-aid" [
+      if msg-type = "households-need-aid" [                          ; INFORM ELLER REQUEST?
         set households-needing-aid item 1 content
+      ]
+      if msg-type = "firms-need-aid" [                               ; INFORM ELLER REQUEST?
+        set firms-needing-aid item 1 content
       ]
     ]
     
@@ -64,7 +69,7 @@ to updateEnvironmentInfo_government
       if msg-type = "want-to-expand" [
         set firms-wanting-expansion item 1 content
       ]
-]
+    ]
   ]
   
   ; --- Hämta info från firm och household ---
@@ -100,7 +105,13 @@ to proactive_government                                                   ; GLÖ
   
   ; --- Sätt flagga om det finns hushåll i behov av ekonomiskt bistånd ---
   if not empty? households-needing-aid [
-    set chosen-action "give-aid"
+    set chosen-action "give-household-aid"
+    stop
+  ]
+  
+  ; --- Sätt flagga om det finns företag i behov av ekonomiskt bistånd ---
+  if not empty? firms-needing-aid [
+    set chosen-action "give-firm-aid"
     stop
   ]
   
@@ -173,7 +184,7 @@ to reactive_government                                                    ; GLÖ
   ]
   
   ; --- Dela ut ekonomiskt bistånd till fattiga hushåll ---
-  if chosen-action = "give-aid" [
+  if chosen-action = "give-household-aid" [
     let aid-amount 20
     let msg create-message "propose"
     set msg add-content (list "aid" aid-amount) msg
@@ -181,6 +192,18 @@ to reactive_government                                                    ; GLÖ
     send msg
     set gov-budget gov-budget - (aid-amount * length households-needing-aid)
     set households-needing-aid []
+    stop
+  ]
+  
+  ; --- Dela ut ekonomiskt bistånd till företag ---
+  if chosen-action = "give-firm-aid" [
+    let aid-amount 100
+    let msg create-message "propose"
+    set msg add-content (list "aid" aid-amount) msg
+    set msg add-multiple-receivers firms-needing-aid msg
+    send msg
+    set gov-budget gov-budget - (aid-amount * length firms-needing-aid)
+    set firms-needing-aid []
     stop
   ]
   
