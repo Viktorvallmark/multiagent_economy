@@ -1,7 +1,10 @@
 ; ;*********************************************************************************************************************************************************
 ; ; LOGBOOK OF UPDATES IN THIS FILE
 ; ; --Date--- |-----Description--------------------------------------------------------------------------------|---Person(s)-------------------------------
-; ; 20260505   Vi bör fixa sånt här mimoze!
+; ; 202604??    Adding base variables and procedures                                                             Nicolas
+; ; 20260428    Implementing hybrid structure                                                                    Mimoza, Nicolas
+; ; 20260507    Changing tax calculations and adding message handling for social interactions                    Nicolas
+; ; 20260515    Adding message handling for social interactions                                                  Mimoza
 ; ; 
 ; ; 
 ; ;
@@ -32,6 +35,8 @@ governments-own [
   households-needing-aid
   firms-needing-aid
   firms-wanting-expansion
+  requested-firm-money
+  requested-firm-production
   
 ]
 
@@ -68,18 +73,21 @@ to updateEnvironmentInfo_government
       if msg-type = "longterm-unemployed" [
         set longterm-unemployed-households item 1 content
       ]
-      if msg-type = "households-need-aid" [                          ; INFORM ELLER REQUEST?
-        set households-needing-aid item 1 content
-      ]
-      if msg-type = "firms-need-aid" [                               ; INFORM ELLER REQUEST?
-        set firms-needing-aid item 1 content
-      ]
     ]
     
     if performative = "request" [
       let msg-type item 0 content
       if msg-type = "want-to-expand" [
         set firms-wanting-expansion item 1 content
+      ]
+      if msg-type = "households-need-aid" [
+        set households-needing-aid item 1 content
+      ]
+      if msg-type = "firms-need-aid" [
+        let firm-who item 1 content
+        set requested-firm-money item 2 content
+        set requested-firm-production item 3 content
+        set firms-needing-aid lput (list firm-who requested-firm-money requested-firm-production) firms-needing-aid
       ]
     ]
   ]
@@ -197,7 +205,7 @@ to reactive_government                                                    ; GLÖ
   
   ; --- Dela ut ekonomiskt bistånd till fattiga hushåll ---
   if chosen-action = "give-household-aid" [
-    let aid-amount 20
+    let aid-amount 20                                                    ; ÄNDRA AMOUNT
     let msg create-message "propose"
     set msg add-content (list "aid" aid-amount) msg
     set msg add-multiple-receivers households-needing-aid msg
@@ -207,17 +215,24 @@ to reactive_government                                                    ; GLÖ
     stop
   ]
   
-  ; --- Dela ut ekonomiskt bistånd till företag ---
   if chosen-action = "give-firm-aid" [
-    let aid-amount 100
-    let msg create-message "propose"
-    set msg add-content (list "aid" aid-amount) msg
-    set msg add-multiple-receivers firms-needing-aid msg
-    send msg
-    set gov-budget gov-budget - (aid-amount * length firms-needing-aid)
-    set firms-needing-aid []
-    stop
+  let aid-amount 100                                                   ; ÄNDRA AMOUNT
+  foreach firms-needing-aid [
+    current-firm ->
+    let current-firm-who item 0 current-firm
+    let current-firm-money item 1 current-firm
+    let current-firm-production item 2 current-firm
+    if current-firm-money < 5000 and current-firm-production > 50 [   ; ÄNDRA TRÖSKELVÄRDEN
+      let msg create-message "propose"
+      set msg add-content (list "aid" aid-amount) msg
+      set msg add-receiver current-firm-who msg
+      send msg
+      set gov-budget gov-budget - aid-amount
+    ]
   ]
+  set firms-needing-aid []
+  stop
+]
   
   ; --- Distribuera återbäring om flaggan är sann ---
   ifelse chosen-action = "redistribute" [
