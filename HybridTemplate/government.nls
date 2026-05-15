@@ -4,7 +4,6 @@
 ; Plan:
 ;   PROACTIVE: hämta info → beräkna skatt → sätt flagga
 ;   REACTIVE:  sätt skatt → distribuera om flagga är sann
-; testing
 ; ============================================================
 
 governments-own [ 
@@ -18,6 +17,7 @@ governments-own [
   planned-tax-rate-firms
   planned-tax-rate-households
   chosen-action
+  longterm-unemployed-households
   
 ]
 
@@ -25,6 +25,7 @@ governments-own [
 to setup-government
   
   create-governments 1 [
+    set longterm-unemployed-households []
     set gov-budget 0
     set spending 0
     set redistribution-rate 0.2
@@ -37,6 +38,21 @@ to setup-government
 end
 
 to updateEnvironmentInfo_government
+  
+  ; --- Hämta information från household ---
+  while [not empty? incoming-queue] [
+    let msg get-message
+    let performative get-performative msg
+    let content get-content msg
+    
+    if performative = "inform" [
+      let msg-type item 0 content
+      if msg-type = "longterm-unemployed" [
+        set longterm-unemployed-households item 1 content
+      ]
+    ]
+  ]
+  
   ; --- Hämta info från firm och household ---
   set observed-firm-profit     [profit] of one-of firms
   set observed-household-wage  [income]   of one-of households ; 1 hushåll eller flera?
@@ -46,6 +62,7 @@ to updateEnvironmentInfo_government
   set observed-household-tax observed-household-wage  * tax-rate-households
   
   set gov-budget gov-budget + observed-firm-tax + observed-household-tax
+  
 end
 
 
@@ -54,6 +71,13 @@ end
 ; PROACTIVE LAYER
 ; ============================================================
 to proactive_government
+  
+  ; --- Sätt flagga om det finns långtidsarbetslösa hushåll ---
+  if not empty? longterm-unemployed-households [
+    set chosen-action "encourage-work"
+    stop
+  ]
+  
   ; --- Sätt flagga om budgeten överstiger tröskel ---
   if gov-budget > 200 [
     set chosen-action "redistribute"
@@ -97,11 +121,19 @@ end
 ; ============================================================
 to reactive_government
   
+  ; --- Uppmuntra arbetssökande om det finns långtidssarbetslösa hushåll ---
+  if chosen-action = "encourage-work" [
+    let msg create-message "propose"
+    set msg add-content (list "seek-work" "Government encourages you to look for work") msg
+    set msg add-multiple-receivers longterm-unemployed-households msg
+    send msg
+    set longterm-unemployed-households []
+    stop
+  ]
+  
+  ; --- Distribuera återbäring om flaggan är sann ---
   ifelse chosen-action = "redistribute" [
-    
-    ; --- Distribuera återbäring om flaggan är sann ---
-    let rebate gov-budget * redistribution-rate   ; 
-    
+    let rebate gov-budget * redistribution-rate
     let per-household rebate / count households
     let msg create-message "propose"
     set msg add-content (list "tax-rebate" per-household) msg
