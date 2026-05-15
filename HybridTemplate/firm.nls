@@ -266,7 +266,7 @@ to request-expansion
     let msg create-message "request"
 
     ;; content = type, requested expansion amount
-    set msg add-content (list "expansion-request" firm-money production) msg
+    set msg add-content (list "expansion-request" who firm-money production) msg
 
     let gov one-of governments
     set msg add-receiver [who] of gov msg
@@ -287,7 +287,7 @@ to request-aid
 
     let msg create-message "request"
 
-    set msg add-content (list "aid-request" firm-money) msg
+    set msg add-content (list "aid-request" who firm-money) msg
      
     let gov one-of governments
     set msg add-receiver [who] of gov msg
