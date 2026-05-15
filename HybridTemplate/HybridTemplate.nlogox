@@ -142,7 +142,7 @@ to go
     ]
     
     if (breed = firms) [
-      update-environment-firms
+      ;update-environment-firms Finns ej längre?
       proactive-firm
       reactive-firm
       

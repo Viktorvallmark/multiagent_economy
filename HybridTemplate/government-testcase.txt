@@ -1132,4 +1132,5 @@ Test 1 PASS - Government budget decreased after redistribution
 Current gov-budget: 178.5557062100712
 Test 1 PASS - Government budget decreased after redistribution
 Current gov-budget: 195.1157062100712
-Test 1 PASS - Government budget d
+Test 1 PASS - Government budget d=== TEST STARTED ===
+Initial gov-budget: 250
