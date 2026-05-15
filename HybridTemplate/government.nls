@@ -43,6 +43,7 @@ to setup-government
     set households-needing-aid []
     set firms-needing-aid []
     set firms-wanting-expansion []
+    set incoming-queue []
     set gov-budget 0
     set spending 0
     set redistribution-rate 0.2

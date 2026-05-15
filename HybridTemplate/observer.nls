@@ -1,47 +1,120 @@
-; ;observer.nls ***********************************************************************************************************************************************
-; ; Place to define observer-reporters that report interesting values that for example can be plotted in monitor-windows in the interface
-; ;***********************************************************************************************************************************************************;
+; observer.nls
+; ***********************************************************************************************************************************************
+; Place to define observer-reporters that report interesting values that for example can be plotted in monitor-windows in the interface
+; ***********************************************************************************************************************************************
 
-; ;*********************************************************************************************************************************************************
-; ; LOGBOOK OF UPDATES IN THIS FILE
-; ; --Date--- |-----Description--------------------------------------------------------------------------------|---Person(s)-------------------------------
-; ; 20250423    Initial template of some dummy reporters                                                            Gion
-; ;
-; ;
-; ;
-; ;********************end logbook ************************************************************************************************************************
+; *********************************************************************************************************************************************************
+; LOGBOOK OF UPDATES IN THIS FILE
+; --Date--- |-----Description--------------------------------------------------------------------------------|---Person(s)-------------------------------
+; 20250423    Initial template of some dummy reporters                                                            Gion
+; 20260514    Added world update, firm/household coordination, movement, and visibility logic                     Said
+;
+; ********************end logbook ************************************************************************************************************************
 
-; ;-------------------------------------------------------------------------------------------------------------------------------------------------------
-; ; reporters used in the plot function by the monitor-windows 
 
-; ; reporter to calculate the number of free moving agentAs
+; -------------------------------------------------------------------------------------------------------------------------------------------------------
+; reporters used in the plot function by the monitor-windows 
+
 ; to-report movingAgentAs
 ;   let mvA (count agentAs with [moveFlag = true])
 ;   report mvA
 ; end
 
-
-
-; ; reporter to calculate the number of free moving agentBs
 ; to-report movingAgentBs
 ;   let mvB (count agentBs with [state = "State_MoveAround"])
 ;   report mvB
 ; end
 
-; ;--------------------------------------------------------- end reporters used in the plot functions --------------------------------------------------
-; ;------------------- Reporter function regarding the environment
-; ;
+; ; --------------------------------------------------------- end reporters used in the plot functions --------------------------------------------------
+
+
+; ; ------------------- Reporter function regarding the environment
+
 ; to removeHouses
-;   ; remove empty houses, e.g. houses were all inhabitants have died
-;   ; find the houses of all the living agents
+;   ; remove empty houses, e.g. houses where all inhabitants have died
 ;   let houses patch-set [homeloc] of turtles
-;   ; identify all the patches with the region for houses and find out which ones are not part of 'houses'
-;   let emptyHouses ((patches with [(region = "house") or (region = "newhouse")]) who-are-not  houses)
+
+;   let emptyHouses ((patches with [(region = "house") or (region = "newhouse")]) who-are-not houses)
+
 ;   if any? emptyHouses [
-;     ;print (word "in removeHouses = " emptyHouses)
-;     ;print (word "houses that are not empty: " houses)
-;     ;print (word "empty houses: " emptyHouses)
-;     ask emptyHouses [set region "empty"
-;     set pcolor black]    
+;     ask emptyHouses [
+;       set region "empty"
+;       set pcolor black
+;     ]
 ;   ]
 ; end
+
+
+; =======================================================================================================================================================
+; OBSERVER COORDINATION FOR FIRM / HOUSEHOLD / GOVERNMENT MODEL
+; =======================================================================================================================================================
+
+
+to update-world
+
+  ; update firm memory and demand
+  ask firms [
+    set last-profit profit
+    set last-demand demand
+
+    set demand demand + random 5 - random 5
+
+    if demand < 0 [
+      set demand 0
+    ]
+  ]
+
+  ; movement and display are controlled by observer
+  move-employed-households
+  update-worker-visibility-observer
+
+end
+
+
+to move-employed-households
+
+  ask households with [employed?] [
+
+    let my-firm employer
+
+    if my-firm != nobody [
+      rt random 60
+      lt random 60
+      fd 2
+
+      if distance my-firm > 20 [
+        face my-firm
+        fd 2
+      ]
+    ]
+  ]
+
+end
+
+
+to update-worker-visibility-observer
+
+  ask firms [
+
+    if chosen-method = "household" [
+      ask households with [employer = myself and employed?] [
+        show-turtle
+      ]
+
+      ask machine-workers with [employer = myself] [
+        hide-turtle
+      ]
+    ]
+
+    if chosen-method = "machine" [
+      ask households with [employer = myself and employed?] [
+        hide-turtle
+      ]
+
+      ask machine-workers with [employer = myself] [
+        show-turtle
+      ]
+    ]
+  ]
+
+end

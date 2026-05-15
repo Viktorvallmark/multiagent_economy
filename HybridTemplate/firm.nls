@@ -33,11 +33,11 @@ firms-own [
 ]
 
 ;; HOUSEHOLDS-OWN must include:
-;; wage
+;; income
 ;; productivity
 ;; employer
 ;; employed?
-;; reservation-wage
+;; reservation-income
 ;; warning-count
 
 machine-workers-own [
@@ -101,7 +101,7 @@ to reactive-firm
     set current-production production
 
     calculate-revenue
-    calculate-wages
+    calculate-incomes
     calculate-machine-cost
     calculate-tax
     calculate-profit
@@ -191,9 +191,9 @@ to calculate-revenue
   set revenue production * price
 end
 
-to calculate-wages
+to calculate-incomes
   let my-households households with [employer = myself and employed?]
-  set income-cost sum [wage] of my-households
+  set income-cost sum [income] of my-households
 end
 
 to calculate-machine-cost
@@ -232,7 +232,7 @@ to send-job-offer-to-all
     send msg
 
     print (word "Tick " ticks ": Firm sent job offer to "
-      count candidates " households. Wage: " offered-income)
+      count candidates " households. income: " offered-income)
   ]
 
 end
@@ -247,7 +247,7 @@ to send-paychecks
     let msg create-message "inform"
 
     ;; message = type, paycheck amount
-    set msg add-content (list "paycheck" wage) msg
+    set msg add-content (list "paycheck" income) msg
     set msg add-multiple-receivers [who] of employed-workers msg
 
     send msg

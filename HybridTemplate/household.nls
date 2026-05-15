@@ -25,6 +25,15 @@ households-own [
   prev-total-price ; förra tickens totala pris på food + supplies
   price-trend ; positiv --> priserna går upp, negativ <-- priser går ner
   
+  productivity
+  employer
+  employed?
+  
+  
+  reservation-income
+  warning-count
+  happiness
+  
 ] 
 
 to setup-household ; det som händer när man trycker "setup" knappen i interfacet
@@ -46,6 +55,17 @@ to setup-household ; det som händer när man trycker "setup" knappen i interfac
     set financial-state "har-pengar" ; FSM startar i "har-pengar" läget
     set spending-limit 999 ; inte lagt någon budget gräns
     
+     set employer nobody
+  set employed? false
+
+  set income 0
+  set income 100
+
+  set productivity 2 + random 4
+  set happiness 50
+
+  set reservation-income 5
+  set warning-count 0
     ; --- proaktiva initial värdena --- 
     set proState "Stable" ; startar i normal ekonomisk situation
     set pension-goal average-income * 30 * 6 ;???????????????????
@@ -126,32 +146,98 @@ end
 
 ; PASS 2 NERÅT --- wannabe subsumption? ---
 to reactive_households
-  ; Lager 1 - Läs igenom alla meddelanden som kan ha skickats till hushållet
-  while [not empty? incoming-queue] [ ; Loopa igenom alla meddelanden. Finns det inga kommer den inte köras alls
-    let msg get-message ; Skaffa meddelandet
-    let performative get-performative msg ; Skaffa vad för typ av meddelande det är
-    let content get-content msg ; Skaffa innehållet
-    
+
+  ;; Lager 1 - Läs igenom alla meddelanden
+  while [not empty? incoming-queue] [
+
+    let msg get-message
+    let performative get-performative msg
+    let content get-content msg
+    let msg-type item 0 content
+
+    ;; ---------------- PROPOSE MESSAGES ----------------
     if performative = "propose" [
-      let msg-type item 0 content ; Få fram vad för typ av propose meddelande det är
+
+      ;; TAX REBATE
       if msg-type = "tax-rebate" [
-        let amount item 1 content ; Få fram mängden tax-rebate
-        retrieve-tax amount ; Kör funktionen för att lägga in det på kontot
+        let amount item 1 content
+        retrieve-tax amount
+      ]
+
+      ;; JOB OFFER
+      if msg-type = "job-offer" [
+
+        let offered-income item 1 content
+        let hiring-firm item 2 content
+
+        if not employed? and offered-income >= reservation-income [
+
+          set employer hiring-firm
+          set employed? true
+          set income offered-income
+          set color green
+
+          ;; send acceptance back to firm
+          let reply create-message "accept-proposal"
+          set reply add-content (list "job-accepted" who) reply
+          set reply add-receiver [who] of hiring-firm reply
+          send reply
+
+          print (word "Tick " ticks ": Household " who " accepted job offer")
+        ]
+      ]
+    ]
+
+    ;; ---------------- INFORM MESSAGES ----------------
+    if performative = "inform" [
+
+      ;; PAYCHECK
+      if msg-type = "paycheck" [
+        let amount item 1 content
+
+        set income income + amount
+        set wealth wealth + amount
+        set happiness happiness + 1
+
+        print (word "Tick " ticks ": Household " who " received paycheck " amount)
+      ]
+
+      ;; PRODUCTIVITY WARNING
+      if msg-type = "productivity-warning" [
+        set warning-count warning-count + 1
+
+        let reply create-message "inform"
+        set reply add-content (list "warning-acknowledged" who) reply
+        set reply add-receiver [who] of employer reply
+        send reply
+
+        print (word "Tick " ticks ": Household " who " acknowledged warning")
+      ]
+
+      ;; FIRED
+      if msg-type = "fired" [
+        set employer nobody
+        set employed? false
+        set income 0
+        set color gray
+        set warning-count 0
+
+        print (word "Tick " ticks ": Household " who " got fired")
       ]
     ]
   ]
 
-  ; Lager 2 — sätt budget utifrån financial-state
+  ;; Lager 2 — sätt budget utifrån financial-state
   budget-household
   if spending-limit <= 0 [ stop ]
 
-  ; Lager 3 — handla (påverkas av proState)
+  ;; Lager 3 — handla
   limit-purchases
 
-  ; Lager 4 (lägst prio) — pensionssparande (påverkas av proState)
+  ;; Lager 4 — pensionssparande
   save-pension
-end
 
+end
 ; --- ENVIRONMENT FUNKTIONER--- 
 
 to update-prices ; uppdaterar "Store" så att priserna varierar random

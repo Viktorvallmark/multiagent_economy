@@ -29,7 +29,7 @@ extensions [
 __includes [
   "environment.nls" ; setup-functions for setting up the environment
   "globals.nls"; list with global variables
-               ;"observer.nls"; code for observer-functions
+  "observer.nls"; code for observer-functions
   "testlibrary/testcases.nls"; 
   
   ; your own files that you program:--------------------------------------------------------------
@@ -49,7 +49,6 @@ __includes [
 ; ========== BREEDS OF AGENTS ===========
 ; ==== FIRMS ====
 breed [firms firm]
-breed [human-workers human-worker]
 breed [machine-workers machine-worker]
 
 ; ==== HOUSEHOLD =====
