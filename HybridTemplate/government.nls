@@ -18,6 +18,7 @@ governments-own [
   planned-tax-rate-households
   chosen-action
   longterm-unemployed-households
+  households-needing-aid
   
 ]
 
@@ -26,6 +27,7 @@ to setup-government
   
   create-governments 1 [
     set longterm-unemployed-households []
+    set households-needing-aid []
     set gov-budget 0
     set spending 0
     set redistribution-rate 0.2
@@ -50,6 +52,9 @@ to updateEnvironmentInfo_government
       if msg-type = "longterm-unemployed" [
         set longterm-unemployed-households item 1 content
       ]
+      if msg-type = "need-aid" [
+        set households-needing-aid item 1 content
+      ]
     ]
   ]
   
@@ -70,11 +75,17 @@ end
 ; GOVERNMENT HYBRID AGENT
 ; PROACTIVE LAYER
 ; ============================================================
-to proactive_government
+to proactive_government                                                   ; GLÖM INTE: KOLLA SATSERNAS PRIORITET OCH PLACERING
   
   ; --- Sätt flagga om det finns långtidsarbetslösa hushåll ---
   if not empty? longterm-unemployed-households [
     set chosen-action "encourage-work"
+    stop
+  ]
+  
+  ; --- Sätt flagga om det finns hushåll i behov av ekonomiskt bistånd ---
+  if not empty? households-needing-aid [
+    set chosen-action "give-aid"
     stop
   ]
   
@@ -119,15 +130,27 @@ end
 ; GOVERNMENT HYBRID AGENT
 ; REACTIVE LAYER
 ; ============================================================
-to reactive_government
+to reactive_government                                                    ; GLÖM INTE: KOLLA SATSERNAS PRIORITET OCH PLACERING
   
   ; --- Uppmuntra arbetssökande om det finns långtidssarbetslösa hushåll ---
   if chosen-action = "encourage-work" [
     let msg create-message "propose"
-    set msg add-content (list "seek-work" "Government encourages you to look for work") msg
+    set msg add-content (list "seek-work") msg
     set msg add-multiple-receivers longterm-unemployed-households msg
     send msg
     set longterm-unemployed-households []
+    stop
+  ]
+  
+  ; --- Dela ut ekonomiskt bistånd till fattiga hushåll ---
+  if chosen-action = "give-aid" [
+    let aid-amount 20
+    let msg create-message "propose"
+    set msg add-content (list "aid" aid-amount) msg
+    set msg add-multiple-receivers households-needing-aid msg
+    send msg
+    set gov-budget gov-budget - (aid-amount * length households-needing-aid)
+    set households-needing-aid []
     stop
   ]
   
