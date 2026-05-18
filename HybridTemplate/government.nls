@@ -58,6 +58,9 @@ to setup-government
   
 end
 
+; ============================================================
+; READ ENVIRONMENT
+; ============================================================
 to updateEnvironmentInfo_government
   
   ; --- Hämta meddelanden ---
@@ -187,9 +190,9 @@ to reactive_government                                                    ; GLÖ
       let current-firm-money item 1 current-firm
       let current-firm-production item 2 current-firm
       ifelse current-firm-money >= 10000 and current-firm-production < 100 [  ; ÄNDRA TRÖSKELVÄRDEN. KOLLAS VILLKOREN PROAKTIVT?
-        set msg add-content (list "approve-expansion") msg
+        set msg add-content (list "approved-expansion") msg
       ] [ 
-        set msg add-content (list "deny-expansion") msg
+        set msg add-content (list "denied-expansion") msg
       ]
       set msg add-receiver current-firm-who msg
       send msg
@@ -239,7 +242,7 @@ to reactive_government                                                    ; GLÖ
     stop
   ]
   
-  ; --- Distribuera återbäring om flaggan är sann ---
+  ; --- Distribuera återbäring om flaggan är sann ---                     ; SKA DET VARA 1 GÅNG PER 365 TICK?
   ifelse chosen-action = "redistribute" [
     let rebate gov-budget * redistribution-rate
     let per-household rebate / count households
