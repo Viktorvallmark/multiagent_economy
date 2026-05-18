@@ -187,7 +187,7 @@ to reactive_households
     ;; ---------------- INFORM MESSAGES ----------------
     if performative = "inform" [
 
-      ;; PAYCHECK
+      ; PAYCHECK
       if msg-type = "paycheck" [
         let amount item 1 content
         set wealth wealth + amount
@@ -196,7 +196,7 @@ to reactive_households
         print (word "Tick " ticks ": Household " who " received paycheck " amount)
       ]
 
-      ;; PRODUCTIVITY WARNING
+      ; PRODUCTIVITY WARNING
       if msg-type = "productivity-warning" [
         set warning-count warning-count + 1
         
@@ -210,7 +210,7 @@ to reactive_households
         print (word "Tick " ticks ": Household " who " acknowledged warning")
       ]
 
-      ;; FIRED
+      ; FIRED
       if msg-type = "fired" [
         set employer nobody
         set employed? false
@@ -221,6 +221,15 @@ to reactive_households
         set happiness happiness - 25 ; blir sparkad, minskar glädjen
 
         print (word "Tick " ticks ": Household " who " got fired")
+      ]
+      
+      ; ta emot social aid (government skickar inform)
+      if msg-type = "social-aid" [
+        let amount item 1 content ; kolla hur myck pengar
+        
+        set wealth wealth + amount
+        set happiness happiness + 10
+        print (word "Tick " ticks ": Household " who " tog emot " amount " kr i bidrag. ")
       ]
     ]
   ]
@@ -310,6 +319,14 @@ to budget-household ; budgetterar pengarna för hushållet
   ]
   if financial-state = "har-inga-pengar" [
     set spending-limit 0 ; inga pengar, inget o budgettera med
+    
+    let msg create-message "request"
+    set msg add-content (list "need-aid" who) msg
+    
+    if any? governments [
+      set msg add-receiver [who]of one-of governments msg
+      send msg
+    ]
   ]
 end
 
