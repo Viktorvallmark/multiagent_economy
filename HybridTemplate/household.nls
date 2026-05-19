@@ -72,7 +72,7 @@ to setup-household ; det som händer när man trycker "setup" knappen i interfac
     ; --- Interface inställningar ---
     set shape "person" ; person symbol på kartan
     set color green ; grön = har pengar
-    set size 8 ; storlek på personen
+    set size 2 ; storlek på personen
     setxy random-xcor random-ycor ; random spawn på personen
   ]
 end
