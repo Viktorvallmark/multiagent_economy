@@ -7,6 +7,7 @@
 ; - 2.kör proactive del (pass 1 uppåt)
 ; - 3.kör reactive del (pass 2 neråt)
 
+; Just nu - income från firm, skickar till government får tillbaks lön efter tax. ANNARS en satt tax rate sen få tillbaks om du betalat för lite eller om du behöver betala in?
 
 ; INTE LAGT TILL SÅ ATT STORE ÄR FIRM EGENTLIGEN
 ;*********************************************************************************************************************************************************
@@ -33,7 +34,6 @@ households-own [
   reservation-income
   warning-count
   happiness
-  
 ] 
 
 to setup-household ; det som händer när man trycker "setup" knappen i interfacet
@@ -43,7 +43,6 @@ to setup-household ; det som händer när man trycker "setup" knappen i interfac
   set tax-return-available false
   set tax-return-amount 0
   set average-income 20 ; start värde för average inkomst
- 
   
   create-households 10 [ ; skapar 10 hushåll
     ; --- reaktiva startvärden ---
@@ -178,6 +177,9 @@ to reactive_households
           set reply add-content (list "job-accepted" who) reply
           set reply add-receiver [who] of hiring-firm reply
           send reply
+          
+          
+          ; LÄGG TILL OFFER BACK FÖR BARGAINING OM IF INTE UPPFYLLS
 
           print (word "Tick " ticks ": Household " who " accepted job offer")
         ]
@@ -304,7 +306,6 @@ to update-productivity
   if happiness < 0 [set happiness 0]
 end
 
-
 ; --- REACTIVE FUNKTIONER ---
 to retrieve-tax [amount] ; sätt in skatteåterbäringen på kontot
   set wealth wealth + amount
@@ -357,7 +358,6 @@ to limit-purchases
     set happiness happiness + 1 ; köper båda, blir gladare
   ]
 end
-
 
 to save-pension ; pensionssparande
   if financial-state != "har-pengar" [stop] ; pensionssparar bara om man har pengar till det
