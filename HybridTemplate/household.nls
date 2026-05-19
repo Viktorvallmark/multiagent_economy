@@ -156,7 +156,7 @@ to reactive_households
       ;; TAX REBATE
       if msg-type = "tax-rebate" [
         let amount item 1 content
-        retrieve-tax amount
+        receive-money amount
       ]
 
       ;; JOB OFFER
@@ -192,8 +192,7 @@ to reactive_households
       ; PAYCHECK
       if msg-type = "paycheck" [
         let amount item 1 content
-        set wealth wealth + amount
-        set happiness happiness + 5 ; får lönen, glädje ökar
+        receive-money amount
 
         print (word "Tick " ticks ": Household " who " received paycheck " amount)
       ]
@@ -229,8 +228,7 @@ to reactive_households
       if msg-type = "social-aid" [
         let amount item 1 content ; kolla hur myck pengar
         
-        set wealth wealth + amount
-        set happiness happiness + 10
+        receive-money amount
         print (word "Tick " ticks ": Household " who " tog emot " amount " kr i bidrag. ")
       ]
     ]
@@ -307,8 +305,9 @@ to update-productivity
 end
 
 ; --- REACTIVE FUNKTIONER ---
-to retrieve-tax [amount] ; sätt in skatteåterbäringen på kontot
+to receive-money [amount] ; sätt in pengar på kontot
   set wealth wealth + amount
+  set happiness happiness + 10 ; får pengar, glädje ökar
 end
 
 to budget-household ; budgetterar pengarna för hushållet
