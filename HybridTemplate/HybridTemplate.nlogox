@@ -117,7 +117,7 @@ to go
   ;------- Time updates
   tick ;- update time
        ;timeWrapAround; skips the night from 23:00 to 6:00 ;; Osäker om vi behåller
-  ;------ Update of Global Variables
+       ;------ Update of Global Variables
   
   
   
@@ -141,7 +141,7 @@ to go
     ]
     
     if (breed = firms) [
-      ;update-environment-firms Finns ej längre? bör återskapas.
+      update-environment-firm
       proactive-firm
       reactive-firm
       
@@ -184,8 +184,8 @@ to go
   ;if TERMINATE [stop]
   
 end ; - to go part
-;***************************end to go part ******************************************************************************************************************
-;************************************************************************************************************************************************************;
+    ;***************************end to go part ******************************************************************************************************************
+    ;************************************************************************************************************************************************************;
 ]]></code>
   <widgets>
     <view x="646" wrappingAllowedX="true" y="21" frameRate="60.0" minPycor="0" height="599" showTickCounter="true" patchSize="17.5224" fontSize="10" wrappingAllowedY="true" width="1178" tickCounterLabel="ticks" maxPycor="33" updateMode="0" maxPxcor="66" minPxcor="0"></view>
@@ -206,7 +206,7 @@ end ; - to go part
     <switch x="1395" y="651" height="40" on="false" variable="show-intentions" width="161" display="show-intentions"></switch>
     <switch x="1210" y="651" height="40" on="false" variable="show_messages" width="165" display="show_messages"></switch>
     <monitor x="232" precision="14" y="74" height="60" fontSize="20" width="204" display="clock">show-time</monitor>
-    <switch x="103" y="94" height="40" on="true" variable="ActivateTestCase" width="123" display="ActivateTestCase"></switch>
+    <switch x="103" y="94" height="40" on="false" variable="ActivateTestCase" width="123" display="ActivateTestCase"></switch>
     <switch x="26" y="96" height="40" on="false" variable="Debug" width="69" display="Debug"></switch>
     <plot x="446" autoPlotX="true" yMax="10.0" autoPlotY="true" y="451" xMin="0.0" height="175" legend="false" xMax="10.0" yMin="0.0" width="181" display="Number of deceased agents">
       <setup></setup>
