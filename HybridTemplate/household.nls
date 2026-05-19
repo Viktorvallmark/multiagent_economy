@@ -25,11 +25,18 @@ households-own [
   prev-total-price ; förra tickens totala pris på food + supplies
   price-trend ; positiv --> priserna går upp, negativ <-- priser går ner
   
+<<<<<<< HEAD
   ; --- variabler från firm integration ---
   productivity
   employer     ;antingen employer eller employed? inte båda (said får bestämma det)
   employed?
   offered-income ; lönen som erbjuds i job offer
+=======
+  ; VARIABLER FRÅN FIRM, 
+  productivity
+  employer     ;antingen employer eller employed? inte båda (said får bestämma det)
+  employed?
+>>>>>>> 1e15f984d6997877462855866d9d3c7a9074a564
   reservation-income
   warning-count
   happiness
@@ -54,6 +61,7 @@ to setup-household ; det som händer när man trycker "setup" knappen i interfac
     set financial-state "har-pengar" ; FSM startar i "har-pengar" läget
     set spending-limit 999 ; inte lagt någon budget gräns
     
+<<<<<<< HEAD
     ; --- firm startvärden ---
     set employer nobody
     set employed? false
@@ -65,6 +73,20 @@ to setup-household ; det som händer när man trycker "setup" knappen i interfac
     set warning-count 0
     
     ; --- proaktiva startvärden --- 
+=======
+     set employer nobody
+  set employed? false
+
+  set income 0
+  set income 100
+
+  set productivity 2 + random 4
+  set happiness 50
+
+  set reservation-income 5
+  set warning-count 0
+    ; --- proaktiva initial värdena --- 
+>>>>>>> 1e15f984d6997877462855866d9d3c7a9074a564
     set proState "Stable" ; startar i normal ekonomisk situation
     set pension-goal average-income * 30 * 6 ;???????????????????
     set prev-total-price food-price + supplies-price ; start totalpris
@@ -187,20 +209,36 @@ to reactive_households
     ;; ---------------- INFORM MESSAGES ----------------
     if performative = "inform" [
 
+<<<<<<< HEAD
       ; PAYCHECK
       if msg-type = "paycheck" [
         let amount item 1 content
         set wealth wealth + amount
         set happiness happiness + 5 ; får lönen, glädje ökar
+=======
+      ;; PAYCHECK
+      if msg-type = "paycheck" [
+        let amount item 1 content
+
+        set income income + amount
+        set wealth wealth + amount
+        set happiness happiness + 1
+>>>>>>> 1e15f984d6997877462855866d9d3c7a9074a564
 
         print (word "Tick " ticks ": Household " who " received paycheck " amount)
       ]
 
+<<<<<<< HEAD
       ; PRODUCTIVITY WARNING
       if msg-type = "productivity-warning" [
         set warning-count warning-count + 1
         
         set happiness happiness - 10 ; varnad, mindre glad
+=======
+      ;; PRODUCTIVITY WARNING
+      if msg-type = "productivity-warning" [
+        set warning-count warning-count + 1
+>>>>>>> 1e15f984d6997877462855866d9d3c7a9074a564
 
         let reply create-message "inform"
         set reply add-content (list "warning-acknowledged" who) reply
@@ -210,13 +248,18 @@ to reactive_households
         print (word "Tick " ticks ": Household " who " acknowledged warning")
       ]
 
+<<<<<<< HEAD
       ; FIRED
+=======
+      ;; FIRED
+>>>>>>> 1e15f984d6997877462855866d9d3c7a9074a564
       if msg-type = "fired" [
         set employer nobody
         set employed? false
         set income 0
         set color gray
         set warning-count 0
+<<<<<<< HEAD
         
         set happiness happiness - 25 ; blir sparkad, minskar glädjen
 
@@ -230,6 +273,10 @@ to reactive_households
         set wealth wealth + amount
         set happiness happiness + 10
         print (word "Tick " ticks ": Household " who " tog emot " amount " kr i bidrag. ")
+=======
+
+        print (word "Tick " ticks ": Household " who " got fired")
+>>>>>>> 1e15f984d6997877462855866d9d3c7a9074a564
       ]
     ]
   ]

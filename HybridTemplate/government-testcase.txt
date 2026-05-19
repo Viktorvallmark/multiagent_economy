@@ -1132,4 +1132,2914 @@ Test 1 PASS - Government budget decreased after redistribution
 Current gov-budget: 178.5557062100712
 Test 1 PASS - Government budget decreased after redistribution
 Current gov-budget: 195.1157062100712
-Test 1 PASS - Government budget d
+Test 1 PASS - Government budget d=== TEST STARTED ===
+Initial gov-budget: 250
+=== TEST STARTED ===
+Initial gov-budget: 250
+=== TEST STARTED ===
+Initial gov-budget: 250
+=== TEST STARTED ===
+Initial gov-budget: 250
+=== TEST STARTED ===
+Initial gov-budget: 250
+Current gov-budget: 203.2
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 214.56
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 218.52800000000002
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 216.5824
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 215.02591999999999
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 208.66073599999999
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.44858879999998
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.03887103999998
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.19109683199997
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.99109683199998
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.09109683199998
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.19109683199997
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.29109683199997
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.39109683199996
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.59287746559997
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.69287746559996
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.79287746559996
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.89287746559995
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.99287746559995
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.09287746559994
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.15430197247994
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.25430197247994
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.35430197247993
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.45430197247993
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.55430197247992
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.6543019724799
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.7543019724799
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.28344157798392
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 168.38344157798392
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.4834415779839
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.5834415779839
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.1834415779839
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.62675326238713
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.12675326238713
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.22675326238712
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.72675326238712
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.82675326238711
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.2214026099097
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 168.1214026099097
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.7214026099097
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.2214026099097
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.7214026099097
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.45712208792776
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.95712208792776
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.95712208792776
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.55712208792775
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.0856976703422
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.38569767034218
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.98569767034218
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.08569767034217
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.78569767034216
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.6685581362737
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.2685581362737
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.8685581362737
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.3685581362737
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.69484650901896
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.19484650901896
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.49484650901894
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.19484650901893
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.99587720721513
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.09587720721512
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.59587720721512
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.59587720721512
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.99587720721513
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.9167017657721
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.1167017657721
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.81670176577208
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.81670176577208
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.01336141261766
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.81336141261764
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.71336141261764
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.41336141261763
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.11336141261762
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.9706891300941
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.07068913009408
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.37068913009406
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.37068913009406
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.77068913009407
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.69655130407526
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.49655130407524
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.49655130407524
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.69655130407523
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.67724104326018
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.5772410432602
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.4772410432602
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.3772410432602
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.66179283460815
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.86179283460814
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.86179283460814
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.96179283460813
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.26179283460812
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.60943426768648
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.0094342676865
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.4094342676865
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.60943426768648
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.68754741414918
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.08754741414918
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.4875474141492
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.08754741414918
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.4875474141492
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.59003793131936
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.69003793131935
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.79003793131935
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.99003793131934
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.99003793131934
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 168.39203034505547
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.79203034505548
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.99203034505547
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.39203034505547
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.47362427604438
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.57362427604437
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.27362427604436
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.27362427604436
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.67362427604436
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.61889942083548
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.01889942083548
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.01889942083548
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.31889942083546
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.45511953666838
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.45511953666838
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.55511953666837
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.85511953666835
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.75511953666836
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.52409562933468
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.4240956293347
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.4240956293347
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.3240956293347
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.33927650346774
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.23927650346775
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.13927650346776
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.23927650346775
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.73927650346775
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.67142120277418
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.37142120277417
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.27142120277418
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.17142120277418
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.49713696221934
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.39713696221935
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.99713696221934
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.19713696221933
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.87770956977548
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.87770956977548
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.77770956977548
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.6777095697755
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.37770956977548
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.6221676558204
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.5221676558204
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.4221676558204
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.5221676558204
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.9777341246563
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 168.0777341246563
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.5777341246563
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.9777341246563
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.3777341246563
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.98218729972504
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.48218729972504
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.68218729972503
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.68218729972503
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.90574983978001
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.60574983978
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.30574983978
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.80574983978
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.20574983978
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.72459987182398
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.72459987182398
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.32459987182398
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.82459987182398
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.3796798974592
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.2796798974592
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.7796798974592
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.9796798974592
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.90374391796735
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.80374391796735
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.50374391796734
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.70374391796733
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.70374391796733
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 167.44299513437386
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.94299513437386
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.54299513437385
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.44299513437386
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.15439610749908
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.0543961074991
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.65439610749908
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.45439610749906
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.32351688599925
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.12351688599924
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.12351688599924
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.12351688599924
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.33881350879938
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.33881350879938
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.43881350879937
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.73881350879935
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.63881350879936
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.79105080703948
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.59105080703947
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.39105080703945
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.09105080703944
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.19284064563155
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.99284064563153
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.99284064563153
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.79284064563151
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.5142725165052
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.31427251650518
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.91427251650518
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.51427251650517
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.17141801320412
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.7714180132041
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.4714180132041
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.27141801320408
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.27141801320408
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.57713441056325
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.57713441056325
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.67713441056324
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.57713441056325
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.57713441056325
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.3417075284506
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.3417075284506
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.3417075284506
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.64170752845058
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.75336602276045
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.45336602276043
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.65336602276042
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.3533660227604
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.68269281820832
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 168.78269281820832
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.4826928182083
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.7826928182083
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.48269281820828
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.74615425456662
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.9461542545666
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.0461542545666
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.1461542545666
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.84615425456658
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.35692340365327
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.45692340365326
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.15692340365325
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.85692340365324
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.55692340365323
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.60553872292257
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.30553872292256
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.10553872292255
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.60553872292255
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.24443097833802
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.24443097833802
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.344430978338
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.844430978338
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.644430978338
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.8355447826704
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.8355447826704
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.73554478267042
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.13554478267042
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.10843582613634
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.20843582613634
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.50843582613632
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.60843582613631
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.9084358261363
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.36674866090902
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.566748660909
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.566748660909
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.366748660909
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.2533989287272
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.05339892872718
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.85339892872716
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.25339892872717
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.64271914298172
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.54271914298172
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.3427191429817
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.3427191429817
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.71417531438536
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.71417531438536
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.71417531438536
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.11417531438536
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.01417531438537
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.3713402515083
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.67134025150827
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.97134025150825
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.37134025150826
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.6170722012066
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.9170722012066
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.21707220120658
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.21707220120658
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.51707220120656
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.21365776096525
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.51365776096523
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.21365776096522
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.21365776096522
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.97092620877217
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.97092620877217
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.37092620877218
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.27092620877218
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.57092620877216
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.25674096701772
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.5567409670177
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.2567409670177
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.2567409670177
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.00539277361415
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.40539277361415
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.80539277361416
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.80539277361416
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.10539277361414
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.60431421889132
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.2043142188913
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.60431421889132
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.3043142188913
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.64345137511305
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.94345137511303
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.243451375113
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.843451375113
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.343451375113
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.9147611000904
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.5147611000904
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.71476110009039
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.21476110009039
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.7318088800723
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.2318088800723
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.53180888007228
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.13180888007227
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.9854471040578
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.5854471040578
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.0854471040578
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.5854471040578
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.54835768324625
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.84835768324623
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.34835768324623
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.64835768324622
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.27868614659695
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 168.67868614659696
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.27868614659695
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.57868614659694
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.97868614659694
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.98294891727755
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.98294891727755
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.78294891727754
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.58294891727752
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.066359133822
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.766359133822
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.866359133822
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.766359133822
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.766359133822
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.4130873070576
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.5130873070576
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.0130873070576
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.31308730705757
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.31308730705757
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.33046984564606
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.03046984564605
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.13046984564605
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.83046984564604
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.13046984564602
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 167.9443758765168
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.4443758765168
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.9443758765168
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.6443758765168
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.7555007012134
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.3555007012134
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.9555007012134
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.5555007012134
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.1244005609707
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.4244005609707
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.9244005609707
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.4244005609707
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.25952044877656
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.15952044877656
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.25952044877656
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.35952044877655
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.85952044877655
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.00761635902126
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.80761635902124
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.00761635902123
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.10761635902122
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.8076163590212
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.56609308721698
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.966093087217
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.366093087217
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.766093087217
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.866093087217
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.0528744697736
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.5528744697736
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.6528744697736
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.35287446977358
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.65287446977356
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.84229957581886
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.24229957581886
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.94229957581885
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.74229957581883
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.23383966065506
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.83383966065506
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.23383966065506
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.33383966065506
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.03383966065505
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.54707172852403
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.347071728524
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.147071728524
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.34707172852399
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.43765738281917
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.03765738281916
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.23765738281915
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.23765738281915
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.2301259062553
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.03012590625528
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.23012590625527
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.03012590625525
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.2241007250042
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.4241007250042
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.22410072500418
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.82410072500417
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.77928058000333
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.37928058000332
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.5792805800033
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.7792805800033
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.14342446400263
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.94342446400262
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.5434244640026
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.7434244640026
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.23473957120206
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.43473957120204
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.33473957120205
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.13473957120203
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.3877916569616
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.9877916569616
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.6877916569616
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.5877916569616
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.7877916569616
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 167.99023332556925
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.09023332556924
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.39023332556923
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.6902333255692
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.83218666045536
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.53218666045535
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.63218666045535
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.73218666045534
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.33218666045533
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.94574932836426
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.04574932836425
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.54574932836425
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.14574932836425
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.84574932836423
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.95659946269137
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.55659946269137
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.15659946269136
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.75659946269136
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.68527957015309
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.28527957015308
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.18527957015309
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.28527957015308
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.38527957015307
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.26822365612244
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.86822365612244
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.76822365612244
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.06822365612243
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.29457892489793
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.69457892489794
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.09457892489795
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.29457892489793
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.39457892489793
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.07566313991833
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.17566313991833
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.07566313991833
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.87566313991832
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.87566313991832
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.22053051193467
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.12053051193467
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.22053051193467
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.92053051193466
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.69642440954772
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.7964244095477
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.4964244095477
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.6964244095477
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.79642440954768
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.47713952763814
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.97713952763814
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.07713952763814
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.17713952763813
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.07713952763814
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.78171162211052
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.9817116221105
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.0817116221105
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.1817116221105
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.0817116221105
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.4253692976884
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.2253692976884
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.92536929768838
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.72536929768836
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.3402954381507
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.94029543815068
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.64029543815067
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.64029543815067
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.64029543815067
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.23223635052054
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.23223635052054
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.23223635052054
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.93223635052053
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.4657890804164
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.5657890804164
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.6657890804164
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.3657890804164
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.06578908041638
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.6126312643331
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.31263126433308
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.01263126433307
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.01263126433307
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.91263126433307
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.73010501146646
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.83010501146646
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.93010501146645
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.23010501146643
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.13010501146644
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.10408400917316
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.00408400917317
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.00408400917317
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.40408400917318
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.32326720733855
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.32326720733855
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.12326720733853
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.12326720733853
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.22326720733852
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.09861376587082
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.99861376587083
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.59861376587082
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.69861376587082
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.59861376587082
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.75889101269667
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.85889101269666
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.95889101269665
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.15889101269664
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.05889101269665
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.7271128101573
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.9271128101573
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.0271128101573
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.9271128101573
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.02169024812582
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.62169024812582
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.7216902481258
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.8216902481258
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.3216902481258
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.4216902481258
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.57735219850062
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.6773521985006
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.1773521985006
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.9773521985006
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.0773521985006
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.82188175880046
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.92188175880045
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.02188175880045
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.72188175880044
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.02188175880042
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.89750540704034
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.49750540704034
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.29750540704032
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.3975054070403
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.6975054070403
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.03800432563224
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.63800432563224
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.93800432563222
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.2380043256322
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.3380043256322
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.15040346050574
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.05040346050575
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.95040346050575
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.75040346050574
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.1203227684046
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.2203227684046
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.1203227684046
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.9203227684046
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.22032276840457
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.25625821472366
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.35625821472365
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.45625821472365
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.75625821472363
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.0562582147236
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.32500657177889
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.42500657177888
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.12500657177887
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.22500657177886
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.72500657177886
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.42000525742307
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.52000525742307
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.22000525742305
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.52000525742304
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.22000525742303
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.1360042059384
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.2360042059384
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.3360042059384
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.4360042059384
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.9360042059384
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.03600420593838
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.3888033647507
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.08880336475067
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.18880336475067
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.28880336475066
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.78880336475066
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.95104269180052
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.45104269180052
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.85104269180053
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.95104269180052
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.2510426918005
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.5608341534404
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.6608341534404
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.1608341534404
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.26083415344038
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.76083415344038
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.4486673227523
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.1486673227523
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.84866732275228
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.94866732275227
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.04866732275227
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.7189338582018
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.6189338582018
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.9189338582018
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.9189338582018
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.9189338582018
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.01514708656143
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.01514708656143
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.21514708656142
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.4151470865614
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.8921176692491
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.9921176692491
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.8921176692491
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.1921176692491
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.6921176692491
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.63369413539925
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.43369413539924
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.23369413539922
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.9336941353992
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.58695530831935
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.68695530831934
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.18695530831934
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.98695530831932
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.14956424665544
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.34956424665543
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.74956424665544
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.74956424665544
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.54956424665542
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 167.23965139732434
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.23965139732434
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.53965139732432
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.53965139732432
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.83172111785944
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.43172111785944
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.13172111785943
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.9317211178594
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.46537689428754
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.16537689428753
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.86537689428752
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.76537689428753
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.0653768942875
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.89230151543
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.59230151543
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.39230151542998
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.89230151542998
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.15384121234396
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.65384121234396
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.55384121234397
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.05384121234397
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.2430729698752
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.2430729698752
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.6430729698752
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.1430729698752
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.84307296987518
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 167.55445837590014
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.05445837590014
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.65445837590013
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.65445837590013
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.4835667007201
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.3835667007201
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.3835667007201
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.6835667007201
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.62685336057606
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.82685336057605
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.22685336057606
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.22685336057606
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.34148268846084
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.54148268846083
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.94148268846084
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.14148268846083
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.64148268846083
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 167.87318615076865
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.27318615076865
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.67318615076866
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.87318615076865
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.5785489206149
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.1785489206149
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.0785489206149
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.4785489206149
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.58283913649194
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.08283913649194
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.08283913649194
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.08283913649194
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.98283913649195
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 168.38627130919355
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.08627130919353
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.28627130919352
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.28627130919352
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.94901704735483
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.14901704735482
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.54901704735482
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.8490170473548
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.67921363788383
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.17921363788383
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.67921363788383
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.17921363788383
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.74337091030708
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.94337091030707
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.84337091030707
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.84337091030707
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.71469672824566
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.91469672824564
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.31469672824565
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.61469672824563
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.0917573825965
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 168.7917573825965
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.9917573825965
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.3917573825965
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.59175738259648
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.47340590607718
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.97340590607718
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.47340590607718
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.67340590607716
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.33872472486172
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.33872472486172
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.6387247248617
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.3387247248617
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.03097977988935
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.73097977988934
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.43097977988933
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.63097977988932
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.7309797798893
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.18478382391146
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.88478382391145
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.98478382391144
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.48478382391144
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.18478382391143
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.62782705912915
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.72782705912914
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.42782705912913
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.12782705912912
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.12782705912912
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.06226164730327
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.16226164730327
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.86226164730326
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.06226164730325
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.26226164730323
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.56980931784258
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.86980931784257
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.16980931784255
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.86980931784254
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.73584745427402
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.435847454274
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.135847454274
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.335847454274
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.10867796341918
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 168.80867796341917
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.30867796341917
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.50867796341916
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.60867796341915
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.28694237073532
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.18694237073532
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.68694237073532
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.28694237073532
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.9869423707353
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 168.62955389658822
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.8295538965882
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.9295538965882
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.4295538965882
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.22364311727057
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.92364311727056
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.72364311727054
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.52364311727052
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.8589144938164
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.5589144938164
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.35891449381637
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.85891449381637
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.95891449381637
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.12713159505307
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.22713159505307
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.12713159505307
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.22713159505307
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.92713159505305
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.22170527604243
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.32170527604242
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.82170527604242
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.0217052760424
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.7217052760424
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.13736422083392
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.3373642208339
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.4373642208339
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.1373642208339
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.3098913766671
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.5098913766671
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.0098913766671
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.4098913766671
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.1098913766671
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 167.68791310133366
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.38791310133365
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.08791310133364
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.78791310133363
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.4303304810669
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.6303304810669
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.7303304810669
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.83033048106688
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.13033048106686
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.0242643848535
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.5242643848535
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.22426438485348
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.32426438485348
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.42426438485347
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.09941150788276
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.59941150788276
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.09941150788276
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.39941150788275
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.0395292063062
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.2395292063062
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.9395292063062
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.03952920630618
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.53952920630618
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.07162336504493
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.57162336504493
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.8716233650449
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.4716233650449
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.9372986920359
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.6372986920359
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.1372986920359
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.2372986920359
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.7372986920359
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.0698389536287
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.9698389536287
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.4698389536287
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.0698389536287
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.61587116290295
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.91587116290293
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.61587116290292
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.11587116290292
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.29269693032234
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.79269693032234
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.39269693032233
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.89269693032233
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.43415754425786
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.53415754425785
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.43415754425786
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.13415754425785
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.73415754425784
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.18732603540627
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.28732603540627
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.38732603540626
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.48732603540626
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.18732603540624
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.429860828325
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.329860828325
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.429860828325
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.52986082832498
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.82986082832497
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.18388866265997
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.78388866265996
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.88388866265996
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.58388866265994
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.88388866265993
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.18711093012794
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.78711093012794
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.38711093012793
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.98711093012793
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.66968874410233
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.26968874410233
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.66968874410233
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.56968874410234
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.05575099528187
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.35575099528185
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.85575099528185
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.45575099528185
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.05575099528184
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.20460079622546
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.50460079622545
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.60460079622544
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.10460079622544
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.70460079622544
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.24368063698034
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.34368063698034
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.84368063698034
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.44368063698033
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.51494450958427
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 168.61494450958426
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.51494450958427
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.21494450958426
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.91494450958425
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.7719556076674
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.3719556076674
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.67195560766737
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.27195560766737
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.37756448613388
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.67756448613386
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.87756448613385
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.97756448613384
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.07756448613384
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.02205158890706
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.72205158890705
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.12205158890706
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.12205158890706
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.42205158890704
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.41764127112563
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.41764127112563
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.81764127112564
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.11764127112562
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.9741130169005
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.5741130169005
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.4741130169005
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.5741130169005
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.6741130169005
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.57929041352037
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 168.47929041352037
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.27929041352036
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.87929041352035
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.77929041352036
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.46343233081626
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.46343233081626
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.26343233081624
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.86343233081624
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.410745864653
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.810745864653
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.410745864653
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.310745864653
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.2485966917224
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.14859669172242
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.2485966917224
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.14859669172242
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.14859669172242
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.59887735337793
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.19887735337792
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.79887735337792
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.3988773533779
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.4988773533779
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.11910188270232
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.8191018827023
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.3191018827023
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.6191018827023
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.49528150616183
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.49528150616183
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.49528150616183
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.49528150616183
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.89528150616184
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.35622520492944
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.35622520492944
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.15622520492943
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.65622520492943
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.92498016394353
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.42498016394353
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.2249801639435
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.7249801639435
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.7799841311548
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.5799841311548
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.9799841311548
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.27998413115478
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.8639873049238
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.3639873049238
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.8639873049238
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.8639873049238
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.49118984393903
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.89118984393903
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.29118984393904
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.09118984393902
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.59118984393902
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.6329518751512
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.6329518751512
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.3329518751512
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.3329518751512
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.58636150012097
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.28636150012096
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.48636150012095
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.38636150012096
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.50908920009675
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.20908920009674
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.90908920009673
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.80908920009674
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.60908920009672
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.64727136007735
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.54727136007736
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.44727136007737
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.94727136007737
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.19781708806187
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.19781708806187
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.39781708806186
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.59781708806184
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.87825367044948
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.57825367044947
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.37825367044945
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.27825367044946
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.62260293635956
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.32260293635954
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.22260293635955
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.02260293635953
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.2580823490876
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.7580823490876
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.1580823490876
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.6580823490876
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.76646587927007
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.16646587927008
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.46646587927006
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.16646587927005
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.16646587927005
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.13317270341605
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.63317270341605
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.23317270341605
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.93317270341603
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.74653816273283
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.34653816273283
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.6465381627328
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.2465381627328
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.39723053018625
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.09723053018624
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.09723053018624
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.39723053018622
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.79723053018623
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.39778442414897
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.99778442414896
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.99778442414896
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.49778442414896
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.51822753931918
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.51822753931918
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.01822753931918
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.71822753931917
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.17458203145534
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 168.87458203145533
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.97458203145533
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.67458203145532
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.3745820314553
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.37966562516425
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.27966562516426
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.97966562516424
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.97966562516424
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.07966562516424
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.22373250013138
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 168.72373250013138
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.72373250013138
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.12373250013138
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.0237325001314
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.7789860001051
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.1789860001051
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.8789860001051
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.8789860001051
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.5789860001051
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.06318880008408
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.96318880008408
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.96318880008408
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.66318880008407
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.89055104006724
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.29055104006724
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.19055104006725
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.79055104006724
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.39055104006724
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.7124408320538
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.8124408320538
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.9124408320538
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.8124408320538
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.9124408320538
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.369952665643
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.469952665643
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.569952665643
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.669952665643
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.569952665643
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.53596213251438
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.13596213251438
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.73596213251437
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.73596213251437
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.83596213251437
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.30876970601147
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.60876970601146
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.20876970601145
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.00876970601144
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.72701576480915
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 168.82701576480915
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.52701576480914
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.62701576480913
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.52701576480914
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.62701576480913
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.5816126118473
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.8816126118473
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.98161261184728
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.8816126118473
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.48161261184728
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.38529008947782
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.98529008947781
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.88529008947782
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.78529008947783
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.94823207158225
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.04823207158225
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.54823207158225
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.34823207158223
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.74823207158224
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.83858565726578
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.2385856572658
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.93858565726578
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.63858565726576
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.43086852581263
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.13086852581262
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.8308685258126
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.7308685258126
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.5308685258126
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.78469482065006
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.58469482065004
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.48469482065005
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.38469482065005
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.06775585652002
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.96775585652003
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.06775585652002
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.96775585652003
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.86775585652003
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.53420468521603
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.234204685216
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.934204685216
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.23420468521599
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.02736374817277
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.22736374817276
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.82736374817276
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.82736374817276
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.10189099853818
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 168.80189099853817
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.80189099853817
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.30189099853817
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.30189099853817
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.24151279883054
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.84151279883054
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.44151279883053
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.7415127988305
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.7532102390644
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.8532102390644
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.55321023906438
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.25321023906437
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.85321023906437
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.64256819125148
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.64256819125148
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.34256819125147
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.34256819125147
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.67405455300118
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 168.77405455300118
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.47405455300117
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.47405455300117
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.47405455300117
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.25924364240092
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.75924364240092
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.4592436424009
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.7592436424009
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.08739491392072
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.8873949139207
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.9873949139207
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.0873949139207
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.18739491392068
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.0873949139207
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.22991593113653
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.42991593113652
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.6299159311365
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.2299159311365
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.4639327449092
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.66393274490918
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.76393274490917
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.66393274490918
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.06393274490918
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.93114619592734
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.03114619592733
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.13114619592733
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.4311461959273
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.5311461959273
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.8311461959273
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 167.3049169567418
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.4049169567418
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.5049169567418
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.9049169567418
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.3049169567418
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.92393356539344
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.12393356539343
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.22393356539342
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.72393356539342
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.57914685231475
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.17914685231474
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.27914685231474
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.37914685231473
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.27914685231474
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.1433174818518
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.0433174818518
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.1433174818518
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.2433174818518
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.84331748185178
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.0346539854814
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.2346539854814
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.2346539854814
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.3346539854814
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.63465398548138
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 167.62772318838512
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.02772318838512
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.92772318838513
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.12772318838512
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.1021785507081
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.0021785507081
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.20217855070808
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.90217855070807
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.52174284056645
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.42174284056645
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.32174284056646
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.42174284056645
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.52174284056645
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.77739427245314
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.07739427245312
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.47739427245313
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.37739427245313
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.87739427245313
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.0219154179625
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.5219154179625
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.9219154179625
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.7219154179625
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.25753233436998
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.75753233436998
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.25753233436998
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.65753233437
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.75753233436998
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.64602586749598
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.94602586749596
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.34602586749597
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.74602586749597
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.14602586749598
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.11682069399677
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.51682069399678
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.01682069399678
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.41682069399678
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.93345655519744
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.33345655519744
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.73345655519745
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.13345655519745
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.63345655519745
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.74676524415796
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.14676524415796
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.14676524415796
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.54676524415797
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.75741219532637
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.75741219532637
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.45741219532636
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.15741219532634
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.35741219532633
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.84592975626106
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.04592975626105
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.74592975626103
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.24592975626103
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.35674380500882
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.85674380500882
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.9567438050088
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.4567438050088
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.1567438050088
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.08539504400704
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.48539504400705
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.58539504400704
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.08539504400704
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.78539504400703
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.62831603520561
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.12831603520561
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.3283160352056
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.3283160352056
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.86265282816447
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.56265282816446
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.06265282816446
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.16265282816445
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.66265282816445
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.29012226253155
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.69012226253156
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.09012226253157
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.09012226253157
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.31209781002525
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.91209781002524
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.71209781002523
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.21209781002523
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.52967824802016
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.22967824802015
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.62967824802016
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 187.62967824802016
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 196.32967824802014
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.26374259841612
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.8637425984161
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.3637425984161
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.8637425984161
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.2909940787329
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.09099407873288
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.79099407873287
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.39099407873286
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.39279526298628
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.7927952629863
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.2927952629863
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.09279526298627
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.35423621038902
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.35423621038902
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.954236210389
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.35423621038902
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.35423621038902
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.5233889683112
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.0233889683112
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.32338896831118
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.72338896831118
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.21871117464894
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.31871117464894
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.21871117464894
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.01871117464893
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.41871117464893
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 167.37496893971914
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.77496893971914
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.37496893971914
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.67496893971912
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.1799751517753
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.97997515177528
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.87997515177528
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.47997515177528
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.70398012142022
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.0039801214202
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.30398012142018
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.10398012142016
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.12318409713612
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.7231840971361
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.8231840971361
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.7231840971361
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.5231840971361
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.65854727770886
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.45854727770885
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.25854727770883
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.0585472777088
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.68683782216704
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.98683782216702
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.38683782216702
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.086837822167
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.1094702577336
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.5094702577336
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.30947025773358
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.50947025773357
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.92757620618687
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.72757620618685
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.92757620618684
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.92757620618684
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.26206096494948
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.46206096494947
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.66206096494946
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.16206096494946
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.32964877195957
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 170.32964877195957
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.02964877195956
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.22964877195955
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.92964877195953
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.9837190175676
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.3837190175676
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.1837190175676
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.5837190175676
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.82697521405407
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.32697521405407
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.82697521405407
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.02697521405406
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.66158017124323
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.4615801712432
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.2615801712432
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.06158017124318
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.80926413699453
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.50926413699452
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.3092641369945
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.7092641369945
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.1674113095956
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.36741130959558
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.7674113095956
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.1674113095956
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 197.86741130959558
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.69392904767648
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 176.89392904767647
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.29392904767647
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.49392904767646
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.11514323814117
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.91514323814116
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.91514323814116
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.11514323814114
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.4521145905129
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.3521145905129
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.0521145905129
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.85211459051288
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.32169167241028
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.12169167241026
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.62169167241026
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.32169167241025
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.72169167241026
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.49735333792822
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.1973533379282
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.1973533379282
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.0973533379282
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 161.99788267034256
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.49788267034256
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.89788267034257
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.99788267034256
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 195.29788267034255
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.63830613627402
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.13830613627402
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 183.53830613627403
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.23830613627402
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.2706449090192
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 168.3706449090192
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.8706449090192
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.9706449090192
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.27064490901918
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.77064490901918
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.77651592721534
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.87651592721534
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.97651592721533
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.67651592721532
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.2765159272153
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.34121274177227
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.74121274177227
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.14121274177228
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 192.64121274177228
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.51297019341783
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.11297019341782
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.61297019341782
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.3129701934178
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.4129701934178
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.89037615473424
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.39037615473424
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.89037615473424
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.99037615473424
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.49037615473424
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.27230092378738
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.37230092378738
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.87230092378738
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 190.17230092378736
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 198.87230092378735
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.53784073902986
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 174.63784073902985
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 182.33784073902984
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 191.03784073902983
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.13784073902983
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 164.51027259122387
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.21027259122386
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.31027259122385
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 186.01027259122384
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.11027259122383
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 160.16821807297907
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.26821807297907
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 172.36821807297906
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 178.86821807297906
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.06821807297905
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.26821807297904
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 166.37457445838322
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 175.6745744583832
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 184.3745744583832
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.07457445838318
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 163.09965956670652
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.49965956670653
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 180.19965956670652
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 188.2996595667065
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 194.5996595667065
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 162.3997276533652
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 171.0997276533652
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 179.1997276533652
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.6997276533652
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.79972765336518
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 199.89972765336518
+Test 1 PASS - Government budget decreased after redistribution
+Current gov
