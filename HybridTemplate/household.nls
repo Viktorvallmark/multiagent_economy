@@ -199,6 +199,19 @@ to reactive_households
           print (word "Tick " ticks ": Household " who " accepted job offer")
         ]
       ]
+      
+      ;; GOVERNMENT AID
+      if msg-type = "aid" [
+        let amount item 1 content ; Mängden pengar
+        
+        receive-money amount
+        print (word "Tick " ticks ": Household " who " tog emot " amount " kr i bidrag. ")
+      ]
+      
+      ;; JOB-SEEKING ENCOURAGEMENT FROM GOVERNMENT
+      if msg-type = "seek-work" [
+        
+      ]
     ]
   
     ;; ---------------- INFORM MESSAGES ----------------
@@ -231,34 +244,17 @@ to reactive_households
         print (word "Tick " ticks ": Household " who " acknowledged warning")
       ]
 
-
-      ; FIRED
-
       ;; FIRED
-
       if msg-type = "fired" [
         set employer nobody
         set employed? false
         set income 0
         set color gray
         set warning-count 0
-
         
         set happiness happiness - 25 ; blir sparkad, minskar glädjen
 
         print (word "Tick " ticks ": Household " who " got fired")
-      ]
-      
-      ; ta emot social aid (government skickar inform)
-      if msg-type = "social-aid" [
-        let amount item 1 content ; kolla hur myck pengar
-        
-        receive-money amount
-        print (word "Tick " ticks ": Household " who " tog emot " amount " kr i bidrag. ")
-
-
-        print (word "Tick " ticks ": Household " who " got fired")
-
       ]
     ]
   ]
@@ -351,7 +347,7 @@ to budget-household ; budgetterar pengarna för hushållet
     set spending-limit 0 ; inga pengar, inget o budgettera med
     
     let msg create-message "request"
-    set msg add-content (list "need-aid" who) msg
+    set msg add-content (list "household-need-aid" who) msg
     
     if any? governments [
       set msg add-receiver [who]of one-of governments msg

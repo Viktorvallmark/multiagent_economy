@@ -85,7 +85,8 @@ to updateEnvironmentInfo_government
         set firms-wanting-expansion lput (list firm-who requested-firm-money requested-firm-production) firms-wanting-expansion
       ]
       if msg-type = "household-need-aid" [
-        set households-needing-aid item 1 content
+        let household-who item 1 content
+        set households-needing-aid lput household-who households-needing-aid
       ]
       if msg-type = "firm-need-aid" [
         let firm-who item 1 content
@@ -218,7 +219,10 @@ to reactive_government                                                    ; GLÖ
     set msg add-content (list "aid" aid-amount) msg
     set msg add-multiple-receivers households-needing-aid msg
     send msg
-    set gov-budget gov-budget - (aid-amount * length households-needing-aid)
+    
+    let total-aid-amount (aid-amount * length households-needing-aid)
+    set gov-budget gov-budget - total-aid-amount
+    set spending spending + total-aid-amount
     set households-needing-aid []
     stop
   ]
@@ -236,6 +240,7 @@ to reactive_government                                                    ; GLÖ
         set msg add-receiver current-firm-who msg
         send msg
         set gov-budget gov-budget - aid-amount
+        set spending spending + aid-amount
       ]
     ]
     set firms-needing-aid []
