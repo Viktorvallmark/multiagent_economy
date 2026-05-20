@@ -7,6 +7,7 @@
 ; - 2.kör proactive del (pass 1 uppåt)
 ; - 3.kör reactive del (pass 2 neråt)
 
+; Just nu - income från firm, skickar till government får tillbaks lön efter tax. ANNARS en satt tax rate sen få tillbaks om du betalat för lite eller om du behöver betala in?
 
 ; INTE LAGT TILL SÅ ATT STORE ÄR FIRM EGENTLIGEN
 ;*********************************************************************************************************************************************************
@@ -25,22 +26,14 @@ households-own [
   prev-total-price ; förra tickens totala pris på food + supplies
   price-trend ; positiv --> priserna går upp, negativ <-- priser går ner
   
-<<<<<<< HEAD
   ; --- variabler från firm integration ---
   productivity
   employer     ;antingen employer eller employed? inte båda (said får bestämma det)
   employed?
   offered-income ; lönen som erbjuds i job offer
-=======
-  ; VARIABLER FRÅN FIRM, 
-  
-       ;antingen employer eller employed? inte båda (said får bestämma det)
-  
->>>>>>> 
   reservation-income
   warning-count
   happiness
-  
 ] 
 
 to setup-household ; det som händer när man trycker "setup" knappen i interfacet
@@ -50,7 +43,6 @@ to setup-household ; det som händer när man trycker "setup" knappen i interfac
   set tax-return-available false
   set tax-return-amount 0
   set average-income 20 ; start värde för average inkomst
- 
   
   create-households 10 [ ; skapar 10 hushåll
     ; --- reaktiva startvärden ---
@@ -179,7 +171,7 @@ to reactive_households
       ;; TAX REBATE
       if msg-type = "tax-rebate" [
         let amount item 1 content
-        retrieve-tax amount
+        receive-money amount
       ]
 
       ;; JOB OFFER
@@ -200,6 +192,9 @@ to reactive_households
           set reply add-content (list "job-accepted" who) reply
           set reply add-receiver [who] of hiring-firm reply
           send reply
+          
+          
+          ; LÄGG TILL OFFER BACK FÖR BARGAINING OM IF INTE UPPFYLLS
 
           print (word "Tick " ticks ": Household " who " accepted job offer")
         ]
@@ -209,21 +204,11 @@ to reactive_households
     ;; ---------------- INFORM MESSAGES ----------------
     if performative = "inform" [
 
-
-      ; PAYCHECK
- ;     if msg-type = "paycheck" [
-  ;      let amount item 1 content
- ;       set wealth wealth + amount
-;        set happiness happiness + 5 ; får lönen, glädje ökar
-
       ;; PAYCHECK
       if msg-type = "paycheck" [
         let amount item 1 content
-
-        set income income + amount
-        set wealth wealth + amount
-        set happiness happiness + 1
-
+        set income amount
+        receive-money amount
 
         print (word "Tick " ticks ": Household " who " received paycheck " amount)
       ]
@@ -268,8 +253,7 @@ to reactive_households
       if msg-type = "social-aid" [
         let amount item 1 content ; kolla hur myck pengar
         
-        set wealth wealth + amount
-        set happiness happiness + 10
+        receive-money amount
         print (word "Tick " ticks ": Household " who " tog emot " amount " kr i bidrag. ")
 
 
@@ -350,10 +334,10 @@ to update-productivity
   if happiness < 0 [set happiness 0]
 end
 
-
 ; --- REACTIVE FUNKTIONER ---
-to retrieve-tax [amount] ; sätt in skatteåterbäringen på kontot
+to receive-money [amount] ; sätt in pengar på kontot
   set wealth wealth + amount
+  set happiness happiness + 10 ; får pengar, glädje ökar
 end
 
 to budget-household ; budgetterar pengarna för hushållet
@@ -403,7 +387,6 @@ to limit-purchases
     set happiness happiness + 1 ; köper båda, blir gladare
   ]
 end
-
 
 to save-pension ; pensionssparande
   if financial-state != "har-pengar" [stop] ; pensionssparar bara om man har pengar till det
