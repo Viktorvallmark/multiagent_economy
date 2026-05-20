@@ -1,6 +1,20 @@
+; ;*********************************************************************************************************************************************************
+; ; LOGBOOK OF UPDATES IN THIS FILE
+; ; --Date--- |-----Description--------------------------------------------------------------------------------|---Person(s)-------------------------------
+; ; 202604??    Adding base variables and procedures                                                             Nicolas
+; ; 20260428    Implementing hybrid structure                                                                    Mimoza, Nicolas
+; ; 20260507    Changing tax calculations and adding message handling for social interactions                    Nicolas
+; ; 20260515    Adding message handling for social interactions                                                  Mimoza
+; ; 
+; ; 
+; ;
+; ;********************end logbook ************************************************************************************************************************
+
+
+
 
 ; ============================================================
-; GOVERNMENT HYBRID AGENT TEST
+; GOVERNMENT HYBRID AGENT TEST ; GOVERNMENT NEW
 ; Plan:
 ;   PROACTIVE: hämta info → beräkna skatt → sätt flagga
 ;   REACTIVE:  sätt skatt → distribuera om flagga är sann
@@ -17,6 +31,10 @@ governments-own [
   planned-tax-rate-firms
   planned-tax-rate-households
   chosen-action
+  longterm-unemployed-households
+  households-needing-aid
+  firms-needing-aid
+  firms-wanting-expansion
   
 ]
 
@@ -24,6 +42,11 @@ governments-own [
 to setup-government
   
   create-governments 1 [
+    set longterm-unemployed-households []
+    set households-needing-aid []
+    set firms-needing-aid []
+    set firms-wanting-expansion []
+    set incoming-queue []
     set gov-budget 0
     set spending 0
     set redistribution-rate 0.2
@@ -35,7 +58,43 @@ to setup-government
   
 end
 
+; ============================================================
+; READ ENVIRONMENT
+; ============================================================
 to updateEnvironmentInfo_government
+  
+  ; --- Hämta meddelanden ---
+  while [not empty? incoming-queue] [
+    let msg get-message
+    let performative get-performative msg
+    let content get-content msg
+    
+    if performative = "inform" [
+      let msg-type item 0 content
+      if msg-type = "longterm-unemployed" [
+        set longterm-unemployed-households item 1 content
+      ]
+    ]
+    
+    if performative = "request" [
+      let msg-type item 0 content
+      if msg-type = "want-to-expand" [
+        let firm-who item 1 content
+        let requested-firm-money item 2 content
+        let requested-firm-production item 3 content
+        set firms-wanting-expansion lput (list firm-who requested-firm-money requested-firm-production) firms-wanting-expansion
+      ]
+      if msg-type = "household-need-aid" [
+        set households-needing-aid item 1 content
+      ]
+      if msg-type = "firm-need-aid" [
+        let firm-who item 1 content
+        let requested-firm-money item 2 content
+        set firms-needing-aid lput (list firm-who requested-firm-money) firms-needing-aid
+      ]
+    ]
+  ]
+  
   ; --- Hämta info från firm och household ---
   set observed-firm-profit     [profit] of one-of firms
   set observed-household-wage  [income]   of one-of households ; 1 hushåll eller flera?
@@ -45,6 +104,7 @@ to updateEnvironmentInfo_government
   set observed-household-tax observed-household-wage  * tax-rate-households
   
   set gov-budget gov-budget + observed-firm-tax + observed-household-tax
+  
 end
 
 
@@ -52,7 +112,32 @@ end
 ; GOVERNMENT HYBRID AGENT
 ; PROACTIVE LAYER
 ; ============================================================
-to proactive_government
+to proactive_government                                                   ; GLÖM INTE: KOLLA SATSERNAS PRIORITET OCH PLACERING
+  
+  ; --- Sätt flagga om det finns företag i behov av utökning ---
+  if not empty? firms-wanting-expansion [
+    set chosen-action "evaluate-expansion"
+    stop
+  ]
+  
+  ; --- Sätt flagga om det finns långtidsarbetslösa hushåll ---
+  if not empty? longterm-unemployed-households [
+    set chosen-action "encourage-work"
+    stop
+  ]
+  
+  ; --- Sätt flagga om det finns hushåll i behov av ekonomiskt bistånd ---
+  if not empty? households-needing-aid [
+    set chosen-action "give-household-aid"
+    stop
+  ]
+  
+  ; --- Sätt flagga om det finns företag i behov av ekonomiskt bistånd ---
+  if not empty? firms-needing-aid [
+    set chosen-action "give-firm-aid"
+    stop
+  ]
+  
   ; --- Sätt flagga om budgeten överstiger tröskel ---
   if gov-budget > 200 [
     set chosen-action "redistribute"
@@ -94,13 +179,72 @@ end
 ; GOVERNMENT HYBRID AGENT
 ; REACTIVE LAYER
 ; ============================================================
-to reactive_government
+to reactive_government                                                    ; GLÖM INTE: KOLLA SATSERNAS PRIORITET OCH PLACERING
   
+  ; --- Evaluera utökande av företag ---
+  if chosen-action = "evaluate-expansion" [
+    let msg create-message "inform"
+    foreach firms-needing-aid [
+      current-firm ->
+      let current-firm-who item 0 current-firm
+      let current-firm-money item 1 current-firm
+      let current-firm-production item 2 current-firm
+      ifelse current-firm-money >= 10000 and current-firm-production < 100 [  ; ÄNDRA TRÖSKELVÄRDEN. KOLLAS VILLKOREN PROAKTIVT?
+        set msg add-content (list "approved-expansion") msg
+      ] [ 
+        set msg add-content (list "denied-expansion") msg
+      ]
+      set msg add-receiver current-firm-who msg
+      send msg
+    ]
+      set firms-wanting-expansion []
+      stop
+  ]
+  
+  ; --- Uppmuntra till arbetssökande om det finns långtidssarbetslösa hushåll ---
+  if chosen-action = "encourage-work" [
+    let msg create-message "propose"                                   ; PROPOSE ELLER INFORM?
+    set msg add-content (list "seek-work") msg
+    set msg add-multiple-receivers longterm-unemployed-households msg
+    send msg
+    set longterm-unemployed-households []
+    stop
+  ]
+  
+  ; --- Dela ut ekonomiskt bistånd till fattiga hushåll ---
+  if chosen-action = "give-household-aid" [
+    let aid-amount 20                                                    ; ÄNDRA AMOUNT
+    let msg create-message "propose"
+    set msg add-content (list "aid" aid-amount) msg
+    set msg add-multiple-receivers households-needing-aid msg
+    send msg
+    set gov-budget gov-budget - (aid-amount * length households-needing-aid)
+    set households-needing-aid []
+    stop
+  ]
+  
+    ; --- Dela ut ekonomiskt bistånd till fattiga företag ---
+  if chosen-action = "give-firm-aid" [
+    let aid-amount 100                                                   ; ÄNDRA AMOUNT
+    foreach firms-needing-aid [
+      current-firm ->
+      let current-firm-who item 0 current-firm
+      let current-firm-money item 1 current-firm
+      if current-firm-money < 5000 [                                     ; ÄNDRA TRÖSKELVÄRDEN
+        let msg create-message "propose"
+        set msg add-content (list "aid" aid-amount) msg
+        set msg add-receiver current-firm-who msg
+        send msg
+        set gov-budget gov-budget - aid-amount
+      ]
+    ]
+    set firms-needing-aid []
+    stop
+  ]
+  
+  ; --- Distribuera återbäring om flaggan är sann ---                     ; SKA DET VARA 1 GÅNG PER 365 TICK?
   ifelse chosen-action = "redistribute" [
-    
-    ; --- Distribuera återbäring om flaggan är sann ---
-    let rebate gov-budget * redistribution-rate   ; 
-    
+    let rebate gov-budget * redistribution-rate
     let per-household rebate / count households
     let msg create-message "propose"
     set msg add-content (list "tax-rebate" per-household) msg

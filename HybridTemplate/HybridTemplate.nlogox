@@ -11,9 +11,9 @@
 ; should be kept as slim as possible.
 ; --Date--- |-----Description--------------------------------------------------------------------------------|---Person(s)-------------------------------
 ; 20250423    Initial template to be adapted to the group's project template                                   Gion
-; 20250505    Integration test #1                                                                              Nicolas, Mimoza, Said, Elliot, Hampus
-;
-;
+; 20260505    Integration test #1                                                                              Nicolas, Mimoza, Said, Elliot, Hampus
+; 20260512    Integration test #2                                                                              Nicolas, Said, Elliot, Hampus
+; 20260515    Integration test #2.5      Added updated code for Firm, household, government, observer          Nicolas
 ;********************end logbook ************************************************************************************************************************
 ;*********************************************************************************************************************************************************
 
@@ -29,7 +29,7 @@ extensions [
 __includes [
   "environment.nls" ; setup-functions for setting up the environment
   "globals.nls"; list with global variables
-               ;"observer.nls"; code for observer-functions
+  "observer.nls"; code for observer-functions
   "testlibrary/testcases.nls"; 
   
   ; your own files that you program:--------------------------------------------------------------
@@ -49,7 +49,6 @@ __includes [
 ; ========== BREEDS OF AGENTS ===========
 ; ==== FIRMS ====
 breed [firms firm]
-breed [human-workers human-worker]
 breed [machine-workers machine-worker]
 
 ; ==== HOUSEHOLD =====
@@ -142,7 +141,7 @@ to go
     ]
     
     if (breed = firms) [
-      update-environment-firms
+      ;update-environment-firms Finns ej längre? bör återskapas.
       proactive-firm
       reactive-firm
       
@@ -255,6 +254,7 @@ end ; - to go part
         <update>plot mean [happiness] of households</update>
       </pen>
     </plot>
+    <switch x="20" y="85" height="40" on="false" variable="show-messages" width="143" display="show-messages"></switch>
   </widgets>
   <info>## WHAT IS IT?
 

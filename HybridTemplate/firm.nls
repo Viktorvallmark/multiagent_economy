@@ -1,11 +1,24 @@
+; ;*********************************************************************************************************************************************************
+; ; LOGBOOK OF UPDATES IN THIS FILE
+; ; --Date--- |-----Description--------------------------------------------------------------------------------|---Person(s)-------------------------------
+; ; 20260407   Fixed a complete reactive agent                                                           Said
+; ; 202604025  Fixed a complete proreactive agent                                                        Said
+; ; 
+; ;
+; ;********************end logbook ************************************************************************************************************************
+
+
+
 ;; firm variables
 firms-own [
   production
   revenue
-  wage-cost
+  income-cost
+  offered-income
   machine-cost
   tax-paid
   profit
+  firm-money
   last-profit
   price
   chosen-method
@@ -15,16 +28,18 @@ firms-own [
   target-production
   current-production
   max-capacity
+  productivity-threshold
+  warned-households
 ]
 
-;; human variables
-human-workers-own [ ; bör vara households?
-  wage
-  productivity
-  employer
-]
+;; HOUSEHOLDS-OWN must include:
+;; income
+;; productivity
+;; employer
+;; employed?
+;; reservation-income
+;; warning-count
 
-;; machine variables
 machine-workers-own [
   productivity
   employer
@@ -34,6 +49,7 @@ machine-workers-own [
 to setup-firm
 
   create-firms 1 [
+    set incoming-queue []
     set shape "square"
     set color blue
     set size 4
@@ -41,13 +57,15 @@ to setup-firm
 
     set production 0
     set revenue 0
-    set wage-cost 0
+    set income-cost 0
+    set offered-income 5
     set machine-cost 0
     set tax-paid 0
     set profit 0
+    set firm-money 500
     set last-profit 0
     set price 10
-    set chosen-method "human"
+    set chosen-method "household"
 
     set demand 20
     set last-demand 20
@@ -55,21 +73,10 @@ to setup-firm
     set target-production 20
     set current-production 0
     set max-capacity 100
+    set productivity-threshold 2
+    set warned-households []
   ]
 
-  create-human-workers 10 [ ; bör vara households väll? 
-    set shape "person"
-    set color white
-    set size 1.5
-    set wage 5
-    set productivity 2
-
-    let my-firm one-of firms
-    set employer my-firm
-    move-to my-firm
-    rt random 360
-    fd 15
-  ]
 
   create-machine-workers 4 [
     set shape "square"
@@ -94,11 +101,32 @@ to reactive-firm
     set current-production production
 
     calculate-revenue
-    calculate-wages
+    calculate-incomes
     calculate-machine-cost
     calculate-tax
     calculate-profit
+ if ticks > 0 and ticks mod 30 = 0 [
+  send-paychecks
+]
+    ;; listen for acknoweledgement of warning
+    while [not empty? incoming-queue] [
+  let msg get-message
+  let performative get-performative msg
+  let content get-content msg
+  let msg-type item 0 content
+
+  if performative = "inform" and msg-type = "warning-acknowledged" [
+    let household-id item 1 content
+
+    if not member? household-id warned-households [
+      set warned-households lput household-id warned-households
+    ]
+
+    print (word "Tick " ticks ": Firm received warning acknowledgement from household " household-id)
   ]
+]
+  ]
+  
 
 end
 
@@ -107,7 +135,10 @@ to proactive-firm
   ask firms [
     decide-dynamic-price
     decide-production-amount
+    decide-investment-method
     decide-fire-hire
+    request-expansion
+    request-aid
 
     if ticks mod 5 = 0 [
       print (word
@@ -126,76 +157,150 @@ end
 
 to calculate-production
 
-  let human-workers-set human-workers with [employer = myself]
-  let machine-workers-set machine-workers with [employer = myself]
 
-  let human-output sum [productivity] of human-workers-set
-  let machine-output sum [productivity] of machine-workers-set
 
-  if human-output >= machine-output [
-    set production human-output
-    set chosen-method "human"
+  let household-output sum [productivity] of households with [
+    employer = myself and employed?
   ]
 
-  if machine-output > human-output [
-    set production machine-output
+  let machine-output sum [productivity] of machine-workers with [
+    employer = myself
+  ]
+
+  ;; actual firm production uses both humans + machines
+  set production household-output + machine-output
+
+
+end
+
+to decide-investment-method
+
+  let household-productivity 2
+  let machine-productivity 8
+
+  ;; if equal → choose human
+  ifelse household-productivity >= machine-productivity [
+    set chosen-method "household"
+  ] [
     set chosen-method "machine"
   ]
 
 end
 
 to calculate-revenue
-
   set revenue production * price
-
 end
 
-to calculate-wages
-
-  if chosen-method = "human" [
-    let my-humans human-workers with [employer = myself]
-    set wage-cost sum [wage] of my-humans
-  ]
-
-  if chosen-method != "human" [
-    set wage-cost 0
-  ]
-
+to calculate-incomes
+  let my-households households with [employer = myself and employed?]
+  set income-cost sum [income] of my-households
 end
 
 to calculate-machine-cost
+  let my-machines machine-workers with [employer = myself]
+  let variable-cost sum [maintenance-cost] of my-machines
 
-  if chosen-method = "machine" [
-    let my-machines machine-workers with [employer = myself]
-    let variable-cost sum [maintenance-cost] of my-machines
-
-    if any? my-machines [
-      set machine-cost variable-cost + machine-fixed-cost
-    ]
-
-    if not any? my-machines [
-      set machine-cost 0
-    ]
+  if any? my-machines [
+    set machine-cost variable-cost + machine-fixed-cost
   ]
 
-  if chosen-method != "machine" [
+  if not any? my-machines [
     set machine-cost 0
   ]
-
 end
 
-to calculate-tax ;skatta profit eller revenue
-
+to calculate-tax
   set tax-paid revenue * tax-rate-firms
   set governemnt-money governemnt-money + tax-paid
-
 end
 
 to calculate-profit
+  set profit revenue - income-cost - machine-cost - tax-paid
+  set firm-money firm-money + profit
+end
 
-  set profit revenue - wage-cost - machine-cost - tax-paid
+to send-job-offer-to-all
+
+  let candidates households with [not employed? and employer = nobody]
+
+  if any? candidates [
+    let msg create-message "propose"
+
+    set msg add-content (list "job-offer" offered-income self) msg
+    set msg add-multiple-receivers [who] of candidates msg
+
+    send msg
+
+    print (word "Tick " ticks ": Firm sent job offer to "
+      count candidates " households. income: " offered-income)
+  ]
 
 end
+
+to send-paychecks
+
+  let employed-workers households with [
+    employer = myself and employed?
+  ]
+
+  if any? employed-workers [
+    let msg create-message "inform"
+
+    ;; message = type, paycheck amount
+    set msg add-content (list "paycheck" income) msg
+    set msg add-multiple-receivers [who] of employed-workers msg
+
+    send msg
+
+    print (word "Tick " ticks ": Firm sent paycheck to "
+      count employed-workers " households. Amount: " offered-income)
+  ]
+
+end
+
+to request-expansion
+
+  ;; if production is maxed out and firm has enough money
+  if production >= max-capacity and firm-money >= 10000 [
+
+    let msg create-message "request"
+
+    ;; content = type, requested expansion amount
+    set msg add-content (list "want-to-expand" who firm-money production) msg
+
+    let gov one-of governments
+    set msg add-receiver [who] of gov msg
+
+    send msg
+
+    print (word
+      "Tick " ticks
+      ": Firm requested expansion from government"
+    )
+  ]
+
+end
+to request-aid
+
+  ;; if firm money is dangerously low
+  if firm-money < 500 [
+
+    let msg create-message "request"
+
+    set msg add-content (list "firm-need-aid" who firm-money) msg
+     
+    let gov one-of governments
+    set msg add-receiver [who] of gov msg
+    send msg
+
+    print (word
+      "Tick " ticks
+      ": Firm requested financial aid from government"
+    )
+  ]
+
+end
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 to decide-dynamic-price
 
@@ -219,10 +324,10 @@ to decide-production-amount
 
   set target-production expected-demand
 
-  let human-capacity sum [productivity] of human-workers with [employer = myself]
+  let household-capacity sum [productivity] of households with [employer = myself and employed?]
   let machine-capacity sum [productivity] of machine-workers with [employer = myself]
 
-  set max-capacity human-capacity + machine-capacity
+  set max-capacity household-capacity + machine-capacity
 
   if profit > last-profit [
     set target-production target-production + 3
@@ -244,27 +349,16 @@ end
 
 to decide-fire-hire
 
-  let current-workers count human-workers with [employer = myself]
+  let current-household-workers count households with [employer = myself and employed?]
   let current-machines count machine-workers with [employer = myself]
 
-  let max-workers 50
+  let max-household-workers 50
   let max-machines 20
 
+  ;; hire households by sending job offer messages
   if target-production > current-production [
-
-    if chosen-method = "human" and current-workers < max-workers [
-      print (word "Tick " ticks ": HIRING human worker")
-
-      hatch-human-workers 1 [
-        set employer myself
-        set color white
-        set shape "person"
-        set size 1.5
-        set wage 5
-        set productivity 2
-        rt random 360
-        fd 15
-      ]
+    if chosen-method = "household" and current-household-workers < max-household-workers [
+      send-job-offer-to-all
     ]
 
     if chosen-method = "machine" and current-machines < max-machines [
@@ -283,91 +377,59 @@ to decide-fire-hire
     ]
   ]
 
-  if target-production < current-production and profit < last-profit [
+  ;; productivity warning / firing
+  check-household-productivity
 
-    if chosen-method = "human" and current-workers > 1 [
-      print (word "Tick " ticks ": FIRING human worker")
-
-      let worker-to-fire one-of human-workers with [employer = myself]
-
-      ask worker-to-fire [
-        die
-      ]
-    ]
-
-    if chosen-method = "machine" and current-machines > 1 [
-      print (word "Tick " ticks ": SELLING machine worker")
-
+  ;; sell machine if production target is lower and profit decreased
+  if chosen-method = "machine" and target-production < current-production and profit < last-profit [
+    if current-machines > 1 [
       let machine-to-sell one-of machine-workers with [employer = myself]
 
-      ask machine-to-sell [
-        die
+      if machine-to-sell != nobody [
+        print (word "Tick " ticks ": SELLING machine worker")
+        ask machine-to-sell [ die ]
       ]
     ]
   ]
 
 end
 
-to update-environment-firms
+to check-household-productivity
 
-  update-worker-visibility
-  move-humans-inside-firm
+  let low-workers households with [
+    employer = myself and
+    employed? and
+    productivity < [productivity-threshold] of myself
+  ]
 
-  ask firms [
-    set last-profit profit
-    set last-demand demand
+  if any? low-workers [
+    let worker one-of low-workers
+    let worker-id [who] of worker
 
-    set demand demand + random 5 - random 5
+    ifelse member? worker-id warned-households
+    [
+      ;; second time low productivity + warning acknowledged = fire
+      let fire-msg create-message "inform"
+      set fire-msg add-content (list "fired") fire-msg
+      set fire-msg add-receiver worker-id fire-msg
+      send fire-msg
 
-    if demand < 0 [
-      set demand 0
+      set warned-households remove worker-id warned-households
+
+      print (word "Tick " ticks ": Firm fired household " worker-id " after warning")
+    ]
+    [
+      ;; first time low productivity = warning
+      let warning-msg create-message "inform"
+      set warning-msg add-content (list "productivity-warning") warning-msg
+      set warning-msg add-receiver worker-id warning-msg
+      send warning-msg
+
+      print (word "Tick " ticks ": Firm sent productivity warning to household " worker-id)
     ]
   ]
 
 end
 
-to move-humans-inside-firm
 
-  ask human-workers [
-    let my-firm employer
 
-    if my-firm != nobody [
-      rt random 60
-      lt random 60
-      fd 2
-
-      if distance my-firm > 20 [
-        face my-firm
-        fd 2
-      ]
-    ]
-  ]
-
-end
-
-to update-worker-visibility
-
-  ask firms [
-
-    if chosen-method = "human" [
-      ask human-workers with [employer = myself] [
-        show-turtle
-      ]
-
-      ask machine-workers with [employer = myself] [
-        hide-turtle
-      ]
-    ]
-
-    if chosen-method = "machine" [
-      ask human-workers with [employer = myself] [
-        hide-turtle
-      ]
-
-      ask machine-workers with [employer = myself] [
-        show-turtle
-      ]
-    ]
-  ]
-
-end

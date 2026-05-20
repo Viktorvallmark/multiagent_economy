@@ -1,5 +1,5 @@
 ; ; ********************************************************************************************************************************************************
-; ;***          testcases.nls  (contains the code for the specific testfunctions)                                                                                    ****
+; ;***          testcases.nls  (contains the code for the speciic testfunctions)                                                                                    ****
 ; ;*********************************************************************************************************************************************************
 ; ; TEST-CASE VERSION NUMMER: TC02
 ; ;*********************************************************************************************************************************************************
@@ -68,6 +68,7 @@ to setup-test-government
     set test-initial-wealth income
   ]
   
+  
 end
 
 ; ;*********************************************************************************************************************************************************
@@ -75,6 +76,8 @@ end
 ; ; after the ask turtles, in the observer-section 
 ; ;
 to monitor_testagents
+  
+  
   
 end
 
@@ -87,42 +90,20 @@ to monitor-government-test
       file-print "Test 1 PASS - Government budget decreased after redistribution"
     ]
     
-    ; This test is the inverse of the above test but yields an error to be picked up by GitHub Actions
-    
-    if gov-budget >= test-initial-budget  [
-      error (word "FAIL: gov-budget didn't decrease. Expected < " test-initial-budget ", got " gov-budget)
+    if gov-budget > test-initial-budget [
+      error("TEST 1 Failed - Didn't setup correctly")
     ]
   ]
 end
 
 ; ;****************** end specific testfunctions in agent's code *************************************************************************************************
 
-to setup-test-firm
-  error "Not implemented"
-end
 
-to setup-test-household
-  error "Not implemented"
-end
-
-
-;; Wrapper function that calls all tests on specific agents for BehaviourSpace and Github CI/CD;;
-
-to test-government-run
-  clear-all
+;; Wrapper functions that executes all tests when pushing to GitHub
+to test-government
   setup-test-government
   monitor-government-test
-end 
-
-;to test-firm-run
- ; clear-all
-;  setup-test-firm
-;end
-
-;to test-household-run
-  ;clear-all
-  ;setup-test-household
-;end
+end
 
 
 
