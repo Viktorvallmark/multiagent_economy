@@ -89,7 +89,21 @@ to monitor-government-test
     if gov-budget < test-initial-budget [
       file-print "Test 1 PASS - Government budget decreased after redistribution"
     ]
+    
+    if gov-budget > test-initial-budget [
+      error("TEST 1 Failed - Didn't setup correctly")
+    ]
   ]
 end
 
 ; ;****************** end specific testfunctions in agent's code *************************************************************************************************
+
+
+;; Wrapper functions that executes all tests when pushing to GitHub
+to test-government
+  setup-test-government
+  monitor-government-test
+end
+
+
+

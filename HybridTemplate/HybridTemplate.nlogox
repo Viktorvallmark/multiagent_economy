@@ -254,6 +254,7 @@ end ; - to go part
         <update>plot mean [happiness] of households</update>
       </pen>
     </plot>
+    <switch x="20" y="85" height="40" on="false" variable="show-messages" width="143" display="show-messages"></switch>
   </widgets>
   <info>## WHAT IS IT?
 
