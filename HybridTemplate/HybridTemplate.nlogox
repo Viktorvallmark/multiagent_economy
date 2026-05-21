@@ -158,10 +158,10 @@ to go
   ; define these functions in the file observer.nls and run them here
   ; simpler observer functions can be directly added in the interface as monitors
   
-  ;removeHouses ; remove houses that are empty
   
   
-
+  
+  
   
   
   ;***************************end observer functions ****************************************
@@ -205,29 +205,12 @@ end ; - to go part
       <choice type="string" value="With Interface"></choice>
     </chooser>
     <switch x="1395" y="651" height="40" on="false" variable="show-intentions" width="161" display="show-intentions"></switch>
-    <switch x="1210" y="651" height="40" on="false" variable="show_messages" width="165" display="show_messages"></switch>
     <switch x="18" y="18" height="40" on="false" variable="Debug" width="69" display="Debug"></switch>
-    <switch x="97" y="17" height="40" on="true" variable="ActivateTestCase" width="123" display="ActivateTestCase"></switch>
+    <switch x="97" y="17" height="40" on="false" variable="ActivateTestCase" width="123" display="ActivateTestCase"></switch>
     <monitor x="231" precision="14" y="13" height="60" fontSize="20" width="204" display="clock">show-time</monitor>
     <button x="530" y="14" height="40" disableUntilTicks="false" forever="true" kind="Observer" width="63" display="go">go</button>
     <button x="449" y="14" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="67" display="setup">setup</button>
     <button x="511" y="60" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="83" display="go one step">go</button>
-    <plot x="7" autoPlotX="true" yMax="10.0" autoPlotY="true" y="149" xMin="0.0" height="219" legend="false" xMax="10.0" yMin="0.0" width="311" display="Household Financial States">
-      <setup></setup>
-      <update></update>
-      <pen interval="1.0" mode="0" display="Har Pengar" color="-15040220" legend="true">
-        <setup></setup>
-        <update>plot count households with [financial-state = "har-pengar"]</update>
-      </pen>
-      <pen interval="1.0" mode="0" display="Har Lite Pengar" color="-4079321" legend="true">
-        <setup></setup>
-        <update>plot count households with [financial-state = "har-lite-pengar"]</update>
-      </pen>
-      <pen interval="1.0" mode="0" display="Har Inga Pengar" color="-3844592" legend="true">
-        <setup></setup>
-        <update>plot count households with [financial-state = "har-inga-pengar"]</update>
-      </pen>
-    </plot>
     <plot x="7" autoPlotX="true" yMax="10.0" autoPlotY="true" y="376" xMin="0.0" height="219" legend="false" xMax="10.0" yMin="0.0" width="311" display="Household Proactive States">
       <setup></setup>
       <update></update>
@@ -258,6 +241,23 @@ end ; - to go part
       <pen interval="1.0" mode="0" display="default" color="-16777216" legend="true">
         <setup></setup>
         <update>plot mean [happiness] of households</update>
+      </pen>
+    </plot>
+    <switch x="1261" y="651" height="40" on="false" variable="show_messages" width="130" display="show_messages"></switch>
+    <plot x="7" autoPlotX="true" yMax="10.0" autoPlotY="true" y="149" xMin="0.0" height="219" legend="false" xMax="10.0" yMin="0.0" width="311" display="Household Financial States">
+      <setup></setup>
+      <update></update>
+      <pen interval="1.0" mode="0" display="Har Pengar" color="-15040220" legend="true">
+        <setup></setup>
+        <update>plot count households with [financial-state = "har-pengar"]</update>
+      </pen>
+      <pen interval="1.0" mode="0" display="Har Lite Pengar" color="-4079321" legend="true">
+        <setup></setup>
+        <update>plot count households with [financial-state = "har-lite-pengar"]</update>
+      </pen>
+      <pen interval="1.0" mode="0" display="Har Inga Pengar" color="-3844592" legend="true">
+        <setup></setup>
+        <update>plot count households with [financial-state = "har-inga-pengar"]</update>
       </pen>
     </plot>
   </widgets>
