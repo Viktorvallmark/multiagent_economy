@@ -179,7 +179,7 @@ to decide-investment-method
   let machine-productivity 8
 
   ;; if equal → choose human
-  ifelse household-productivity >= machine-productivity [
+  ifelse household-productivity <= machine-productivity [
     set chosen-method "household"
   ] [
     set chosen-method "machine"
@@ -247,13 +247,13 @@ to send-paychecks
     let msg create-message "inform"
 
     ;; message = type, paycheck amount
-    set msg add-content (list "paycheck" income) msg
+    set msg add-content (list "paycheck" income-cost) msg
     set msg add-multiple-receivers [who] of employed-workers msg
 
     send msg
 
     print (word "Tick " ticks ": Firm sent paycheck to "
-      count employed-workers " households. Amount: " offered-income)
+      count employed-workers " households. Amount: " income-cost)
   ]
 
 end
@@ -423,7 +423,7 @@ to check-household-productivity
       let warning-msg create-message "inform"
       set warning-msg add-content (list "productivity-warning") warning-msg
       set warning-msg add-receiver worker-id warning-msg
-      send warning-msg
+      ;send warning-msg
 
       print (word "Tick " ticks ": Firm sent productivity warning to household " worker-id)
     ]
