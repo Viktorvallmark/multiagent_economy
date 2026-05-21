@@ -35,6 +35,10 @@ governments-own [
   households-needing-aid
   firms-needing-aid
   firms-wanting-expansion
+  expansion-decisions
+  household-aid-decisions
+  firm-aid-decisions
+  redistribution-decisions
   
 ]
 
@@ -47,6 +51,10 @@ to setup-government
     set firms-needing-aid []
     set firms-wanting-expansion []
     set incoming-queue []
+    set expansion-decisions []
+    set household-aid-decisions []
+    set firm-aid-decisions []
+    set redistribution-decisions []
     set gov-budget 0
     set spending 0
     set redistribution-rate 0.2
@@ -87,8 +95,8 @@ to updateEnvironmentInfo_government
       ]
       if msg-type = "household-need-aid" [
         let household-who item 1 content
-        let household-wealth item 2 content
-        set households-needing-aid lput (list household-who household-wealth) households-needing-aid
+    
+        set households-needing-aid lput (list household-who) households-needing-aid
       ]
       if msg-type = "firm-need-aid" [
         let firm-who item 1 content
@@ -119,6 +127,18 @@ to proactive_government                                                   ; GLÖ
   
   ; --- Sätt flagga om det finns företag i behov av utökning ---
   if not empty? firms-wanting-expansion [
+    ;set expansion-decisions []
+    foreach firms-wanting-expansion [
+      current-firm ->
+      let current-firm-who item 0 current-firm
+      let current-expansion-budget item 1 current-firm
+      let current-expected-production item 2 current-firm
+      ifelse current-expansion-budget >= 10000 and current-expected-production >= 100 [             ;ÄNDRA TRÖSKELVÄRDEN
+        set expansion-decisions lput (list current-firm-who "approved") expansion-decisions
+      ] [
+        set expansion-decisions lput (list current-firm-who "denied") expansion-decisions
+      ]
+    ]
     set chosen-action "evaluate-expansion"
     stop
   ]
@@ -130,22 +150,62 @@ to proactive_government                                                   ; GLÖ
   ;]
   
   ; --- Sätt flagga om det finns hushåll i behov av ekonomiskt bistånd ---
-  if not empty? households-needing-aid [
-    set chosen-action "give-household-aid"
-    stop
+ if not empty? households-needing-aid [
+  let aid-amount 20
+  foreach households-needing-aid [
+    current-household ->
+    let current-household-who item 0 current-household
+
+    set household-aid-decisions
+      lput (list current-household-who aid-amount)
+      household-aid-decisions
   ]
+
+  set chosen-action "give-household-aid"
+  stop
+]
   
   ; --- Sätt flagga om det finns företag i behov av ekonomiskt bistånd ---
   if not empty? firms-needing-aid [
-    set chosen-action "give-firm-aid"
-    stop
+
+  foreach firms-needing-aid [
+    current-firm ->
+
+    let current-firm-who item 0 current-firm
+    let current-firm-money item 1 current-firm
+
+    ifelse current-firm-money < 500 [
+      set firm-aid-decisions
+        lput (list current-firm-who 100 "approved")
+        firm-aid-decisions
+    ] [
+      set firm-aid-decisions
+        lput (list current-firm-who 0 "denied")
+        firm-aid-decisions
+    ]
   ]
+
+  set chosen-action "give-firm-aid"
+  stop
+]
   
   ; --- Sätt flagga om budgeten överstiger tröskel ---
-  if gov-budget > 200 [
-    set chosen-action "redistribute"
-    stop
+ if gov-budget > 200 [
+
+  let rebate gov-budget * redistribution-rate
+  let per-household rebate / count households
+
+  foreach [who] of households [
+    household-who ->
+
+    set redistribution-decisions
+      lput (list household-who per-household)
+      redistribution-decisions
   ]
+
+  set chosen-action "redistribute"
+  stop
+]
   
   ; --- Beräkna lämplig skattesats ---
   let new-firm-tax-rate 0
@@ -185,24 +245,20 @@ end
 to reactive_government                                                    ; GLÖM INTE: KOLLA SATSERNAS PRIORITET OCH PLACERING
   
   ; --- Evaluera utökande av företag ---
-  if chosen-action = "evaluate-expansion" [
+ if chosen-action = "evaluate-expansion" [
+  foreach expansion-decisions [
+    decision ->
+    let firm-who item 0 decision
+    let outcome item 1 decision
     let msg create-message "inform"
-    foreach firms-wanting-expansion [
-      current-firm ->
-      let current-firm-who item 0 current-firm
-      let current-expansion-budget item 1 current-firm
-      let current-expected-production item 2 current-firm
-      ifelse current-expansion-budget >= 10000 and current-expected-production >= 100 [  ; ÄNDRA TRÖSKELVÄRDEN. KOLLAS VILLKOREN PROAKTIVT?
-        set msg add-content (list "approved-expansion") msg
-      ] [ 
-        set msg add-content (list "denied-expansion") msg                                ; IMPLEMENTERA BARGAINING
-      ]
-      set msg add-receiver current-firm-who msg
-      send msg
-    ]
-      set firms-wanting-expansion []
-      stop
+    set msg add-content (list outcome) msg
+    set msg add-receiver firm-who msg
+    send msg
   ]
+  set firms-wanting-expansion []
+  set expansion-decisions []
+  stop
+]
   
   ; --- Uppmuntra till arbetssökande om det finns långtidssarbetslösa hushåll ---
   ;if chosen-action = "encourage-work" [                                ; CHOSEN ACTION FIRE VID CHECK AV UNEMPLOYMENT I OBSERVER
@@ -216,64 +272,75 @@ to reactive_government                                                    ; GLÖ
   
   ; --- Dela ut ekonomiskt bistånd till fattiga hushåll ---
   if chosen-action = "give-household-aid" [
-    let aid-amount 20                                                    ; ÄNDRA AMOUNT
-    foreach households-needing-aid [
-      current-household ->
-      let current-household-who item 0 current-household
-      let current-household-wealth item 1 current-household
-      if current-household-wealth = 0 [                                  ; SKA VI HA OLIKA AMOUNT FÖR OLIKA WEALTH? JUST NU ÄR WEALTH ALLTID 0
-        let msg create-message "propose"
-        set msg add-content (list "aid" aid-amount) msg
-        set msg add-multiple-receivers households-needing-aid msg
-        send msg
-        let total-aid-amount (aid-amount * length households-needing-aid)
-        set gov-budget gov-budget - total-aid-amount
-        ;set spending spending + total-aid-amount
-        set households-needing-aid []
-        stop
-      ]
-    ]
+
+  foreach household-aid-decisions [
+    decision ->
+
+    let household-who item 0 decision
+    let aid-amount item 1 decision
+
+    let msg create-message "propose"
+    set msg add-content (list "aid" aid-amount) msg
+    set msg add-receiver household-who msg
+    send msg
+
+    set gov-budget gov-budget - aid-amount
   ]
+
+  set households-needing-aid []
+  set household-aid-decisions []
+
+  stop
+]
   
-    ; --- Dela ut ekonomiskt bistånd till fattiga företag ---
-  if chosen-action = "give-firm-aid" [
-    let aid-amount 100                                                   ; ÄNDRA AMOUNT
-    foreach firms-needing-aid [
-      current-firm ->
-      let current-firm-who item 0 current-firm
-      let current-firm-money item 1 current-firm
-      if current-firm-money < 500 [                                     ; ÄNDRA TRÖSKELVÄRDEN. IMPLEMENTERA BARGAINING
-        let msg create-message "propose"
-        set msg add-content (list "aid" aid-amount) msg
-        set msg add-receiver current-firm-who msg
-        send msg
-        set gov-budget gov-budget - aid-amount
-        ;set spending spending + aid-amount
-      ]
+  ; --- Dela ut ekonomiskt bistånd till fattiga företag ---
+ if chosen-action = "give-firm-aid" [
+
+  foreach firm-aid-decisions [
+    decision ->
+
+    let firm-who item 0 decision
+    let aid-amount item 1 decision
+    let outcome item 2 decision
+
+    let msg create-message "inform"
+    set msg add-content (list outcome aid-amount) msg
+    set msg add-receiver firm-who msg
+    send msg
+
+    if outcome = "approved" [
+      set gov-budget gov-budget - aid-amount
     ]
-    set firms-needing-aid []
-    stop
   ]
+
+  set firms-needing-aid []
+  set firm-aid-decisions []
+
+  stop
+]
   
   ; --- Distribuera återbäring om flaggan är sann ---                     ; SKA DET VARA 1 GÅNG PER 365 TICK?
-  ifelse chosen-action = "redistribute" [
-    let rebate gov-budget * redistribution-rate
-    let per-household rebate / count households
+ if chosen-action = "redistribute" [
+
+  foreach redistribution-decisions [
+    decision ->
+
+    let household-who item 0 decision
+    let rebate-amount item 1 decision
+
     let msg create-message "propose"
-    set msg add-content (list "tax-rebate" per-household) msg
-    set msg add-multiple-receivers [who] of households msg
+    set msg add-content (list "tax-rebate" rebate-amount) msg
+    set msg add-receiver household-who msg
     send msg
-    
-    set gov-budget  gov-budget - rebate
-    ;set spending     spending    + rebate
-    stop
-    ] [ ifelse chosen-action = "adjust-tax" [
-      set tax-rate-firms planned-tax-rate-firms
-      set tax-rate-households planned-tax-rate-households
-      stop
-    ] [
-      stop
-    ]
-  ] 
- 
+  ]
+
+  let total-rebate sum map [d -> item 1 d] redistribution-decisions
+
+  set gov-budget gov-budget - total-rebate
+
+  set redistribution-decisions []
+
+  stop
+]
+  
 end
