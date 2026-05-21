@@ -36,8 +36,8 @@ globals [
   average-income
   
   ; Simplicity 
-  monthTicks ; used for instead of 30 
-  yearTicks ; used instead of 365
+  month ; used for instead of 30 
+  year ; used instead of 365
   
   ;----- Time variables, using the time extension, see https://ccl.northwestern.edu/netlogo/docs/time.html
   current-time             ;THE CURRENT TIME IN THE SIMULATION
