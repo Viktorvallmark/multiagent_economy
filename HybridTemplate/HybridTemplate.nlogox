@@ -83,6 +83,10 @@ to setup
   set tax-rate-firms 0.2
   set tax-rate-households 0.2
   set unemployment-list []
+  
+  ; simplicity variables
+  set month 30
+  set year 365
   ; setup of the environment (see file "environment.nls"):
   setup-environment ;
   
