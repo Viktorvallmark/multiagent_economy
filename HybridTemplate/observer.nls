@@ -74,40 +74,28 @@ to update-world
 
 end
 
+
+to update-profits-lists
+  
+  set unprofitable-firms-list [self] of firms with [ profit < 0 ]
+  set profitable-firms-list [self] of firms with [ profit > 0 ]
+  
+end
+
 to check-economic-conditions
   
-  let employed 0
-  let unemployed 0
-  let profits true
   let ratio 0
   
-  ask households [
+  if count households > 0 [
     
-;; TODO: Refactor to make it observer and not turtle-only. Check update-unemployment-list how to do it
-    
-    ifelse employed? [
-      set employed employed + 1
-    ]
-    [
-      set unemployed unemployed + 1
-    ]
-   
-    
-    ask firms [
-      ifelse profit < 0 [
-        
-        set profits false
-        
-      ] [
-        set profits true
-      ]
-    ]
-    
-    set ratio employed / (employed + unemployed)
+    set ratio (length unemployment-list) / count households
     
   ]
+  update-profits-lists
   
-    ifelse ratio > 0.7 and wealth < 10000 and profits = false [
+  let avg-wealth mean [wealth] of households
+  
+  ifelse ratio > 0.7 and avg-wealth < 10000 and  (length profitable-firms-list < length unprofitable-firms-list) [
       
     set economic-crisis true
       

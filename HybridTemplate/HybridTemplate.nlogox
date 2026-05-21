@@ -82,6 +82,8 @@ to setup
   set tax-rate-firms 0.2
   set tax-rate-households 0.2
   set unemployment-list []
+  set profitable-firms-list []
+  set unprofitable-firms-list []
   ; setup of the environment (see file "environment.nls"):
   setup-environment ;
   
@@ -118,8 +120,8 @@ to go
   tick ;- update time
        ;timeWrapAround; skips the night from 23:00 to 6:00 ;; Osäker om vi behåller
   ;------ Update of Global Variables
-  
-  ;check-economic-conditions
+  update-unemployment-list
+  check-economic-conditions
   
   ;---- Agents ----------------------------------------------------
   ;
@@ -157,7 +159,9 @@ to go
   ; simpler observer functions can be directly added in the interface as monitors
   
   ;removeHouses ; remove houses that are empty
-  update-unemployment-list
+  
+  
+
   
   
   ;***************************end observer functions ****************************************

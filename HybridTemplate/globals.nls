@@ -15,12 +15,15 @@ globals [
   
   ; Observer variables
   economic-crisis       ; Shit hits the fan variable
+  unemployment-list   ; List of unemployed households
+  profitable-firms-list ; List of profitable firms
+  unprofitable-firms-list ; List of unprofitable firms
   
   ; Government Variables
   tax-rate-firms       ; Firm variabel för att hämta dess tax-rate
   tax-rate-households  ; Household variabel för att hämta dess tax-rate
   
-  unemployment-list   ; List of unemployed households
+  
   
   ; Firm Variables
   tax-rate   ; bör använda governments variabel ovan.
