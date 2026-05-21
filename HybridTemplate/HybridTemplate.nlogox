@@ -199,13 +199,10 @@ end ; - to go part
       <choice type="string" value="With Interface"></choice>
     </chooser>
     <switch x="1395" y="651" height="40" on="false" variable="show-intentions" width="161" display="show-intentions"></switch>
-    <switch x="1210" y="651" height="40" on="true" variable="show_messages" width="165" display="show_messages"></switch>
     <switch x="18" y="18" height="40" on="false" variable="Debug" width="69" display="Debug"></switch>
     <switch x="97" y="17" height="40" on="true" variable="ActivateTestCase" width="123" display="ActivateTestCase"></switch>
-    <monitor x="231" precision="14" y="13" height="60" fontSize="20" width="204" display="clock">show-time</monitor>
     <button x="530" y="14" height="40" disableUntilTicks="false" forever="true" kind="Observer" width="63" display="go">go</button>
     <button x="511" y="60" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="83" display="go one step">go</button>
-    <switch x="20" y="85" height="40" on="false" variable="show-messages" width="143" display="show-messages"></switch>
     <plot x="328" autoPlotX="true" yMax="10.0" autoPlotY="true" y="730" xMin="0.0" height="220" legend="false" xMax="10.0" yMin="0.0" width="314" display="Average Household Happiness">
       <setup></setup>
       <update></update>
@@ -264,6 +261,8 @@ end ; - to go part
         <update>plot [gov-budget] of one-of governments</update>
       </pen>
     </plot>
+    <switch x="18" y="68" height="40" on="true" variable="show_messages" width="165" display="show_messages"></switch>
+    <monitor x="231" precision="14" y="13" height="60" fontSize="20" width="204" display="clock">show-time</monitor>
     <plot x="328" autoPlotX="true" yMax="10.0" autoPlotY="true" y="242" xMin="0.0" height="219" legend="false" xMax="10.0" yMin="0.0" width="311" display="Government Spending">
       <setup></setup>
       <update></update>
