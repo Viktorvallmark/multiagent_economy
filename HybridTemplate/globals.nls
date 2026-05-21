@@ -13,12 +13,14 @@ globals [
   
   ; ------------- Variables
   
+  ; Observer variables
+  economic-crisis       ; Shit hits the fan variable
   
   ; Government Variables
   tax-rate-firms       ; Firm variabel för att hämta dess tax-rate ; Outdated and will be removed
   tax-rate-households  ; Household variabel för att hämta dess tax-rate ; Outdated and will be removed
   
-  
+  unemployment-list   ; List of unemployed households
   
   ; Firm Variables
   tax-rate   ; bör använda governments variabel ovan. ; Outdated and will be removed
@@ -32,6 +34,7 @@ globals [
   tax-return-available ; Outdated and will be removed
   tax-return-amount ; Outdated and will be removed
   average-income
+  
   
   
   

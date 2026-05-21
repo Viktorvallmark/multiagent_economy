@@ -8,7 +8,7 @@
 ; --Date--- |-----Description--------------------------------------------------------------------------------|---Person(s)-------------------------------
 ; 20250423    Initial template of some dummy reporters                                                            Gion
 ; 20260514    Added world update, firm/household coordination, movement, and visibility logic                     Said
-;
+; 20260521    Added economic crisis logic                                                                         Viktor
 ; ********************end logbook ************************************************************************************************************************
 
 
@@ -44,8 +44,132 @@
 ;   ]
 ; end
 
+;================================
+; Imports
+;================================
+
 
 ; =======================================================================================================================================================
 ; OBSERVER COORDINATION FOR FIRM / HOUSEHOLD / GOVERNMENT MODEL
 ; =======================================================================================================================================================
 
+
+to update-world
+
+  ; update firm memory and demand
+  ask firms [
+    set last-profit profit
+    set last-demand demand
+
+    set demand demand + random 5 - random 5
+
+    if demand < 0 [
+      set demand 0
+    ]
+  ]
+
+  ; movement and display are controlled by observer
+  move-employed-households
+  update-worker-visibility-observer
+
+end
+
+to check-economic-conditions
+  
+  let employed 0
+  let unemployed 0
+  let profits true
+  let ratio 0
+  
+  ask households [
+    
+;; TODO: Refactor to make it observer and not turtle-only. Check update-unemployment-list how to do it
+    
+    ifelse employed? [
+      set employed employed + 1
+    ]
+    [
+      set unemployed unemployed + 1
+    ]
+   
+    
+    ask firms [
+      ifelse profit < 0 [
+        
+        set profits false
+        
+      ] [
+        set profits true
+      ]
+    ]
+    
+    set ratio employed / (employed + unemployed)
+    
+  ]
+  
+    ifelse ratio > 0.7 and wealth < 10000 and profits = false [
+      
+    set economic-crisis true
+      
+  ][
+    set economic-crisis false
+  ]
+  
+end
+
+
+to update-unemployment-list
+
+  set unemployment-list [self] of turtles with [not employed?]
+  
+end
+
+
+
+to move-employed-households
+
+  ask households with [employed?] [
+
+    let my-firm employer
+
+    if my-firm != nobody [
+      rt random 60
+      lt random 60
+      fd 2
+
+      if distance my-firm > 20 [
+        face my-firm
+        fd 2
+      ]
+    ]
+  ]
+
+end
+
+
+to update-worker-visibility-observer
+
+  ask firms [
+
+    if chosen-method = "household" [
+      ask households with [employer = myself and employed?] [
+        show-turtle
+      ]
+
+      ask machine-workers with [employer = myself] [
+        hide-turtle
+      ]
+    ]
+
+    if chosen-method = "machine" [
+      ask households with [employer = myself and employed?] [
+        hide-turtle
+      ]
+
+      ask machine-workers with [employer = myself] [
+        show-turtle
+      ]
+    ]
+  ]
+
+end
