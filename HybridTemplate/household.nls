@@ -176,7 +176,7 @@ to reactive_households
         receive-money amount
       ]
 
-      ;; JOB OFFER
+      ; JOB OFFER
       if msg-type = "job-offer" [
 
         set offered-income item 1 content
@@ -196,7 +196,7 @@ to reactive_households
           send reply
           
           
-          ; LÄGG TILL OFFER BACK FÖR BARGAINING OM IF INTE UPPFYLLS
+          ; LÄGG TILL OFFER BACK FÖR BARGAINING OM IF INTE UPPFYLLS, TIMER -10% av goverment aid
 
           print (word "Tick " ticks ": Household " who " accepted job offer")
         ]
@@ -204,16 +204,17 @@ to reactive_households
       
       ;; GOVERNMENT AID
       if msg-type = "aid" [
-        let amount item 1 content ; Mängden pengar
+        let amount item 1 content ; Mängden pengar; 
+        ; lägg till att vi skickar wealth
         
         receive-money amount
         print (word "Tick " ticks ": Household " who " tog emot " amount " kr i bidrag. ")
       ]
       
       ;; JOB-SEEKING ENCOURAGEMENT FROM GOVERNMENT
-      if msg-type = "seek-work" [
-        
-      ]
+      ;if msg-type = "seek-work" [
+        ; happiness
+      ;]
     ]
   
     ;; ---------------- INFORM MESSAGES ----------------
@@ -231,7 +232,7 @@ to reactive_households
       ;; PRODUCTIVITY WARNING
       if msg-type = "productivity-warning" [
         set warning-count warning-count + 1
-        set happiness happiness - 10 ; varnad, mindre glad
+        set happiness happiness - 10 ; varnad, mindre glad, randomizer för att sänka happiness samt öka productivity. Får in en threshold sen under o över den random.
 
         let reply create-message "inform"
         set reply add-content (list "warning-acknowledged" who) reply
@@ -256,6 +257,7 @@ to reactive_households
     ]
   ]
   
+  ; TA BORT HELA DENNA? SKA HA EN LISTA SOM GLOBAL DÄR OBSERVER STYR
   ifelse not employed? [
     set unemployed-time unemployed-time + 1
   ] [
@@ -268,6 +270,8 @@ to reactive_households
     set msg add-receiver [who] of one-of governments msg
     send msg
   ]
+  
+  ; LÄGG TILL SATISFACTION REPORT NÅGONSTANS HÄR
 
   ;; Lager 2 — sätt budget utifrån financial-state
   budget-household
@@ -314,6 +318,7 @@ to update-financial-state
     ]
   ]
 end
+
 
 
 ; uppdaterar productivity baserat på happiness och pengar-state
