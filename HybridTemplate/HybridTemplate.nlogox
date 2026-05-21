@@ -81,7 +81,7 @@ to setup
   set NrDeceased 0
   set tax-rate-firms 0.2
   set tax-rate-households 0.2
-  
+  set unemployment-list []
   ; setup of the environment (see file "environment.nls"):
   setup-environment ;
   
@@ -119,7 +119,7 @@ to go
        ;timeWrapAround; skips the night from 23:00 to 6:00 ;; Osäker om vi behåller
   ;------ Update of Global Variables
   
-  
+  ;check-economic-conditions
   
   ;---- Agents ----------------------------------------------------
   ;
@@ -157,6 +157,8 @@ to go
   ; simpler observer functions can be directly added in the interface as monitors
   
   ;removeHouses ; remove houses that are empty
+  update-unemployment-list
+  
   
   ;***************************end observer functions ****************************************
   
@@ -254,7 +256,6 @@ end ; - to go part
         <update>plot mean [happiness] of households</update>
       </pen>
     </plot>
-    <switch x="20" y="85" height="40" on="false" variable="show-messages" width="143" display="show-messages"></switch>
   </widgets>
   <info>## WHAT IS IT?
 

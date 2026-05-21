@@ -8,7 +8,7 @@
 ; --Date--- |-----Description--------------------------------------------------------------------------------|---Person(s)-------------------------------
 ; 20250423    Initial template of some dummy reporters                                                            Gion
 ; 20260514    Added world update, firm/household coordination, movement, and visibility logic                     Said
-;
+; 20260521    Added economic crisis logic                                                                         Viktor
 ; ********************end logbook ************************************************************************************************************************
 
 
@@ -44,6 +44,10 @@
 ;   ]
 ; end
 
+;================================
+; Imports
+;================================
+
 
 ; =======================================================================================================================================================
 ; OBSERVER COORDINATION FOR FIRM / HOUSEHOLD / GOVERNMENT MODEL
@@ -69,6 +73,57 @@ to update-world
   update-worker-visibility-observer
 
 end
+
+to check-economic-conditions
+  
+  let employed 0
+  let unemployed 0
+  let profits true
+  let ratio 0
+  
+  ask households [
+    
+;; TODO: Refactor to make it observer and not turtle-only. Check update-unemployment-list how to do it
+    
+    ifelse employed? [
+      set employed employed + 1
+    ]
+    [
+      set unemployed unemployed + 1
+    ]
+   
+    
+    ask firms [
+      ifelse profit < 0 [
+        
+        set profits false
+        
+      ] [
+        set profits true
+      ]
+    ]
+    
+    set ratio employed / (employed + unemployed)
+    
+  ]
+  
+    ifelse ratio > 0.7 and wealth < 10000 and profits = false [
+      
+    set economic-crisis true
+      
+  ][
+    set economic-crisis false
+  ]
+  
+end
+
+
+to update-unemployment-list
+
+  set unemployment-list [self] of turtles with [not employed?]
+  
+end
+
 
 
 to move-employed-households
