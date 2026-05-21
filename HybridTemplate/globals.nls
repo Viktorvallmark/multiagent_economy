@@ -33,7 +33,7 @@ globals [
   supplies-price
   tax-return-available ; Outdated and will be removed
   tax-return-amount ; Outdated and will be removed
-  average-income
+  average-income ; not used rn?
   
   ; Simplicity 
   month ; used for instead of 30 

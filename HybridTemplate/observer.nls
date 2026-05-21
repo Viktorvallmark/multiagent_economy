@@ -148,5 +148,15 @@ to update-worker-visibility-observer
       ]
     ]
   ]
+end
 
+; not used rn? didnt work like wanted
+to update-average-income  ; bara för hushållen som jobbar
+  ifelse count households with [employed? = true] > 0 [
+  set average-income mean [income] of households with [employed? = true]
+  print(word "From Observer, Average income: " average-income)
+  ] [
+    set average-income 0
+    print(word "No one with income, set to 0 ")
+  ]
 end

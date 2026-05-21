@@ -46,8 +46,6 @@ households-own [
 ] 
 
 to setup-household ; det som händer när man trycker "setup" knappen i interfacet
-  ; TEMPORÄRA TILLS INTEGRATIONEN
-  set average-income 20 ; start värde för average inkomst
   
   create-households 10 [ ; skapar 10 hushåll
     set incoming-queue []
@@ -76,7 +74,7 @@ to setup-household ; det som händer när man trycker "setup" knappen i interfac
     
     ; --- proaktiva initial värdena --- 
     set proState "Stable" ; startar i normal ekonomisk situation
-    set pension-goal average-income * 30 * 6 ;???????????????????
+    set pension-goal 750
     set prev-total-price food-price + supplies-price ; start totalpris
     set price-trend 0 ; startar inte med någon trend i pris
     
@@ -100,6 +98,7 @@ to updateEnvironmentInfo_households
   
   ; uppdatera produktivitet
   update-productivity
+  
 end
 
 ; --- Bestämma strategi, FSM 3 states, proState som reactive använder sen ---
@@ -176,6 +175,8 @@ to reactive_households
           set employed? true
           set income offered-income
           set color green
+          set pension-goal income * 30 ; pension-goal baseras på income
+
 
           ;; send acceptance back to firm
           let reply create-message "accept-proposal"
@@ -193,7 +194,6 @@ to reactive_households
       ;; GOVERNMENT AID
       if msg-type = "aid" [
         let amount item 1 content ; Mängden pengar; 
-        ; lägg till att vi skickar wealth
         
         receive-money amount
         print (word "Tick " ticks ": Household " who " tog emot " amount " kr i bidrag. ")
@@ -211,8 +211,13 @@ to reactive_households
       ; PAYCHECK
       if msg-type = "paycheck" [
         let amount item 1 content
+        let old-income income ; previous salary
         set income amount
         receive-money amount
+        
+        if income != old-income [
+          set pension-goal income * 30 ; updated pension goal
+        ]
 
         print (word "Tick " ticks ": Household " who " received paycheck " amount)
       ]
@@ -258,8 +263,7 @@ to reactive_households
       ]
     ]
   ]
-  
-  ; TA BORT HELA DENNA? SKA HA EN LISTA SOM GLOBAL DÄR OBSERVER STYR
+
   ifelse not employed? [
     set unemployed-time unemployed-time + 1
   ] [
