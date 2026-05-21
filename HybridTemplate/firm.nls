@@ -30,6 +30,7 @@ firms-own [
   max-capacity
   productivity-threshold
   warned-households
+  employed-households
 ]
 
 ;; HOUSEHOLDS-OWN must include:
@@ -74,6 +75,7 @@ to setup-firm
     set max-capacity 100
     set productivity-threshold 2
     set warned-households []
+    set employed-households []
   ]
 
 
@@ -153,6 +155,11 @@ to reactive-firm
         ": Firm accepted aid from government. Aid amount: "
         aid-amount
       )
+    ]
+    
+    if performative = "accept-proposal" and msg-type = "job-accepted" [
+      let household-who item 1 content
+      set employed-households lput household-who employed-households
     ]
   ]
 
@@ -278,19 +285,15 @@ to send-job-offer-to-all
 
 end
 to send-paychecks
+  if not empty? employed-households [
 
-  let employed-workers households with [
-    employer = myself
-  ]
-
-  if any? employed-workers [
-
-    ask employed-workers [
+    foreach employed-households [
+      current-household ->
 
       let msg create-message "inform"
 
       set msg add-content (list "paycheck" income-cost) msg
-      set msg add-receiver who msg
+      set msg add-receiver [who] of current-household msg
 
       send msg
     ]
@@ -298,7 +301,7 @@ to send-paychecks
     print (word
       "Tick " ticks
       ": Firm sent individual paychecks to "
-      count employed-workers
+      length employed-households
       " households."
     )
   ]
@@ -470,6 +473,7 @@ to check-household-productivity
       send fire-msg
 
       set warned-households remove worker-id warned-households
+      set employed-households remove [who] of worker employed-households
 
       print (word
         "Tick " ticks

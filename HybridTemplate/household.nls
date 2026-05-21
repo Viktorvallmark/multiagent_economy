@@ -179,7 +179,7 @@ to reactive_households
 
           ;; send acceptance back to firm
           let reply create-message "accept-proposal"
-          set reply add-content (list "job-accepted" who) reply
+          set reply add-content (list "job-accepted" self) reply
           set reply add-receiver [who] of hiring-firm reply
           send reply
           
@@ -228,7 +228,7 @@ to reactive_households
 
 
         let reply create-message "inform"
-        set reply add-content (list "warning-acknowledged" who) reply
+        set reply add-content (list "warning-acknowledged" self) reply
         set reply add-receiver [who] of employer reply
         send reply
 
