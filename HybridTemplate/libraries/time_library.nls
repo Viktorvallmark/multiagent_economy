@@ -11,7 +11,7 @@ extensions [time]
 to initTime [dateStr]
   ;set start-time (time:create "2024/04/22 08:00:00") ;starting at a Monday morning
   set start-time (time:create dateStr) ;starting at a Monday morning
-  set current-time time:anchor-to-ticks start-time 1 "minute"
+  set current-time time:anchor-to-ticks start-time 1 "day"
   ;set current-time time:anchor-to-ticks start-time 10 "minute"
   set time-passed 0
   set endOfDay false

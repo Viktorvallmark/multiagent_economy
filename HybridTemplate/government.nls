@@ -72,7 +72,8 @@ to updateEnvironmentInfo_government
     if performative = "inform" [
       let msg-type item 0 content
       if msg-type = "longterm-unemployed" [
-        set longterm-unemployed-households item 1 content
+        let household-who item 1 content
+        set longterm-unemployed-households lput household-who longterm-unemployed-households
       ]
     ]
     

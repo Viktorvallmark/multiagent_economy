@@ -30,6 +30,7 @@ households-own [
   productivity
   employer     ;antingen employer eller employed? inte båda (said får bestämma det)
   employed?
+  unemployed-time
   offered-income ; lönen som erbjuds i job offer
   reservation-income
   warning-count
@@ -68,6 +69,7 @@ to setup-household ; det som händer när man trycker "setup" knappen i interfac
 
     set employer nobody
     set employed? false
+    set unemployed-time 0
 
     set income 0
     set income 100
@@ -226,15 +228,10 @@ to reactive_households
         print (word "Tick " ticks ": Household " who " received paycheck " amount)
       ]
 
-
-      ; PRODUCTIVITY WARNING
-      if msg-type = "productivity-warning" [
-        set warning-count warning-count + 1
-        
-        set happiness happiness - 10 ; varnad, mindre glad
       ;; PRODUCTIVITY WARNING
       if msg-type = "productivity-warning" [
         set warning-count warning-count + 1
+        set happiness happiness - 10 ; varnad, mindre glad
 
         let reply create-message "inform"
         set reply add-content (list "warning-acknowledged" who) reply
@@ -258,6 +255,18 @@ to reactive_households
       ]
     ]
   ]
+  
+  ifelse not employed? [
+    set unemployed-time unemployed-time + 1
+  ] [
+    set unemployed-time 0
+  ]
+  
+  if unemployed-time >= 30 [
+    let msg create-message "inform"
+    set msg add-content (list "longterm-unemployed" who) msg
+    set msg add-receiver [who] of one-of governments msg
+    send msg
   ]
 
   ;; Lager 2 — sätt budget utifrån financial-state
