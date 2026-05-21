@@ -40,6 +40,9 @@ households-own [
   food-price
   supplies-stock
   supplies-price
+  
+  productivity-bonus
+  
 ] 
 
 to setup-household ; det som händer när man trycker "setup" knappen i interfacet
@@ -73,7 +76,6 @@ to setup-household ; det som händer när man trycker "setup" knappen i interfac
     set unemployed-time 0
 
     set income 0
-    set income 100
 
     set productivity 2 + random 4
     set happiness 50
@@ -85,6 +87,10 @@ to setup-household ; det som händer när man trycker "setup" knappen i interfac
     set food-price 0
     set supplies-stock 0
     set supplies-price 0
+    
+    set productivity-bonus 0
+    set bonus-active? false
+    set bonus-duration 0
     
     ; --- proaktiva initial värdena --- 
  
@@ -233,7 +239,12 @@ to reactive_households
       ;; PRODUCTIVITY WARNING
       if msg-type = "productivity-warning" [
         set warning-count warning-count + 1
-        set happiness happiness - 10 ; varnad, mindre glad, randomizer för att sänka happiness samt öka productivity. Får in en threshold sen under o över den random.
+        set happiness happiness - random 11 ; varnad, mindre glad, randomizer för att sänka happiness samt öka productivity. Får in en threshold sen under o över den random.
+        
+        ; thresholden som tas emot från Firm
+        let threshold item 1 content
+        set productivity productivity + round(threshold * 0.5 + random-float 1)
+
 
         let reply create-message "inform"
         set reply add-content (list "warning-acknowledged" who) reply
