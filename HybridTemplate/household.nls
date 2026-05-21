@@ -50,16 +50,12 @@ to setup-household ; det som händer när man trycker "setup" knappen i interfac
   set average-income 20 ; start värde för average inkomst
   
   create-households 10 [ ; skapar 10 hushåll
-    ; --- reaktiva startvärden ---
     set incoming-queue []
     set wealth 50 + random 50 ; random startpengar för variation
     set income 0 ; lön
     set pension-savings 0 ; börjar med inget pensionsparande
     set financial-state "har-pengar" ; FSM startar i "har-pengar" läget
     set spending-limit 999 ; inte lagt någon budget gräns
-    
-
-    ; --- firm startvärden ---
     set employer nobody
     set employed? false
     set offered-income 0
@@ -68,29 +64,13 @@ to setup-household ; det som händer när man trycker "setup" knappen i interfac
     set happiness 50
     set reservation-income (productivity * 2) ; "ta jobbet gränsen" på lön baseras på hur "duktig" household är 
     set warning-count 0
-    
-    ; --- proaktiva startvärden --- 
-
-    set employer nobody
-    set employed? false
     set unemployed-time 0
-
     set income 0
-
-    set productivity 2 + random 4
-    set happiness 50
-    
-    set reservation-income 5
-    set warning-count 0
-    
     set food-stock 0
     set food-price 0
     set supplies-stock 0
     set supplies-price 0
     
-    set productivity-bonus 0
-    set bonus-active? false
-    set bonus-duration 0
     
     ; --- proaktiva initial värdena --- 
  
