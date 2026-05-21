@@ -292,7 +292,7 @@ to send-paychecks
 
       let msg create-message "inform"
 
-      set msg add-content (list "paycheck" income-cost) msg
+      set msg add-content (list "paycheck" [income] of current-household) msg
       set msg add-receiver [who] of current-household msg
 
       send msg
@@ -486,9 +486,9 @@ to check-household-productivity
 
       let warning-msg create-message "inform"
 
-      set warning-msg add-content (list "productivity-warning") warning-msg
+      set warning-msg add-content (list "productivity-warning" productivity-threshold) warning-msg
       set warning-msg add-receiver worker-id warning-msg
-      ;send warning-msg
+      send warning-msg
 
       print (word
         "Tick " ticks
