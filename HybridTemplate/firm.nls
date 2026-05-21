@@ -2,7 +2,7 @@
 ; ; LOGBOOK OF UPDATES IN THIS FILE
 ; ; --Date--- |-----Description--------------------------------------------------------------------------------|---Person(s)-------------------------------
 ; ; 20260407   Fixed a complete reactive agent                                                           Said
-; ; 202604025  Fixed a complete proreactive agent                                                        Said
+; ; 20260425  Fixed a complete proreactive agent                                                        Said
 ; ; 
 ; ;
 ; ;********************end logbook ************************************************************************************************************************
@@ -36,7 +36,6 @@ firms-own [
 ;; income
 ;; productivity
 ;; employer
-;; employed?
 ;; reservation-income
 ;; warning-count
 
@@ -78,7 +77,7 @@ to setup-firm
   ]
 
 
-  create-machine-workers 4 [
+ create-machine-workers 4 [
     set shape "square"
     set color gray
     set size 1.5
@@ -96,82 +95,106 @@ end
 
 to reactive-firm
 
-  ask firms [
-    calculate-production
-    set current-production production
+  calculate-production
+  set current-production production
 
-    calculate-revenue
-    calculate-incomes
-    calculate-machine-cost
-    calculate-tax
-    calculate-profit
- if ticks > 0 and ticks mod 30 = 0 [
-  send-paychecks
-]
-    ;; listen for acknoweledgement of warning
-    while [not empty? incoming-queue] [
-  let msg get-message
-  let performative get-performative msg
-  let content get-content msg
-  let msg-type item 0 content
+  calculate-revenue
+  calculate-incomes
+  calculate-machine-cost
+  calculate-tax
+  calculate-profit
 
-  if performative = "inform" and msg-type = "warning-acknowledged" [
-    let household-id item 1 content
+  if ticks > 0 and ticks mod 30 = 0 [
+    send-paychecks
+  ]
 
-    if not member? household-id warned-households [
-      set warned-households lput household-id warned-households
+  while [not empty? incoming-queue] [
+
+    let msg get-message
+    let performative get-performative msg
+    let content get-content msg
+    let msg-type item 0 content
+    
+  ;; if warning sent
+    if performative = "inform" and msg-type = "warning-acknowledged" [
+
+      let household-id item 1 content
+
+      if not member? household-id warned-households [
+        set warned-households lput household-id warned-households
+      ]
+
+      print (word "Tick " ticks ": Firm received warning acknowledgement from household " household-id)
     ]
 
-    print (word "Tick " ticks ": Firm received warning acknowledgement from household " household-id)
-  ]
-]
-  ]
-  
+    ;; if expanison denied 
+    if performative = "inform" and msg-type = "denied-expansion" [
+      print (word "Tick " ticks ": Firm expansion request was denied by government")
+    ]
+    
+   ;; if expansion approved
+    if performative = "inform" and msg-type = "approved-expansion" [
+            print (word "Tick " ticks ": building new firm")
 
-end
-
-to proactive-firm
-
-  ask firms [
-    decide-dynamic-price
-    decide-production-amount
-    decide-investment-method
-    decide-fire-hire
-    request-expansion
-    request-aid
-
-    if ticks mod 5 = 0 [
       print (word
-        "Tick: " ticks
-        " | Price: " price
-        " | Prod: " production
-        " | Target: " target-production
-        " | Demand: " demand
-        " | Profit: " profit
-        " | Government money: " governemnt-money
+        "Tick " ticks
+        ": Firm expansion request was approved by government. New max-capacity: "
+        max-capacity
+      )
+    ]
+      ;; if aid sent 
+    if performative = "propose" and msg-type = "aid" [
+      let aid-amount item 1 content
+
+      set firm-money firm-money + aid-amount
+
+      print (word
+        "Tick " ticks
+        ": Firm accepted aid from government. Aid amount: "
+        aid-amount
       )
     ]
   ]
 
 end
 
+to proactive-firm
+
+  decide-dynamic-price
+  decide-production-amount
+  decide-investment-method
+  decide-fire-hire
+  request-expansion
+  request-aid
+
+  if ticks mod 5 = 0 [
+    print (word
+      "Tick: " ticks
+      " | Price: " price
+      " | Prod: " production
+      " | Target: " target-production
+      " | Demand: " demand
+      " | Profit: " profit
+      " | Government money: " governemnt-money
+    )
+  ]
+
+end
+
 to calculate-production
 
-
-
   let household-output sum [productivity] of households with [
-    employer = myself and employed?
+    employer = myself
   ]
 
   let machine-output sum [productivity] of machine-workers with [
     employer = myself
   ]
 
-  ;; actual firm production uses both humans + machines
   set production household-output + machine-output
 
-
 end
+
 
 to decide-investment-method
 
@@ -192,12 +215,21 @@ to calculate-revenue
 end
 
 to calculate-incomes
-  let my-households households with [employer = myself and employed?]
+
+  let my-households households with [
+    employer = myself
+  ]
+
   set income-cost sum [income] of my-households
+
 end
 
 to calculate-machine-cost
-  let my-machines machine-workers with [employer = myself]
+
+  let my-machines machine-workers with [
+    employer = myself
+  ]
+
   let variable-cost sum [maintenance-cost] of my-machines
 
   if any? my-machines [
@@ -207,6 +239,7 @@ to calculate-machine-cost
   if not any? my-machines [
     set machine-cost 0
   ]
+
 end
 
 to calculate-tax
@@ -221,9 +254,12 @@ end
 
 to send-job-offer-to-all
 
-  let candidates households with [not employed? and employer = nobody]
+  let candidates households with [
+    employer = nobody
+  ]
 
   if any? candidates [
+
     let msg create-message "propose"
 
     set msg add-content (list "job-offer" offered-income self) msg
@@ -231,33 +267,43 @@ to send-job-offer-to-all
 
     send msg
 
-    print (word "Tick " ticks ": Firm sent job offer to "
-      count candidates " households. income: " offered-income)
+    print (word
+      "Tick " ticks
+      ": Firm sent job offer to "
+      count candidates
+      " households. income: "
+      offered-income
+    )
   ]
 
 end
-
 to send-paychecks
 
   let employed-workers households with [
-    employer = myself and employed?
+    employer = myself
   ]
 
   if any? employed-workers [
-    let msg create-message "inform"
 
-    ;; message = type, paycheck amount
-    set msg add-content (list "paycheck" income-cost) msg
-    set msg add-multiple-receivers [who] of employed-workers msg
+    ask employed-workers [
 
-    send msg
+      let msg create-message "inform"
 
-    print (word "Tick " ticks ": Firm sent paycheck to "
-      count employed-workers " households. Amount: " income-cost)
+      set msg add-content (list "paycheck" income-cost) msg
+      set msg add-receiver who msg
+
+      send msg
+    ]
+
+    print (word
+      "Tick " ticks
+      ": Firm sent individual paychecks to "
+      count employed-workers
+      " households."
+    )
   ]
 
 end
-
 to request-expansion
 
   ;; if production is maxed out and firm has enough money
@@ -273,10 +319,7 @@ to request-expansion
 
     send msg
 
-    print (word
-      "Tick " ticks
-      ": Firm requested expansion from government"
-    )
+        print (word "Tick " ticks ": Firm requested expansion from government")
   ]
 
 end
@@ -293,10 +336,7 @@ to request-aid
     set msg add-receiver [who] of gov msg
     send msg
 
-    print (word
-      "Tick " ticks
-      ": Firm requested financial aid from government"
-    )
+       print (word "Tick " ticks ": Firm requested financial aid from government")
   ]
 
 end
@@ -324,8 +364,13 @@ to decide-production-amount
 
   set target-production expected-demand
 
-  let household-capacity sum [productivity] of households with [employer = myself and employed?]
-  let machine-capacity sum [productivity] of machine-workers with [employer = myself]
+  let household-capacity sum [productivity] of households with [
+    employer = myself
+  ]
+
+  let machine-capacity sum [productivity] of machine-workers with [
+    employer = myself
+  ]
 
   set max-capacity household-capacity + machine-capacity
 
@@ -349,19 +394,25 @@ end
 
 to decide-fire-hire
 
-  let current-household-workers count households with [employer = myself and employed?]
-  let current-machines count machine-workers with [employer = myself]
+  let current-household-workers count households with [
+    employer = myself
+  ]
+
+  let current-machines count machine-workers with [
+    employer = myself
+  ]
 
   let max-household-workers 50
   let max-machines 20
 
-  ;; hire households by sending job offer messages
   if target-production > current-production [
+
     if chosen-method = "household" and current-household-workers < max-household-workers [
       send-job-offer-to-all
     ]
 
     if chosen-method = "machine" and current-machines < max-machines [
+
       print (word "Tick " ticks ": BUYING machine worker")
 
       hatch-machine-workers 1 [
@@ -377,13 +428,17 @@ to decide-fire-hire
     ]
   ]
 
-  ;; productivity warning / firing
   check-household-productivity
 
-  ;; sell machine if production target is lower and profit decreased
-  if chosen-method = "machine" and target-production < current-production and profit < last-profit [
+  if chosen-method = "machine"
+     and target-production < current-production
+     and profit < last-profit [
+
     if current-machines > 1 [
-      let machine-to-sell one-of machine-workers with [employer = myself]
+
+      let machine-to-sell one-of machine-workers with [
+        employer = myself
+      ]
 
       if machine-to-sell != nobody [
         print (word "Tick " ticks ": SELLING machine worker")
@@ -393,43 +448,64 @@ to decide-fire-hire
   ]
 
 end
-
 to check-household-productivity
 
   let low-workers households with [
     employer = myself and
-    employed? and
     productivity < [productivity-threshold] of myself
   ]
 
   if any? low-workers [
+
     let worker one-of low-workers
     let worker-id [who] of worker
 
-    ifelse member? worker-id warned-households
-    [
-      ;; second time low productivity + warning acknowledged = fire
+    ifelse member? worker-id warned-households [
+
       let fire-msg create-message "inform"
+
       set fire-msg add-content (list "fired") fire-msg
       set fire-msg add-receiver worker-id fire-msg
+
       send fire-msg
 
       set warned-households remove worker-id warned-households
 
-      print (word "Tick " ticks ": Firm fired household " worker-id " after warning")
-    ]
-    [
-      ;; first time low productivity = warning
+      print (word
+        "Tick " ticks
+        ": Firm fired household "
+        worker-id
+        " after warning"
+      )
+
+    ] [
+
       let warning-msg create-message "inform"
+
       set warning-msg add-content (list "productivity-warning") warning-msg
       set warning-msg add-receiver worker-id warning-msg
       ;send warning-msg
 
-      print (word "Tick " ticks ": Firm sent productivity warning to household " worker-id)
+      print (word
+        "Tick " ticks
+        ": Firm sent productivity warning to household "
+        worker-id
+      )
     ]
   ]
 
 end
 
 
+to update-environment-firm
 
+  set last-profit profit
+  set last-demand demand
+
+  set demand demand + random 5 - random 5
+
+  if demand < 0 [
+    set demand 0
+  ]
+
+end

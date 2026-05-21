@@ -63,3 +63,51 @@ to setup-environment
       set pcolor 74
     ] 
 end ;setup-environment
+
+to move-employed-households
+
+  ask households with [employed?] [
+
+    let my-firm employer
+
+    if my-firm != nobody [
+      rt random 60
+      lt random 60
+      fd 2
+
+      if distance my-firm > 20 [
+        face my-firm
+        fd 2
+      ]
+    ]
+  ]
+
+end
+
+
+to update-worker-visibility
+
+  ask firms [
+
+    if chosen-method = "household" [
+      ask households with [employer = myself and employed?] [
+        show-turtle
+      ]
+
+      ask machine-workers with [employer = myself] [
+        hide-turtle
+      ]
+    ]
+
+    if chosen-method = "machine" [
+      ask households with [employer = myself and employed?] [
+        hide-turtle
+      ]
+
+      ask machine-workers with [employer = myself] [
+        show-turtle
+      ]
+    ]
+  ]
+
+end

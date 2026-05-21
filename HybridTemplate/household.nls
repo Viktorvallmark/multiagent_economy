@@ -208,7 +208,7 @@ to reactive_households
     ;; ---------------- INFORM MESSAGES ----------------
     if performative = "inform" [
 
-      ;; PAYCHECK
+      ; PAYCHECK
       if msg-type = "paycheck" [
         let amount item 1 content
         set income amount
@@ -217,7 +217,7 @@ to reactive_households
         print (word "Tick " ticks ": Household " who " received paycheck " amount)
       ]
 
-      ;; PRODUCTIVITY WARNING
+      ; PRODUCTIVITY WARNING
       if msg-type = "productivity-warning" [
         set warning-count warning-count + 1
         set happiness happiness - random 11 ; varnad, mindre glad, randomizer för att sänka happiness samt öka productivity. Får in en threshold sen under o över den random.
@@ -235,7 +235,7 @@ to reactive_households
         print (word "Tick " ticks ": Household " who " acknowledged warning")
       ]
 
-      ;; FIRED
+      ; FIRED
       if msg-type = "fired" [
         set employer nobody
         set employed? false
@@ -299,7 +299,6 @@ to update-financial-state
     ]
   ]
 end
-
 
 
 ; uppdaterar productivity baserat på happiness och pengar-state
