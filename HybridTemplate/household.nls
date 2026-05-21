@@ -35,14 +35,15 @@ households-own [
   reservation-income
   warning-count
   happiness
+  
+  food-stock
+  food-price
+  supplies-stock
+  supplies-price
 ] 
 
 to setup-household ; det som händer när man trycker "setup" knappen i interfacet
   ; TEMPORÄRA TILLS INTEGRATIONEN
-  set food-price 5
-  set supplies-price 3
-  set tax-return-available false
-  set tax-return-amount 0
   set average-income 20 ; start värde för average inkomst
   
   create-households 10 [ ; skapar 10 hushåll
@@ -79,6 +80,12 @@ to setup-household ; det som händer när man trycker "setup" knappen i interfac
     
     set reservation-income 5
     set warning-count 0
+    
+    set food-stock 0
+    set food-price 0
+    set supplies-stock 0
+    set supplies-price 0
+    
     ; --- proaktiva initial värdena --- 
  
     set proState "Stable" ; startar i normal ekonomisk situation
@@ -100,12 +107,6 @@ to updateEnvironmentInfo_households
   let current-total food-price + supplies-price
   set price-trend current-total - prev-total-price
   set prev-total-price current-total
-  
-  ; FULL INTEGRATION: FIRM SÄTTER PRISER
-  update-prices
-  
-  ; FULL INTEGRATION GOVERNEMNT HANTERAR
-  update-tax-return
   
   ; uppdatera financial state
   update-financial-state
@@ -254,6 +255,15 @@ to reactive_households
 
         print (word "Tick " ticks ": Household " who " got fired")
       ]
+      
+      ;; REKLAMBLAD
+      if msg-type = "price-list" [
+        let firm-who item 1 content
+        set food-stock item 2 content
+        set food-price item 3 content
+        set supplies-stock item 4 content
+        set supplies-price item 5 content
+      ]
     ]
   ]
   
@@ -262,13 +272,6 @@ to reactive_households
     set unemployed-time unemployed-time + 1
   ] [
     set unemployed-time 0
-  ]
-  
-  if unemployed-time >= 30 [
-    let msg create-message "inform"
-    set msg add-content (list "longterm-unemployed" who) msg
-    set msg add-receiver [who] of one-of governments msg
-    send msg
   ]
   
   ; LÄGG TILL SATISFACTION REPORT NÅGONSTANS HÄR
@@ -285,20 +288,6 @@ to reactive_households
 
 end
 ; --- ENVIRONMENT FUNKTIONER--- 
-
-to update-prices ; uppdaterar "Store" så att priserna varierar random
-  set food-price (average-income * 0.25) + random 5 ; random 0-4, varierar priset (mat)
-  set supplies-price (average-income * 0.25) + random 5 ; random 0-4, varierar priset (essentials)
-end
-
-to update-tax-return ; returnen för tax varje år
-  ifelse (ticks > 0 and ticks mod 365 = 0) [
-    set tax-return-available true ; finns en tax return
-    set tax-return-amount 10 + random 20 ; random, TEMPORÄR INNAN INTEGRATION
-  ] [
-    set tax-return-available false ; ingen tax return
-  ]
-end
 
 to update-financial-state
   ifelse wealth > 50 [
@@ -347,7 +336,7 @@ end
 ; --- REACTIVE FUNKTIONER ---
 to receive-money [amount] ; sätt in pengar på kontot
   set wealth wealth + amount
-  set happiness happiness + 10 ; får pengar, glädje ökar
+  set happiness happiness + ((amount / income) * 10) ; får pengar, glädje ökar
 end
 
 to budget-household ; budgetterar pengarna för hushållet

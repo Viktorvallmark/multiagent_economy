@@ -227,22 +227,6 @@ end ; - to go part
         <update>plot count households with [proState = "Stocking-up"]</update>
       </pen>
     </plot>
-    <plot x="12" autoPlotX="true" yMax="10.0" autoPlotY="true" y="502" xMin="0.0" height="219" legend="false" xMax="10.0" yMin="0.0" width="311" display="Household Financial States">
-      <setup></setup>
-      <update></update>
-      <pen interval="1.0" mode="0" display="Har Pengar" color="-15040220" legend="true">
-        <setup></setup>
-        <update>plot count households with [financial-state = "har-pengar"]</update>
-      </pen>
-      <pen interval="1.0" mode="0" display="Har Lite Pengar" color="-4079321" legend="true">
-        <setup></setup>
-        <update>plot count households with [financial-state = "har-lite-pengar"]</update>
-      </pen>
-      <pen interval="1.0" mode="0" display="Har Inga Pengar" color="-3844592" legend="true">
-        <setup></setup>
-        <update>plot count households with [financial-state = "har-inga-pengar"]</update>
-      </pen>
-    </plot>
     <plot x="328" autoPlotX="true" yMax="10.0" autoPlotY="true" y="502" xMin="0.0" height="220" legend="false" xMax="10.0" yMin="0.0" width="314" display="Average Household Wealth">
       <setup></setup>
       <update></update>
@@ -252,7 +236,6 @@ end ; - to go part
       </pen>
     </plot>
     <monitor x="9" precision="17" y="134" height="100" fontSize="20" width="632" display="Gov Budget">[gov-budget] of one-of governments</monitor>
-    <button x="449" y="14" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="67" display="setup">setup</button>
     <plot x="10" autoPlotX="true" yMax="10.0" autoPlotY="true" y="240" xMin="0.0" height="219" legend="false" xMax="10.0" yMin="0.0" width="311" display="Government Budget">
       <setup></setup>
       <update></update>
@@ -271,6 +254,35 @@ end ; - to go part
         <update>plot [spending] of one-of governments</update>
       </pen>
     </plot>
+    <plot x="12" autoPlotX="true" yMax="10.0" autoPlotY="true" y="502" xMin="0.0" height="219" legend="false" xMax="10.0" yMin="0.0" width="311" display="Household Financial States">
+      <setup></setup>
+      <update></update>
+      <pen interval="1.0" mode="0" display="Har Pengar" color="-15040220" legend="true">
+        <setup></setup>
+        <update>plot count households with [financial-state = "har-pengar"]</update>
+      </pen>
+      <pen interval="1.0" mode="0" display="Har Lite Pengar" color="-4079321" legend="true">
+        <setup></setup>
+        <update>plot count households with [financial-state = "har-lite-pengar"]</update>
+      </pen>
+      <pen interval="1.0" mode="0" display="Har Inga Pengar" color="-3844592" legend="true">
+        <setup></setup>
+        <update>plot count households with [financial-state = "har-inga-pengar"]</update>
+      </pen>
+    </plot>
+    <plot x="14" autoPlotX="true" yMax="10.0" autoPlotY="true" y="959" xMin="0.0" height="219" legend="false" xMax="10.0" yMin="0.0" width="311" display="Household Employment Rate">
+      <setup></setup>
+      <update></update>
+      <pen interval="1.0" mode="0" display="Unemployed" color="-612749" legend="true">
+        <setup></setup>
+        <update>plot count households with [employed? = false]</update>
+      </pen>
+      <pen interval="1.0" mode="0" display="Employed" color="-8330359" legend="true">
+        <setup></setup>
+        <update>plot count households with [employed? = true]</update>
+      </pen>
+    </plot>
+    <button x="449" y="14" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="67" display="setup">setup</button>
   </widgets>
   <info>## WHAT IS IT?
 
