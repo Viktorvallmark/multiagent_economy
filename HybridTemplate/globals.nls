@@ -13,6 +13,11 @@ globals [
   
   ; ------------- Variables
   
+  ; Observer variables
+  economic-crisis       ; Shit hits the fan variable
+  unemployment-list   ; List of unemployed households
+  profitable-firms-list ; List of profitable firms
+  unprofitable-firms-list ; List of unprofitable firms
   
   ; Government Variables
   tax-rate-firms       ; Firm variabel för att hämta dess tax-rate
@@ -32,6 +37,7 @@ globals [
   tax-return-available
   tax-return-amount
   average-income
+  
   
   
   

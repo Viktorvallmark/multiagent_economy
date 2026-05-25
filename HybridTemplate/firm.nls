@@ -37,7 +37,7 @@ firms-own [
   supplies-stock
   production-stock
   food-price
-supplies-price
+  supplies-price
   store-revenue
   pre-tax-income
   received-tax-rate

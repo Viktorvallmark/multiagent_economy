@@ -7,6 +7,7 @@
 ; - 2.kör proactive del (pass 1 uppåt)
 ; - 3.kör reactive del (pass 2 neråt)
 
+; Just nu - income från firm, skickar till government får tillbaks lön efter tax. ANNARS en satt tax rate sen få tillbaks om du betalat för lite eller om du behöver betala in?
 
 ; INTE LAGT TILL SÅ ATT STORE ÄR FIRM EGENTLIGEN
 ;*********************************************************************************************************************************************************
@@ -25,20 +26,26 @@ households-own [
   prev-total-price ; förra tickens totala pris på food + supplies
   price-trend ; positiv --> priserna går upp, negativ <-- priser går ner
   
+  ; --- variabler från firm integration ---
+  productivity
+  employer     ;antingen employer eller employed? inte båda (said får bestämma det)
+  employed?
+  offered-income ; lönen som erbjuds i job offer
+  reservation-income
+  warning-count
+  happiness
 ] 
 
 to setup-household ; det som händer när man trycker "setup" knappen i interfacet
   ; TEMPORÄRA TILLS INTEGRATIONEN
   set food-price 5
-
   set supplies-price 3
   set tax-return-available false
   set tax-return-amount 0
   set average-income 20 ; start värde för average inkomst
- 
   
   create-households 10 [ ; skapar 10 hushåll
-    ; --- reaktiva initial värdena ---
+    ; --- reaktiva startvärden ---
     set incoming-queue []
     set wealth 50 + random 50 ; random startpengar för variation
     set income 0 ; lön
@@ -46,19 +53,45 @@ to setup-household ; det som händer när man trycker "setup" knappen i interfac
     set financial-state "har-pengar" ; FSM startar i "har-pengar" läget
     set spending-limit 999 ; inte lagt någon budget gräns
     
+
+    ; --- firm startvärden ---
+    set employer nobody
+    set employed? false
+    set offered-income 0
+    set income 0
+    set productivity 2 + random 4
+    set happiness 50
+    set reservation-income (productivity * 2) ; "ta jobbet gränsen" på lön baseras på hur "duktig" household är 
+    set warning-count 0
+    
+    ; --- proaktiva startvärden --- 
+
+    set employer nobody
+    set employed? false
+
+    set income 0
+    set income 100
+
+    set productivity 2 + random 4
+    set happiness 50
+    
+    set reservation-income 5
+    set warning-count 0
     ; --- proaktiva initial värdena --- 
+ 
     set proState "Stable" ; startar i normal ekonomisk situation
     set pension-goal average-income * 30 * 6 ;???????????????????
     set prev-total-price food-price + supplies-price ; start totalpris
     set price-trend 0 ; startar inte med någon trend i pris
     
-    ; --- Interface grejer ---
+    ; --- Interface inställningar ---
     set shape "person" ; person symbol på kartan
     set color green ; grön = har pengar
-    set size 8 ; storlek på personen
+    set size 2 ; storlek på personen
     setxy random-xcor random-ycor ; random spawn på personen
   ]
 end
+
 ; PASS 1 UPPÅT--- Observera världen o uppdatera variabler
 to updateEnvironmentInfo_households
   ; räknar ut pristrend
@@ -72,14 +105,11 @@ to updateEnvironmentInfo_households
   ; FULL INTEGRATION GOVERNEMNT HANTERAR
   update-tax-return
   
-  ; FULL INTEGRATION FIRM BESTÄMMER LÖN, lön var 30e tick
-    if (ticks > 0 and ticks mod 30 = 0) [
-    set income 20 + random 10 ; random lön (FIRM BESTÄMEMR DETTA EGENTLIGEN)
-    set wealth wealth + income ; lägger till nuvarande pengar på lönen som kom
-  ]
- 
   ; uppdatera financial state
   update-financial-state
+  
+  ; uppdatera produktivitet
+  update-productivity
 end
 
 ; --- Bestämma strategi, FSM 3 states, proState som reactive använder sen ---
@@ -124,34 +154,127 @@ to proactive_households
   ]
 end
 
-; PASS 2 NERÅT --- wannabe subsumption? ---
+; PASS 2 NERÅT
 to reactive_households
-  ; Lager 1 - Läs igenom alla meddelanden som kan ha skickats till hushållet
-  while [not empty? incoming-queue] [ ; Loopa igenom alla meddelanden. Finns det inga kommer den inte köras alls
-    let msg get-message ; Skaffa meddelandet
-    let performative get-performative msg ; Skaffa vad för typ av meddelande det är
-    let content get-content msg ; Skaffa innehållet
-    
+
+  ;; Lager 1 - Läs igenom alla meddelanden
+  while [not empty? incoming-queue] [
+
+    let msg get-message
+    let performative get-performative msg
+    let content get-content msg
+    let msg-type item 0 content
+
+    ;; ---------------- PROPOSE MESSAGES ----------------
     if performative = "propose" [
-      let msg-type item 0 content ; Få fram vad för typ av propose meddelande det är
+
+      ;; TAX REBATE
       if msg-type = "tax-rebate" [
-        let amount item 1 content ; Få fram mängden tax-rebate
-        retrieve-tax amount ; Kör funktionen för att lägga in det på kontot
+        let amount item 1 content
+        receive-money amount
+      ]
+
+      ;; JOB OFFER
+      if msg-type = "job-offer" [
+
+        set offered-income item 1 content
+        let hiring-firm item 2 content
+
+        if not employed? and offered-income >= reservation-income [
+
+          set employer hiring-firm
+          set employed? true
+          set income offered-income
+          set color green
+
+          ;; send acceptance back to firm
+          let reply create-message "accept-proposal"
+          set reply add-content (list "job-accepted" who) reply
+          set reply add-receiver [who] of hiring-firm reply
+          send reply
+          
+          
+          ; LÄGG TILL OFFER BACK FÖR BARGAINING OM IF INTE UPPFYLLS
+
+          print (word "Tick " ticks ": Household " who " accepted job offer")
+        ]
+      ]
+    ]
+  
+    ;; ---------------- INFORM MESSAGES ----------------
+    if performative = "inform" [
+
+      ;; PAYCHECK
+      if msg-type = "paycheck" [
+        let amount item 1 content
+        set income amount
+        receive-money amount
+
+        print (word "Tick " ticks ": Household " who " received paycheck " amount)
+      ]
+
+
+      ; PRODUCTIVITY WARNING
+      if msg-type = "productivity-warning" [
+        set warning-count warning-count + 1
+        
+        set happiness happiness - 10 ; varnad, mindre glad
+      ;; PRODUCTIVITY WARNING
+      if msg-type = "productivity-warning" [
+        set warning-count warning-count + 1
+
+        let reply create-message "inform"
+        set reply add-content (list "warning-acknowledged" who) reply
+        set reply add-receiver [who] of employer reply
+        send reply
+
+        print (word "Tick " ticks ": Household " who " acknowledged warning")
+      ]
+
+
+      ; FIRED
+
+      ;; FIRED
+
+      if msg-type = "fired" [
+        set employer nobody
+        set employed? false
+        set income 0
+        set color gray
+        set warning-count 0
+
+        
+        set happiness happiness - 25 ; blir sparkad, minskar glädjen
+
+        print (word "Tick " ticks ": Household " who " got fired")
+      ]
+      
+      ; ta emot social aid (government skickar inform)
+      if msg-type = "social-aid" [
+        let amount item 1 content ; kolla hur myck pengar
+        
+        receive-money amount
+        print (word "Tick " ticks ": Household " who " tog emot " amount " kr i bidrag. ")
+
+
+        print (word "Tick " ticks ": Household " who " got fired")
+
       ]
     ]
   ]
+  ]
 
-  ; Lager 2 — sätt budget utifrån financial-state
+  ;; Lager 2 — sätt budget utifrån financial-state
   budget-household
   if spending-limit <= 0 [ stop ]
 
-  ; Lager 3 — handla (påverkas av proState)
+  ;; Lager 3 — handla
   limit-purchases
 
-  ; Lager 4 (lägst prio) — pensionssparande (påverkas av proState)
+  ;; Lager 4 — pensionssparande
   save-pension
-end
 
+end
 ; --- ENVIRONMENT FUNKTIONER--- 
 
 to update-prices ; uppdaterar "Store" så att priserna varierar random
@@ -172,22 +295,49 @@ to update-financial-state
   ifelse wealth > 50 [
     set financial-state "har-pengar"
     set color green ; grön = bra pengarsituation
+    set happiness happiness + 0.1 ; ökar happiness om "har-pengar"
   ] [
     ifelse wealth > 0 [
       set financial-state "har-lite-pengar"
       set color yellow ; gul = tight pengarsituation
+      ; happiness stannar samma i denna state
     ] [
       set financial-state "har-inga-pengar"
       set wealth 0 ; så en household inte kan få minus pengar (kanske vill ha minus om man implementerar lån?)
       set color red ; röd = inga pengar
+      set happiness happiness - 0.5 ; minskar happiness om "har-inga-pengar"
     ]
   ]
 end
 
 
+; uppdaterar productivity baserat på happiness och pengar-state
+to update-productivity
+  if happiness > 70 [
+    set productivity productivity + 0.1
+  ]
+  if happiness < 30 [
+    set productivity productivity - 0.1
+  ]
+  
+  if financial-state = "har-pengar" [
+    set productivity productivity - 0.1
+  ]
+  if financial-state = "har-inga-pengar" [
+    set productivity productivity + 0.2
+  ]
+  
+  ; spärrar så det funkar med hårdkodade värden for now
+  if productivity > 5 [set productivity 5]
+  if productivity < 1 [set productivity 1]
+  if happiness > 100 [set happiness 100]
+  if happiness < 0 [set happiness 0]
+end
+
 ; --- REACTIVE FUNKTIONER ---
-to retrieve-tax [amount] ; sätt in skatteåterbäringen på kontot
+to receive-money [amount] ; sätt in pengar på kontot
   set wealth wealth + amount
+  set happiness happiness + 10 ; får pengar, glädje ökar
 end
 
 to budget-household ; budgetterar pengarna för hushållet
@@ -199,6 +349,14 @@ to budget-household ; budgetterar pengarna för hushållet
   ]
   if financial-state = "har-inga-pengar" [
     set spending-limit 0 ; inga pengar, inget o budgettera med
+    
+    let msg create-message "request"
+    set msg add-content (list "need-aid" who) msg
+    
+    if any? governments [
+      set msg add-receiver [who]of one-of governments msg
+      send msg
+    ]
   ]
 end
 
@@ -213,20 +371,22 @@ to limit-purchases
     set spending-limit food-price
   ]
   
-  ; if "Stable" gör inget
-  
   let total-cost food-price + supplies-price ; kostnad för handlingen
 
-   ifelse total-cost > spending-limit [ ; inte råd med bara
-      if food-price <= spending-limit [ ; finns det pengar för mat
-      set wealth wealth - food-price ; köp bara mat, viktigast
+  ifelse total-cost > spending-limit [ ; inte råd med båda
+    ifelse food-price <= spending-limit [ ; finns pengar till mat
+      set wealth wealth - food-price 
+      set happiness happiness - 1 ; mindre glad pga. köp bara mat
+    ] [
+      ; Inga pengar för ens mat, köp inget
+      set happiness happiness - 5 ; köpte inget, inte glad
     ]
-      ; inget här, om inga pengar för ens mat, köp inget
   ] [
-    set wealth wealth - total-cost ; råd med båda, köp allt då
+    ; råd med båda
+    set wealth wealth - total-cost ; köp allt
+    set happiness happiness + 1 ; köper båda, blir gladare
   ]
 end
-
 
 to save-pension ; pensionssparande
   if financial-state != "har-pengar" [stop] ; pensionssparar bara om man har pengar till det
@@ -243,5 +403,3 @@ to save-pension ; pensionssparande
     set pension-savings pension-savings + pension-contribution ; lägger till sparandet i nuvarande pensionssparande
   ]
 end
-
-
