@@ -171,7 +171,6 @@ to updateEnvironmentInfo_households
         set employer nobody
         set employed? false
         set income 0
-        set color gray
         set warning-count 0
         
         set happiness happiness - 25 ; blir sparkad, minskar glädjen
@@ -390,7 +389,6 @@ to evaluate-messages-proactively
       set employer pending-offering-firm
       set employed? true
       set income pending-offer-income
-      set color green
       set pension-goal income * 30
       
       let reply create-message "accept-proposal"
