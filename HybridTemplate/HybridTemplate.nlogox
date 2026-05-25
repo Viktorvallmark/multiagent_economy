@@ -83,10 +83,13 @@ to setup
   set tax-rate-firms 0.2
   set tax-rate-households 0.2
   set unemployment-list []
+  set profitable-firms-list []
+  set unprofitable-firms-list []
   
   ; simplicity variables
   set month 30
   set year 365
+
   ; setup of the environment (see file "environment.nls"):
   setup-environment ;
   
@@ -122,9 +125,9 @@ to go
   ;------- Time updates
   tick ;- update time
        ;timeWrapAround; skips the night from 23:00 to 6:00 ;; Osäker om vi behåller
-       ;------ Update of Global Variables
-  
-  ;check-economic-conditions
+  ;------ Update of Global Variables
+  update-unemployment-list
+  check-economic-conditions
   
   ;---- Agents ----------------------------------------------------
   ;
@@ -161,8 +164,10 @@ to go
   ; define these functions in the file observer.nls and run them here
   ; simpler observer functions can be directly added in the interface as monitors
   
-  ;removeHouses ; remove houses that are empty
-  update-unemployment-list
+  
+  
+  
+  
   
   
   ;***************************end observer functions ****************************************
