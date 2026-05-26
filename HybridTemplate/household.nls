@@ -53,6 +53,9 @@ households-own [
   pending-warning?
   pending-warning-threshold
   
+  rejected-counter-offer?
+  amount-rejections
+  
 ] 
 
 to setup-household ; det som händer när man trycker "setup" knappen i interfacet
@@ -94,6 +97,9 @@ to setup-household ; det som händer när man trycker "setup" knappen i interfac
     set prev-total-price food-price + supplies-price ; start totalpris
     set price-trend 0 ; startar inte med någon trend i pris
     
+    set rejected-counter-offer? false
+    set amount-rejections 0
+    
     ; --- Interface inställningar ---
     set shape "person" ; person symbol på kartan
     set color green ; grön = har pengar
@@ -130,7 +136,6 @@ to updateEnvironmentInfo_households
         set pending-offering-firm item 2 content
         print (word "Tick " ticks ": Household " who " accepterade jobb offret")
         
-        ; offer för bargaining? ska det vara här? -10% av goverment aid?
       ]
       
       ; GOVERNMENT AID
@@ -206,6 +211,17 @@ to updateEnvironmentInfo_households
         let firm-who item 1 content
         set should-purchase? true
         ; set happiness happiness - 3
+      ]
+      
+      if msg-type = "inform" and msg-type = "counter-rejected" [
+        set rejected-counter-offer? true 
+        set pending-job-offer? false
+        set pending-offer-income 0
+        set pending-offering-firm nobody
+        set happiness happiness - 5
+        set amount-rejections amount-rejections + 1
+        
+        print (word "Tick " ticks ": Household " who " got rejected counter-offer")
       ]
     ]
   ]
@@ -418,7 +434,7 @@ end
 
 to evaluate-messages-proactively
   if pending-job-offer? [
-    if not employed? and pending-offer-income >= reservation-income [
+    ifelse not employed? and pending-offer-income >= reservation-income [
       set employer pending-offering-firm
       set employed? true
       set income pending-offer-income
@@ -429,11 +445,21 @@ to evaluate-messages-proactively
       set reply add-receiver [who] of pending-offering-firm reply
       send reply
       
+      set pending-job-offer? false
+      set pending-offer-income 0
+      set pending-offering-firm nobody
+      set amount-rejections 0
+      
+      
       print (word "Tick " ticks ": Household " who " proactively evaluated and accepted job offer")
+    ] [ 
+      let counter-income reservation-income + (productivity * 3)
+      
+      let reply create-message "propose" 
+      set reply add-content (list "counter-job-offer" who counter-income) reply
+      set reply add-receiver [who] of pending-offering-firm reply
+      send reply
     ]
-    set pending-job-offer? false
-    set pending-offer-income 0
-    set pending-offering-firm nobody
   ]
   
   if pending-warning? [
