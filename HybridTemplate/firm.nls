@@ -311,7 +311,7 @@ to reactive-firm
       set store-revenue store-revenue + money-sent
 
     let reply create-message "inform"
-    set reply add-content (list "order-approved" food-wanted supplies-wanted money-sent) reply
+    set reply add-content (list "order-approved" self food-wanted supplies-wanted money-sent) reply
     set reply add-receiver buyer-id reply
     send reply
 
@@ -329,7 +329,7 @@ to reactive-firm
 if food-stock < food-wanted or supplies-stock < supplies-wanted [
 
   let reply create-message "inform"
-  set reply add-content (list "order-denied") reply
+  set reply add-content (list "order-denied" self) reply
   set reply add-receiver buyer-id reply
   send reply
 
@@ -368,30 +368,30 @@ create-store-products
 
   
 
-      let expansion-amount item 1 content
+;      let expansion-amount item 1 content
 
-      ifelse expansion-amount >= 5 [
+ ;     ifelse expansion-amount >= 5 [
 
-        set max-capacity max-capacity + expansion-amount
-        set max-household-workers max-household-workers + 5
-        set max-machines max-machines + 5
+ ;       set max-capacity max-capacity + expansion-amount
+  ;      set max-household-workers max-household-workers + 5
+ ;       set max-machines max-machines + 5
 
-        let reply create-message "accept-proposal"
-        set reply add-content (list "expansion-accepted" expansion-amount) reply
-        set reply add-receiver [who] of one-of governments reply
-        send reply
+  ;      let reply create-message "accept-proposal"
+  ;      set reply add-content (list "expansion-accepted" expansion-amount) reply
+  ;      set reply add-receiver [who] of one-of governments reply
+  ;      send reply
 
-        print (word "Firm accepted partial expansion: " expansion-amount)
+   ;     print (word "Firm accepted partial expansion: " expansion-amount)
 
-      ] [
+  ;    ] [
 
-        let reply create-message "propose"
-        set reply add-content (list "counter-expansion-request" who 10) reply
-        set reply add-receiver [who] of one-of governments reply
-        send reply
+  ;      let reply create-message "propose"
+  ;      set reply add-content (list "counter-expansion-request" who 10) reply
+  ;      set reply add-receiver [who] of one-of governments reply
+  ;      send reply
 
-        print "Firm counter-offered expansion request: 10"
-      ]
+  ;      print "Firm counter-offered expansion request: 10"
+  ;    ]
     
     
     ;; if expansion approved
