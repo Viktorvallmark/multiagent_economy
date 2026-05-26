@@ -4062,3 +4062,23 @@ Current gov-budget: 189.76000000000002
 Test 1 PASS - Government budget decreased after redistribution
 Current gov-budget: 193.76000000000002
 Test 1 PASS - Government budget decreased after redistribution
+=== TEST STARTED ===
+Initial gov-budget: 250
+Current gov-budget: 203.20000000000002
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 165.76000000000002
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 169.76000000000002
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 173.76000000000002
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 177.76000000000002
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 181.76000000000002
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 185.76000000000002
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 189.76000000000002
+Test 1 PASS - Government budget decreased after redistribution
+Current gov-budget: 193.76000000000002
+Test 1 PASS - Government budget decreased after redistribution
