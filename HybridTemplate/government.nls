@@ -7,6 +7,7 @@
 ; ; 20260515    Adding message handling for social interactions                                                  Mimoza
 ; ; 20260521    Changing message handling for social interactions                                                Mimoza
 ; ; 20260521    Changing calculation of tax rebate                                                               Nicolas
+; ; 20260526    Changing structure and calculation of income tax                                                 Mimoza
 ; ; 
 ; ;
 ; ;********************end logbook ************************************************************************************************************************
@@ -40,15 +41,16 @@ governments-own [
   household-satisfaction
   household-incomes
   household-tax-decisions
+  firm-profits
   firm-tax-decisions
 ]
 
 
 to setup-government
-  
   create-governments 1 [
     set household-incomes []
     set household-tax-decisions []
+    set firm-profits []
     set firm-tax-decisions []
     set household-satisfaction []
     ;set longterm-unemployed-households []
@@ -75,7 +77,6 @@ end
 ; READ ENVIRONMENT
 ; ============================================================
 to updateEnvironmentInfo_government
-  
   ; --- Hämta meddelanden ---
   while [not empty? incoming-queue] [
     let msg get-message
@@ -117,6 +118,11 @@ to updateEnvironmentInfo_government
         let requested-firm-money item 2 content
         set firms-needing-aid lput (list firm-who requested-firm-money) firms-needing-aid
       ]
+      if msg-type = "request-tax-rate" [
+        let firm-who item 1 content 
+        let firm-profit item 2 content
+        set firm-profits lput (list firm-who firm-profit) firm-profits
+      ]
     ]
   ]
   
@@ -129,7 +135,6 @@ to updateEnvironmentInfo_government
   set observed-household-tax observed-household-wage  * tax-rate-households
   
   set gov-budget gov-budget + observed-firm-tax + observed-household-tax
-  
 end
 
 
@@ -138,6 +143,21 @@ end
 ; PROACTIVE LAYER
 ; ============================================================
 to proactive_government                                                   ; GLÖM INTE: KOLLA SATSERNAS PRIORITET OCH PLACERING
+  if not empty? firm-profits [
+    foreach firm-profits [
+      current-firm ->
+      let firm-who item 0 firm-profits
+      let profit item 1 firm-profits
+      let new-firm-tax-rate 0
+      if profit >= 1000 [
+        set new-firm-tax-rate 0.30                                        ;ÄNDRA TRÖSKELVÄRDEN OCH RATE-VÄRDEN
+        set firm-tax-decisions lput (list firm-who new-firm-tax-rate) firm-tax-decisions 
+      ]
+    ]
+    set chosen-action "process-firm-tax"
+    stop
+  ]
+  
   ; --- Beräkna skattesats ---
   if not empty? household-incomes [
     foreach incoming-household-incomes [
@@ -288,17 +308,26 @@ to reactive_government                                                    ; GLÖ
   ; --- Satisfaction report---
   ; SKRIV KOD HÄR
   
+  ; --- Meddela taxan för firm ---
+  if chosen-action = "process-firm-tax" [
+    foreach firm-tax-decisions [
+      decision ->
+      let firm-who item 0 decision
+      let tax-rate item 1 decision
+      let msg create-message "inform"
+      set msg add-content (list "tax-rate" tax-rate) msg
+    ]
+    stop
+  ]
+  
   ; --- Meddela taxan för household ---
   if chosen-action = "process-household-tax" [
     foreach household-tax-decisions [
       decision ->
       let household-who item 0 decision
-      let household-income item 1 decision
-      let tax-rate item 2 decision
-      let household-tax item 3 decision
-      let net-income item 4 decision
+      let net-income item 1 decisions
       let msg create-message "inform"
-      set msg add-content (list "household-tax-result" household-income tax-rate household-tax net-income) msg
+      set msg add-content (list "household-tax-result" net-income) msg
       set msg add-receiver household-who msg
       send msg
     ]
