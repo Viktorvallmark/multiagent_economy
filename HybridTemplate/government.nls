@@ -99,6 +99,7 @@ to updateEnvironmentInfo_government
         let income item 2 content
         set household-incomes lput (list household-who household-income) household-incomes
       ]
+      
     ]
     
     if performative = "request" [
@@ -126,15 +127,17 @@ to updateEnvironmentInfo_government
     ]
   ]
   
-  ; --- Hämta info från firm och household ---
-  set observed-firm-profit     [profit] of one-of firms
-  set observed-household-wage  [income]   of one-of households ; 1 hushåll eller flera?
   
-  ; --- Observera skattepengar från firm och household ---
-  set observed-firm-tax      observed-firm-profit     * tax-rate-firms
-  set observed-household-tax observed-household-wage  * tax-rate-households
   
-  set gov-budget gov-budget + observed-firm-tax + observed-household-tax
+;   ; --- Hämta info från firm och household ---
+;   set observed-firm-profit     [profit] of one-of firms
+;   set observed-household-wage  [income]   of one-of households ; 1 hushåll eller flera?
+  
+;   ; --- Observera skattepengar från firm och household ---
+;   set observed-firm-tax      observed-firm-profit     * tax-rate-firms
+;   set observed-household-tax observed-household-wage  * tax-rate-households
+  
+;   set gov-budget gov-budget + observed-firm-tax + observed-household-tax
 end
 
 
@@ -143,46 +146,106 @@ end
 ; PROACTIVE LAYER
 ; ============================================================
 to proactive_government                                                   ; GLÖM INTE: KOLLA SATSERNAS PRIORITET OCH PLACERING
-  if not empty? firm-profits [
-    foreach firm-profits [
-      current-firm ->
-      let firm-who item 0 firm-profits
-      let profit item 1 firm-profits
-      let new-firm-tax-rate 0
-      if profit >= 1000 [
-        set new-firm-tax-rate 0.30                                        ;ÄNDRA TRÖSKELVÄRDEN OCH RATE-VÄRDEN
-        set firm-tax-decisions lput (list firm-who new-firm-tax-rate) firm-tax-decisions 
+  if ticks mod 30 = 0 [
+    
+    if not empty? firm-profits and not empty? household-incomes [
+      foreach firm-profits [
+        current-firm ->
+        let firm-who item 0 firm-profits
+        let profit item 1 firm-profits
+        let new-firm-tax-rate 0
+        if profit >= 1000 [
+          set new-firm-tax-rate 0.30                                        ;ÄNDRA TRÖSKELVÄRDEN OCH RATE-VÄRDEN
+          set firm-tax-decisions lput (list firm-who new-firm-tax-rate) firm-tax-decisions 
+        ]
+      ]      
+       foreach incoming-household-incomes [
+        current-household-income ->
+        let household-who item 0 current-household-income
+        let household-income item 1 current-household-income
+        let new-household-tax-rate 0
+        ifelse household-income > 20 [                                       ; ÄNDRA TRÖSKELVÄRDEN OCH RATE-VÄRDEN
+          set new-household-tax-rate 0.30
+        ] [
+          ifelse household-income > 10 [
+            set new-household-tax-rate 0.20
+          ] [
+            set new-household-tax-rate 0.10
+          ]
+        ]
+        let household-tax household-income * new-household-tax-rate
+        let net-income household-income - household-tax
+        set household-tax-decisions lput (list household-who new-household-tax-rate household-tax net-income) household-tax-decisions   ; SKA DE BARA FÅ LÖNEN ELLER MER INFO?
+        set gov-budget gov-budget + household-tax
       ]
+      set chosen-action "process-tax"
+      stop
     ]
-    set chosen-action "process-firm-tax"
-    stop
   ]
   
-  ; --- Beräkna skattesats ---
-  if not empty? household-incomes [
-    foreach incoming-household-incomes [
-      current-household-income ->
-      let household-who item 0 current-household-income
-      let household-income item 1 current-household-income
-      let new-household-tax-rate 0
-      ifelse household-income > 20 [                                       ; ÄNDRA TRÖSKELVÄRDEN OCH RATE-VÄRDEN
-        set new-household-tax-rate 0.30
-      ] [
-        ifelse household-income > 10 [
-          set new-household-tax-rate 0.20
+  if gov-budget > 1000 [
+    if ticks mod 365 = 0 [                                                            ;KOLLA TRÖSKELVÄRDE
+      let rebate gov-budget * redistribution-rate                          ; KOLLA ÖVER DISTRIBUTION
+      let per-household rebate / count households
+      foreach [who] of households [
+        household-who ->
+        set redistribution-decisions
+        lput (list household-who per-household)
+        redistribution-decisions
+      ]
+      set chosen-action "redistribute"
+      stop
+    ]
+    if not empty? households-needing-aid [
+      let aid-amount 20                                                                 ;KOLLA AMOUNT
+      foreach households-needing-aid [
+        current-household ->
+        let current-household-who item 0 current-household
+        set household-aid-decisions
+        lput (list current-household-who aid-amount)
+        household-aid-decisions
+      ]
+      set chosen-action "give-household-aid"
+      stop
+    ]
+    
+    if not empty? firms-needing-aid [
+      foreach firms-needing-aid [
+        current-firm ->
+        let current-firm-who item 0 current-firm
+        let current-firm-money item 1 current-firm
+        ifelse current-firm-money < 500 [
+          set firm-aid-decisions
+          lput (list current-firm-who 100 "approved")                               ;KOLLA AMOUNT
+          firm-aid-decisions
         ] [
-          set new-household-tax-rate 0.10
+          set firm-aid-decisions
+          lput (list current-firm-who 0 "denied")
+          firm-aid-decisions
         ]
       ]
-      let household-tax household-income * new-household-tax-rate
-      let net-income household-income - household-tax
-      set household-tax-decisions lput (list household-who new-household-tax-rate household-tax net-income) household-tax-decisions   ; SKA DE BARA FÅ LÖNEN ELLER MER INFO?
-      set gov-budget gov-budget + household-tax
+      set chosen-action "give-firm-aid"
+      stop
     ]
-    set chosen-action "process-household-tax"
+    
+  ]
+  ; --- Sätt flagga om det finns företag i behov av utökning ---
+  if not empty? firms-wanting-expansion [
+    ;set expansion-decisions []
+    foreach firms-wanting-expansion [
+      current-firm ->
+      let current-firm-who item 0 current-firm
+      let current-expansion-budget item 1 current-firm
+      let current-expected-production item 2 current-firm
+      ifelse current-expansion-budget >= 10000 and current-expected-production >= 100 [             ;KOLLA TRÖSKELVÄRDEN OCH KOLLA ÖVER CONDITIONS (HOUSEHOLD SATISFACTION REPORT NEGATIV = LÅGKONJUKTUR?)
+        set expansion-decisions lput (list current-firm-who "approved") expansion-decisions
+      ] [
+        set expansion-decisions lput (list current-firm-who "denied") expansion-decisions
+      ]
+    ]
+    set chosen-action "evaluate-expansion"
     stop
   ]
-  
   ; --- Kolla invånarnas tillfredsställelse ---
   if not empty? household-satisfaction [
     foreach hosuehold-satisfaction [
@@ -197,23 +260,7 @@ to proactive_government                                                   ; GLÖ
     ]
   ]
   
-  ; --- Sätt flagga om det finns företag i behov av utökning ---
-  if not empty? firms-wanting-expansion [
-    ;set expansion-decisions []
-    foreach firms-wanting-expansion [
-      current-firm ->
-      let current-firm-who item 0 current-firm
-      let current-expansion-budget item 1 current-firm
-      let current-expected-production item 2 current-firm
-      ifelse current-expansion-budget >= 10000 and current-expected-production >= 100 [             ;KOLLA TRÖSKELVÄRDEN
-        set expansion-decisions lput (list current-firm-who "approved") expansion-decisions
-      ] [
-        set expansion-decisions lput (list current-firm-who "denied") expansion-decisions
-      ]
-    ]
-    set chosen-action "evaluate-expansion"
-    stop
-  ]
+  
   
   ; --- Sätt flagga om det finns långtidsarbetslösa hushåll ---
   ;if not empty? longterm-unemployed-households [
@@ -222,81 +269,69 @@ to proactive_government                                                   ; GLÖ
   ;]
   
   ; --- Sätt flagga om det finns hushåll i behov av ekonomiskt bistånd ---
-  if not empty? households-needing-aid [
-    let aid-amount 20                                                                 ;KOLLA AMOUNT
-    foreach households-needing-aid [
-      current-household ->
-      let current-household-who item 0 current-household
-      set household-aid-decisions
-      lput (list current-household-who aid-amount)
-      household-aid-decisions
-    ]
-    set chosen-action "give-household-aid"
-    stop
-  ]
+;   if not empty? households-needing-aid [
+;     let aid-amount 20                                                                 ;KOLLA AMOUNT
+;     foreach households-needing-aid [
+;       current-household ->
+;       let current-household-who item 0 current-household
+;       set household-aid-decisions
+;       lput (list current-household-who aid-amount)
+;       household-aid-decisions
+;     ]
+;     set chosen-action "give-household-aid"
+;     stop
+;   ]
   
   ; --- Sätt flagga om det finns företag i behov av ekonomiskt bistånd ---
-  if not empty? firms-needing-aid [
-    foreach firms-needing-aid [
-      current-firm ->
-      let current-firm-who item 0 current-firm
-      let current-firm-money item 1 current-firm
-      ifelse current-firm-money < 500 [
-        set firm-aid-decisions
-        lput (list current-firm-who 100 "approved")                               ;KOLLA AMOUNT
-        firm-aid-decisions
-      ] [
-        set firm-aid-decisions
-        lput (list current-firm-who 0 "denied")
-        firm-aid-decisions
-      ]
-    ]
-    set chosen-action "give-firm-aid"
-    stop
-  ]
+;   if not empty? firms-needing-aid [
+;     foreach firms-needing-aid [
+;       current-firm ->
+;       let current-firm-who item 0 current-firm
+;       let current-firm-money item 1 current-firm
+;       ifelse current-firm-money < 500 [
+;         set firm-aid-decisions
+;         lput (list current-firm-who 100 "approved")                               ;KOLLA AMOUNT
+;         firm-aid-decisions
+;       ] [
+;         set firm-aid-decisions
+;         lput (list current-firm-who 0 "denied")
+;         firm-aid-decisions
+;       ]
+;     ]
+;     set chosen-action "give-firm-aid"
+;     stop
+;   ]
   
   ; --- Sätt flagga om budgeten överstiger tröskel för återbäring ---
-  if gov-budget > 200 [                                                            ;KOLLA TRÖSKELVÄRDE
-    let rebate gov-budget * redistribution-rate
-    let per-household rebate / count households
-    foreach [who] of households [
-      household-who ->
-      set redistribution-decisions
-      lput (list household-who per-household)
-      redistribution-decisions
-    ]
-    set chosen-action "redistribute"
-    stop
-  ]
   
-  ; --- Beräkna lämplig skattesats för firm ---
-  let new-firm-tax-rate 0
-  ifelse observed-firm-profit > 100 [                                           ;KOLLA TRÖSKELVÄRDE
-    set new-firm-tax-rate 0.30
-  ] [
-    ifelse observed-firm-profit > 50 [                                          ;KOLLA TRÖSKELVÄRDE
-      set new-firm-tax-rate 0.20
-    ] [
-      set new-firm-tax-rate 0.10
-    ]
-  ]
+;   ; --- Beräkna lämplig skattesats för firm ---
+;   let new-firm-tax-rate 0
+;   ifelse observed-firm-profit > 100 [                                           ;KOLLA TRÖSKELVÄRDE
+;     set new-firm-tax-rate 0.30
+;   ] [
+;     ifelse observed-firm-profit > 50 [                                          ;KOLLA TRÖSKELVÄRDE
+;       set new-firm-tax-rate 0.20
+;     ] [
+;       set new-firm-tax-rate 0.10
+;     ]
+;   ]
   
-  ; --- Beräkna lämplig skattesats för household ---
-  let new-household-tax-rate 0
-  ifelse observed-household-wage > 20 [                                         ;KOLLA TRÖSKELVÄRDE
-    set new-household-tax-rate 0.30
-  ] [
-    ifelse observed-household-wage > 10 [                                        ;KOLLA TRÖSKELVÄRDE
-      set new-household-tax-rate 0.20
-    ] [
-      set new-household-tax-rate 0.10
-    ]
-  ]
+;   ; --- Beräkna lämplig skattesats för household ---
+;   let new-household-tax-rate 0
+;   ifelse observed-household-wage > 20 [                                         ;KOLLA TRÖSKELVÄRDE
+;     set new-household-tax-rate 0.30
+;   ] [
+;     ifelse observed-household-wage > 10 [                                        ;KOLLA TRÖSKELVÄRDE
+;       set new-household-tax-rate 0.20
+;     ] [
+;       set new-household-tax-rate 0.10
+;     ]
+;   ]
   
-  ; --- Spara beräknade skattesatser ---
-  set planned-tax-rate-firms      new-firm-tax-rate
-  set planned-tax-rate-households new-household-tax-rate
-  set chosen-action "adjust-tax"
+;   ; --- Spara beräknade skattesatser ---
+;   set planned-tax-rate-firms      new-firm-tax-rate
+;   set planned-tax-rate-households new-household-tax-rate
+;   set chosen-action "adjust-tax"
   
 end
 
@@ -308,21 +343,16 @@ to reactive_government                                                    ; GLÖ
   ; --- Satisfaction report---
   ; SKRIV KOD HÄR
   
-  ; --- Meddela taxan för firm ---
-  if chosen-action = "process-firm-tax" [
-    foreach firm-tax-decisions [
+  if chosen-action = "process-tax" [
+   foreach firm-tax-decisions [
       decision ->
       let firm-who item 0 decision
       let tax-rate item 1 decision
       let msg create-message "inform"
       set msg add-content (list "tax-rate" tax-rate) msg
+      send msg
     ]
-    stop
-  ]
-  
-  ; --- Meddela taxan för household ---
-  if chosen-action = "process-household-tax" [
-    foreach household-tax-decisions [
+     foreach household-tax-decisions [
       decision ->
       let household-who item 0 decision
       let net-income item 1 decisions
@@ -333,8 +363,39 @@ to reactive_government                                                    ; GLÖ
     ]
     set incoming-household-incomes []
     set household-tax-decisions []
+    set firm-tax-decision []
+    set firm-profits []
+ 
     stop
+  
   ]
+  ; --- Meddela taxan för firm ---
+;   if chosen-action = "process-firm-tax" [
+;     foreach firm-tax-decisions [
+;       decision ->
+;       let firm-who item 0 decision
+;       let tax-rate item 1 decision
+;       let msg create-message "inform"
+;       set msg add-content (list "tax-rate" tax-rate) msg
+;     ]
+;     stop
+;   ]
+  
+;   ; --- Meddela taxan för household ---
+;   if chosen-action = "process-household-tax" [
+;     foreach household-tax-decisions [
+;       decision ->
+;       let household-who item 0 decision
+;       let net-income item 1 decisions
+;       let msg create-message "inform"
+;       set msg add-content (list "household-tax-result" net-income) msg
+;       set msg add-receiver household-who msg
+;       send msg
+;     ]
+;     set incoming-household-incomes []
+;     set household-tax-decisions []
+;     stop
+;   ]
   
   ; --- Evaluera utökande av företag ---
   if chosen-action = "evaluate-expansion" [

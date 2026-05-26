@@ -113,28 +113,6 @@ to update-unemployment-list
 end
 
 
-
-to move-employed-households
-
-  ask households with [employed?] [
-
-    let my-firm employer
-
-    if my-firm != nobody [
-      rt random 60
-      lt random 60
-      fd 2
-
-      if distance my-firm > 20 [
-        face my-firm
-        fd 2
-      ]
-    ]
-  ]
-
-end
-
-
 to update-worker-visibility-observer
 
   ask firms [
