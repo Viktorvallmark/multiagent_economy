@@ -232,8 +232,11 @@ to updateEnvironmentInfo_households
     set unemployed-time 0
   ]
 
+  let msg create-message "inform"
+  set msg add-content (list "satisfaction-report" self happiness) msg
+  set msg add-receiver [who] of one-of governments msg
+  send msg
   
-  ; LÄGG TILL SATISFACTION REPORT NÅGONSTANS HÄR
   ; räknar ut pristrend
   let current-total food-price + supplies-price
   set price-trend current-total - prev-total-price
