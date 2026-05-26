@@ -141,7 +141,7 @@ to reactive-firm
     let content get-content msg
     let msg-type item 0 content
     
-  ;; if warning sent
+    ;; if warning sent
     if performative = "inform" and msg-type = "warning-acknowledged" [
 
       let household-id item 1 content
@@ -160,39 +160,39 @@ to reactive-firm
     ;; counter expansion
     if performative = "propose" and msg-type = "partial-expansion" [
 
-  let expansion-amount item 1 content
+      let expansion-amount item 1 content
 
-  ifelse expansion-amount >= 5 [
+      ifelse expansion-amount >= 5 [
 
-    set max-capacity max-capacity + expansion-amount
-    set max-household-workers max-household-workers + 5
-    set max-machines max-machines + 5
+        set max-capacity max-capacity + expansion-amount
+        set max-household-workers max-household-workers + 5
+        set max-machines max-machines + 5
 
-    let reply create-message "accept-proposal"
-    set reply add-content (list "expansion-accepted" expansion-amount) reply
-    set reply add-receiver [who] of one-of governments reply
-    send reply
+        let reply create-message "accept-proposal"
+        set reply add-content (list "expansion-accepted" expansion-amount) reply
+        set reply add-receiver [who] of one-of governments reply
+        send reply
 
-    print (word "Firm accepted partial expansion: " expansion-amount)
+        print (word "Firm accepted partial expansion: " expansion-amount)
 
-  ] [
+      ] [
 
-    let reply create-message "propose"
-    set reply add-content (list "counter-expansion-request" who 10) reply
-    set reply add-receiver [who] of one-of governments reply
-    send reply
+        let reply create-message "propose"
+        set reply add-content (list "counter-expansion-request" who 10) reply
+        set reply add-receiver [who] of one-of governments reply
+        send reply
 
-    print "Firm counter-offered expansion request: 10"
-  ]
-]
+        print "Firm counter-offered expansion request: 10"
+      ]
+    ]
     
-   ;; if expansion approved
+    ;; if expansion approved
     if performative = "inform" and msg-type = "approved-expansion" [
-            print (word "Tick " ticks ": building new firm")
+      print (word "Tick " ticks ": building new firm")
       
-             set max-capacity max-capacity + 10
-             set max-household-workers max-household-workers + 5
-             set max-machines max-machines + 5
+      set max-capacity max-capacity + 10
+      set max-household-workers max-household-workers + 5
+      set max-machines max-machines + 5
 
       print (word
         "Tick " ticks
@@ -200,166 +200,166 @@ to reactive-firm
         max-capacity
       )
     ]
-      ;; if aid sent 
+    ;; if aid sent 
     if performative = "propose" and msg-type = "aid" [
 
-  let aid-amount item 1 content
+      let aid-amount item 1 content
 
-  ifelse aid-amount >= 300 [
+      ifelse aid-amount >= 300 [
 
-    set firm-money firm-money + aid-amount
+        set firm-money firm-money + aid-amount
 
-    let reply create-message "accept-proposal"
-    set reply add-content (list "aid-accepted" aid-amount) reply
-    set reply add-receiver [who] of one-of governments reply
-    send reply
+        let reply create-message "accept-proposal"
+        set reply add-content (list "aid-accepted" aid-amount) reply
+        set reply add-receiver [who] of one-of governments reply
+        send reply
 
-    print (word "Firm accepted government aid: " aid-amount)
+        print (word "Firm accepted government aid: " aid-amount)
 
-  ] [
+      ] [
 
-    let reply create-message "propose"
-    set reply add-content (list "counter-aid-request" who 500) reply
-    set reply add-receiver [who] of one-of governments reply
-    send reply
+        let reply create-message "propose"
+        set reply add-content (list "counter-aid-request" who 500) reply
+        set reply add-receiver [who] of one-of governments reply
+        send reply
 
-    print "Firm counter-offered aid request: 500"
-  ]
-]
+        print "Firm counter-offered aid request: 500"
+      ]
+    ]
     ;; if jobb acceptefd
     if performative = "accept-proposal" and msg-type = "job-accepted" [
 
-  let household-who item 1 content
+      let household-who item 1 content
 
-  if not member? household-who employed-households [
-    set employed-households lput household-who employed-households
-  ]
-]
+      if not member? household-who employed-households [
+        set employed-households lput household-who employed-households
+      ]
+    ]
     
     if performative = "propose" and msg-type = "counter-job-offer" [
 
-  let household-id item 1 content
-  let requested-income item 2 content
+      let household-id item 1 content
+      let requested-income item 2 content
 
-  ifelse requested-income <= offered-income + 2 [
+      ifelse requested-income <= offered-income + 2 [
 
-    let reply create-message "accept-proposal"
-    set reply add-content (list "counter-accepted" requested-income) reply
-    set reply add-receiver household-id reply
-    send reply
+        let reply create-message "accept-proposal"
+        set reply add-content (list "counter-accepted" requested-income) reply
+        set reply add-receiver household-id reply
+        send reply
 
-    if not member? household-id employed-households [
-      set employed-households lput household-id employed-households
+        if not member? household-id employed-households [
+          set employed-households lput household-id employed-households
+        ]
+
+        print (word "Firm accepted counter offer from household " household-id)
+
+      ] [
+
+        let reply create-message "inform"
+        set reply add-content (list "counter-rejected") reply
+        set reply add-receiver household-id reply
+        send reply
+
+        print (word "Firm rejected counter offer from household " household-id)
+      ]
     ]
-
-    print (word "Firm accepted counter offer from household " household-id)
-
-  ] [
-
-    let reply create-message "inform"
-    set reply add-content (list "counter-rejected") reply
-    set reply add-receiver household-id reply
-    send reply
-
-    print (word "Firm rejected counter offer from household " household-id)
-  ]
-]
-      ;; recieve productivity level
+    ;; recieve productivity level
     if performative = "inform" and msg-type = "productivity-level" [
 
-  let household-id item 1 content
-  let reported-productivity item 2 content
+      let household-id item 1 content
+      let reported-productivity item 2 content
 
-  ;; remove old report from same household
-  set productivity-reports filter [r -> item 0 r != household-id] productivity-reports
+      ;; remove old report from same household
+      set productivity-reports filter [r -> item 0 r != household-id] productivity-reports
 
 
-  ;; add newest report
-  set productivity-reports
-    lput (list household-id reported-productivity)
-    productivity-reports
+      ;; add newest report
+      set productivity-reports
+        lput (list household-id reported-productivity)
+        productivity-reports
 
-;   print (word
-;     "Tick " ticks
-;     ": Firm received productivity "
-;     reported-productivity
-;     " from household "
-;     household-id
-;   )
-]
+    ;   print (word
+    ;     "Tick " ticks
+    ;     ": Firm received productivity "
+    ;     reported-productivity
+    ;     " from household "
+    ;     household-id
+    ;   )
+    ]
     
     ;; if order okay 
     
     if performative = "request" and msg-type = "purchase-order" [
 
-  let buyer-id item 1 content
-  let food-wanted item 2 content
-  let supplies-wanted item 3 content
-  let money-sent item 4 content
+      let buyer-id item 1 content
+      let food-wanted item 2 content
+      let supplies-wanted item 3 content
+      let money-sent item 4 content
 
-  if food-stock >= food-wanted and supplies-stock >= supplies-wanted [
+      if food-stock >= food-wanted and supplies-stock >= supplies-wanted [
 
-    set food-stock food-stock - food-wanted
-    set supplies-stock supplies-stock - supplies-wanted
+        set food-stock food-stock - food-wanted
+        set supplies-stock supplies-stock - supplies-wanted
 
-    ;;set firm-money firm-money + money-sent
-      set store-revenue store-revenue + money-sent
+        ;; set firm-money firm-money + money-sent
+        set store-revenue store-revenue + money-sent
 
-    let reply create-message "inform"
-    set reply add-content (list "order-approved" food-wanted supplies-wanted money-sent) reply
-    set reply add-receiver buyer-id reply
-    send reply
+        let reply create-message "inform"
+        set reply add-content (list "order-approved" food-wanted supplies-wanted money-sent) reply
+        set reply add-receiver buyer-id reply
+        send reply
 
-    print (word
-      "Tick " ticks
-      ": Firm approved order from household "
-      buyer-id
-      ". Food: " food-wanted
-      " Supplies: " supplies-wanted
-      " Money received: " money-sent
-    )
-  ]
+        print (word
+          "Tick " ticks
+          ": Firm approved order from household "
+          buyer-id
+          ". Food: " food-wanted
+          " Supplies: " supplies-wanted
+          " Money received: " money-sent
+        )
+      ]
 
-  ;; if order cant be made
-if food-stock < food-wanted or supplies-stock < supplies-wanted [
+      ;; if order cant be made
+      if food-stock < food-wanted or supplies-stock < supplies-wanted [
 
-  let reply create-message "inform"
-  set reply add-content (list "order-denied") reply
-  set reply add-receiver buyer-id reply
-  send reply
+        let reply create-message "inform"
+        set reply add-content (list "order-denied") reply
+        set reply add-receiver buyer-id reply
+        send reply
 
-  ;; remember that demand was higher than stock
-  set demand demand + food-wanted + supplies-wanted
-  set target-production target-production + food-wanted + supplies-wanted
+        ;; remember that demand was higher than stock
+        set demand demand + food-wanted + supplies-wanted
+        set target-production target-production + food-wanted + supplies-wanted
 
-  ;; calculate how much stock was missing
-let missing-food max (list 0 (food-wanted - food-stock))
-let missing-supplies max (list 0 (supplies-wanted - supplies-stock))
+        ;; calculate how much stock was missing
+        let missing-food max (list 0 (food-wanted - food-stock))
+        let missing-supplies max (list 0 (supplies-wanted - supplies-stock))
 
-let total-missing missing-food + missing-supplies
+        let total-missing missing-food + missing-supplies
 
-;; produce at least the missing amount
-set production-stock production-stock + total-missing
+        ;; produce at least the missing amount
+        set production-stock production-stock + total-missing
 
-;; convert production into products immediately
-create-store-products
+        ;; convert production into products immediately
+        create-store-products
 
-  print (word
-    "Tick " ticks
-    ": Firm denied order from household "
-    buyer-id
-    " because stock was too low. Firm increased production planning."
-  )
-]
-]
+        print (word
+          "Tick " ticks
+          ": Firm denied order from household "
+          buyer-id
+          " because stock was too low. Firm increased production planning."
+        )
+      ]
+    ]
     ;; recieve tax rate
     if performative = "inform" and msg-type = "tax-rate" [
 
-  set received-tax-rate item 1 content
-  set tax-ready? true
+      set received-tax-rate item 1 content
+      set tax-ready? true
 
-;   print (word "Firm received tax rate: " received-tax-rate)
-]
+  ;   print (word "Firm received tax rate: " received-tax-rate)
+    ]
     
   ]
 
@@ -367,7 +367,7 @@ create-store-products
   calculate-incomes
   calculate-machine-cost
   request-tax-rate
-pay-tax
+  pay-tax
  
 end
 
@@ -405,7 +405,6 @@ to calculate-production
   let household-output 0
 
   foreach productivity-reports [
-
     r ->
 
     set household-output
@@ -512,11 +511,9 @@ to send-job-offer-to-all
       offered-income
     )
   ]
-
 end
-to send-paychecks
-  if not empty? employed-households [
 
+to send-paychecks
   if not empty? employed-households [
 
     foreach employed-households [
@@ -544,6 +541,7 @@ to send-paychecks
   ]
 
 end
+
 to request-expansion
 
   ;; if production is maxed out and firm has enough money
@@ -563,6 +561,7 @@ to request-expansion
   ]
 
 end
+
 to request-aid
 
   ;; if firm money is dangerously low
@@ -652,7 +651,7 @@ to decide-production-amount
     employer = myself
   ]
 
-set current-capacity household-capacity + machine-capacity
+  set current-capacity household-capacity + machine-capacity
 
   if profit > last-profit [
     set target-production target-production + 3
@@ -663,26 +662,26 @@ set current-capacity household-capacity + machine-capacity
   ]
   
   ;; dynamic productivity threshold
-if demand > production [
-  set productivity-threshold productivity-threshold + 1
-]
+  if demand > production [
+    set productivity-threshold productivity-threshold + 1
+  ]
 
-if demand < production [
-  set productivity-threshold productivity-threshold - 1
-]
+  if demand < production [
+    set productivity-threshold productivity-threshold - 1
+  ]
 
-;; minimum threshold
-if productivity-threshold < 1 [
-  set productivity-threshold 1
-]
-; maximum threshold
-if productivity-threshold > 10 [
-  set productivity-threshold 10
-]
+  ;; minimum threshold
+  if productivity-threshold < 1 [
+    set productivity-threshold 1
+  ]
+  ; maximum threshold
+  if productivity-threshold > 10 [
+    set productivity-threshold 10
+  ]
 
-  if target-production > current-capacity [
-  set target-production current-capacity
-]
+    if target-production > current-capacity [
+    set target-production current-capacity
+  ]
 
   if target-production < 0 [
     set target-production 0
@@ -744,6 +743,7 @@ to decide-fire-hire
   ]
 
 end
+
 to check-household-productivity
 
   ;; loop trough each report 
@@ -873,15 +873,6 @@ to decide-offered-income
   if offered-income < 1 [
     set offered-income 1
   ]
-
-end
-
-to update-environment-firm
-
-  set last-profit profit
-  set last-demand demand
-
-  update-demand
 
 end
 

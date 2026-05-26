@@ -84,8 +84,8 @@ to updateEnvironmentInfo_government
       ;]
       if msg-type = "satisfaction-report" [
         let household-who item 0 content
-        let happiness item 1 content
-        set household-satisfaction lput (household-who, happiness) household-satisfaction
+        let happiness-received item 1 content
+        set household-satisfaction lput (list household-who happiness-received) household-satisfaction
       ]
     ]
     
@@ -129,7 +129,7 @@ end
 to proactive_government                                                   ; GLÖM INTE: KOLLA SATSERNAS PRIORITET OCH PLACERING
   ; --- Kolla invånarnas tillfredsställelse ---
   if not empty? household-satisfaction [
-    foreach hosuehold-satisfaction [
+    foreach household-satisfaction [
       current-household ->
       let current-household-who item 0 current-household
       let current-household-happiness item 1 current-household
