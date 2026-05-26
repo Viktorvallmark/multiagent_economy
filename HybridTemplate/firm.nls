@@ -306,7 +306,7 @@ to reactive-firm
         set store-revenue store-revenue + money-sent
 
         let reply create-message "inform"
-        set reply add-content (list "order-approved" food-wanted supplies-wanted money-sent) reply
+        set reply add-content (list "order-approved" self food-wanted supplies-wanted money-sent) reply
         set reply add-receiver buyer-id reply
         send reply
 
@@ -324,7 +324,7 @@ to reactive-firm
       if food-stock < food-wanted or supplies-stock < supplies-wanted [
 
         let reply create-message "inform"
-        set reply add-content (list "order-denied") reply
+        set reply add-content (list "order-denied" self ) reply
         set reply add-receiver buyer-id reply
         send reply
 
@@ -890,6 +890,7 @@ to send-advertisement
   set msg add-content
     (list
       "store-advertisement"
+      self
       food-stock
       supplies-stock
       food-price

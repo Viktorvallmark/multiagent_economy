@@ -36,10 +36,13 @@ households-own [
   warning-count
   happiness
   
+  food-amount
+  supplies-amount
   food-stock
   food-price
   supplies-stock
   supplies-price
+  should-purchase?
   
   productivity-bonus
   
@@ -101,7 +104,9 @@ end
 
 ; PASS 1 UPPÅT--- Observera världen o uppdatera variabler
 to updateEnvironmentInfo_households
-    ; Läs igenom alla meddelanden
+  set should-purchase? (ticks mod 7 != 0)
+
+  ; Läs igenom alla meddelanden
   while [not empty? incoming-queue] [
 
     let msg get-message
@@ -179,12 +184,28 @@ to updateEnvironmentInfo_households
       ]
       
       ;; REKLAMBLAD
-      if msg-type = "price-list" [
+      if msg-type = "store-advertisement" [
         let firm-who item 1 content
         set food-stock item 2 content
-        set food-price item 3 content
-        set supplies-stock item 4 content
+        set supplies-stock item 3 content
+        set food-price item 4 content
         set supplies-price item 5 content
+      ]
+
+      if msg-type = "order-approved" [
+        let firm-who item 1 content
+        let order-food-amount item 2 content
+        let order-supply-amount item 3 content
+        let order-cost item 4 content
+
+        set wealth wealth - order-cost
+        ; set happiness happiness + 3
+      ]
+
+      if msg-type = "order-denied" [
+        let firm-who item 1 content
+        set should-purchase? true
+        ; set happiness happiness - 3
       ]
     ]
   ]
@@ -194,7 +215,7 @@ to updateEnvironmentInfo_households
   ] [
     set unemployed-time 0
   ]
-  
+
   
   ; LÄGG TILL SATISFACTION REPORT NÅGONSTANS HÄR
   ; räknar ut pristrend
@@ -316,7 +337,7 @@ end
 ; --- REACTIVE FUNKTIONER ---
 to receive-money [amount] ; sätt in pengar på kontot
   set wealth wealth + amount
-  set happiness happiness + ((amount / income) * 10) ; får pengar, glädje ökar
+  set happiness happiness + ((amount / income) * 5) ; får pengar, glädje ökar
 end
 
 to budget-household ; budgetterar pengarna för hushållet
@@ -333,38 +354,50 @@ to budget-household ; budgetterar pengarna för hushållet
     set msg add-content (list "household-need-aid" who) msg
     
     if any? governments [
-      set msg add-receiver [who]of one-of governments msg
+      set msg add-receiver [who] of one-of governments msg
       send msg
     ]
   ]
 end
 
 to limit-purchases
-  if (ticks mod 7 != 0) [stop] ; gör inget om inte handlingsdag, varje vecka 7:e dag
+  if not should-purchase? [stop] ; gör inget om inte handlingsdag
+  if food-price = 0 or supplies-price = 0 [stop] ; kan inte köpa om priset är 0 (inte fått reklamblad än)
 
   if proState = "Stocking-up" [
     set spending-limit spending-limit * 1.5
   ]
   
-  if proState = "Saving" [
-    set spending-limit food-price
-  ]
-  
-  let total-cost food-price + supplies-price ; kostnad för handlingen
+  ; if proState = "Saving" [
+  ;   set spending-limit food-price
+  ; ]
 
-  ifelse total-cost > spending-limit [ ; inte råd med båda
-    ifelse food-price <= spending-limit [ ; finns pengar till mat
-      set wealth wealth - food-price 
-      set happiness happiness - 1 ; mindre glad pga. köp bara mat
-    ] [
+  let food-wanted floor ((spending-limit * 0.75) / food-price)
+  let supplies-wanted floor ((spending-limit * 0.25) / supplies-price)
+  let total-cost (food-wanted * food-price) + (supplies-wanted * supplies-price)
+  
+  if total-cost = 0 [stop] ; Inte lönt att köpa ingenting
+
+  let msg create-message "request"
+  set msg add-content (list "purchase-order" who food-wanted supplies-wanted total-cost) msg
+  set msg add-receiver [who] of one-of firms msg
+  send msg
+  
+  ; let total-cost food-price + supplies-price ; kostnad för handlingen
+
+  ; ifelse total-cost > spending-limit [ ; inte råd med båda
+  ;   ifelse food-price <= spending-limit [ ; finns pengar till mat
+  ;     set wealth wealth - food-price 
+  ;     set happiness happiness - 1 ; mindre glad pga. köp bara mat
+  ;   ] [
       ; Inga pengar för ens mat, köp inget
-      set happiness happiness - 5 ; köpte inget, inte glad
-    ]
-  ] [
+  ;     set happiness happiness - 5 ; köpte inget, inte glad
+  ;   ]
+  ; ] [
     ; råd med båda
-    set wealth wealth - total-cost ; köp allt
-    set happiness happiness + 1 ; köper båda, blir gladare
-  ]
+  ;   set wealth wealth - total-cost ; köp allt
+  ;   set happiness happiness + 1 ; köper båda, blir gladare
+  ; ]
 end
 
 to save-pension ; pensionssparande
