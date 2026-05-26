@@ -49,7 +49,7 @@ governments-own [
 
 to setup-government
   create-governments 1 [
-    firm-tax 0
+    set firm-tax 0
     set household-incomes []
     set household-tax-decisions []
     set firm-profits []
@@ -295,9 +295,7 @@ to reactive_government                                                    ; GLÖ
     set household-tax-decisions []
     set firm-tax-decision []
     set firm-profits []
- 
     stop
-  
   ]
   
   ; --- Evaluera utökande av företag ---
