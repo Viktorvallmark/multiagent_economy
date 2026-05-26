@@ -38,12 +38,18 @@ governments-own [
   firm-aid-decisions
   redistribution-decisions
   household-satisfaction
+  household-incomes
+  household-tax-decisions
+  firm-tax-decisions
 ]
 
 
 to setup-government
   
   create-governments 1 [
+    set household-incomes []
+    set household-tax-decisions []
+    set firm-tax-decisions []
     set household-satisfaction []
     ;set longterm-unemployed-households []
     set households-needing-aid []
@@ -83,9 +89,14 @@ to updateEnvironmentInfo_government
       ;  set longterm-unemployed-households lput household-who longterm-unemployed-households
       ;]
       if msg-type = "satisfaction-report" [
-        let household-who item 0 content
-        let happiness item 1 content
-        set household-satisfaction lput (household-who, happiness) household-satisfaction
+        let household-who item 1 content
+        let happiness item 2 content
+        set household-satisfaction lput (household-who happiness) household-satisfaction
+      ]
+      if msg-type = "income" [
+        let household-who item 1 content
+        let income item 2 content
+        set household-incomes lput (list household-who household-income) household-incomes
       ]
     ]
     
@@ -127,6 +138,31 @@ end
 ; PROACTIVE LAYER
 ; ============================================================
 to proactive_government                                                   ; GLÖM INTE: KOLLA SATSERNAS PRIORITET OCH PLACERING
+  ; --- Beräkna skattesats ---
+  if not empty? household-incomes [
+    foreach incoming-household-incomes [
+      current-household-income ->
+      let household-who item 0 current-household-income
+      let household-income item 1 current-household-income
+      let new-household-tax-rate 0
+      ifelse household-income > 20 [                                       ; ÄNDRA TRÖSKELVÄRDEN OCH RATE-VÄRDEN
+        set new-household-tax-rate 0.30
+      ] [
+        ifelse household-income > 10 [
+          set new-household-tax-rate 0.20
+        ] [
+          set new-household-tax-rate 0.10
+        ]
+      ]
+      let household-tax household-income * new-household-tax-rate
+      let net-income household-income - household-tax
+      set household-tax-decisions lput (list household-who new-household-tax-rate household-tax net-income) household-tax-decisions   ; SKA DE BARA FÅ LÖNEN ELLER MER INFO?
+      set gov-budget gov-budget + household-tax
+    ]
+    set chosen-action "process-household-tax"
+    stop
+  ]
+  
   ; --- Kolla invånarnas tillfredsställelse ---
   if not empty? household-satisfaction [
     foreach hosuehold-satisfaction [
@@ -140,7 +176,6 @@ to proactive_government                                                   ; GLÖ
       ]
     ]
   ]
-  
   
   ; --- Sätt flagga om det finns företag i behov av utökning ---
   if not empty? firms-wanting-expansion [
@@ -252,6 +287,25 @@ end
 to reactive_government                                                    ; GLÖM INTE: KOLLA SATSERNAS PRIORITET OCH PLACERING
   ; --- Satisfaction report---
   ; SKRIV KOD HÄR
+  
+  ; --- Meddela taxan för household ---
+  if chosen-action = "process-household-tax" [
+    foreach household-tax-decisions [
+      decision ->
+      let household-who item 0 decision
+      let household-income item 1 decision
+      let tax-rate item 2 decision
+      let household-tax item 3 decision
+      let net-income item 4 decision
+      let msg create-message "inform"
+      set msg add-content (list "household-tax-result" household-income tax-rate household-tax net-income) msg
+      set msg add-receiver household-who msg
+      send msg
+    ]
+    set incoming-household-incomes []
+    set household-tax-decisions []
+    stop
+  ]
   
   ; --- Evaluera utökande av företag ---
   if chosen-action = "evaluate-expansion" [
