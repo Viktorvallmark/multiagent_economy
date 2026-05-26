@@ -2,7 +2,7 @@
 ; Make sure to share each change of global variables with everyone in the group.
 ; Keep this file accessible in the projects Google Drive folder
 ;***********************************************************************************************************************************************************
-; VERSION NR: 02
+; VERSION NR: 03
 ;*****************************************************
 ;*****************************************************
 ; GLOBAL VARIABLES
@@ -20,13 +20,13 @@ globals [
   unprofitable-firms-list ; List of unprofitable firms
   
   ; Government Variables
-  tax-rate-firms       ; Firm variabel för att hämta dess tax-rate
-  tax-rate-households  ; Household variabel för att hämta dess tax-rate
+  tax-rate-firms       ; Firm variabel för att hämta dess tax-rate ; Outdated and will be removed
+  tax-rate-households  ; Household variabel för att hämta dess tax-rate ; Outdated and will be removed
   
   
   
   ; Firm Variables
-  tax-rate   ; bör använda governments variabel ovan.
+  tax-rate   ; bör använda governments variabel ovan. ; Outdated and will be removed
   machine-fixed-cost
   governemnt-money ; government cut från firm till gov.
   
@@ -34,13 +34,13 @@ globals [
   ; Household Variables
   food-price
   supplies-price
-  tax-return-available
-  tax-return-amount
-  average-income
+  tax-return-available ; Outdated and will be removed
+  tax-return-amount ; Outdated and will be removed
+  average-income ; not used rn?
   
-  
-  
-  
+  ; Simplicity 
+  month ; used for instead of 30 
+  year ; used instead of 365
   
   ;----- Time variables, using the time extension, see https://ccl.northwestern.edu/netlogo/docs/time.html
   current-time             ;THE CURRENT TIME IN THE SIMULATION

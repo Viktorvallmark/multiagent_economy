@@ -108,31 +108,9 @@ end
 
 to update-unemployment-list
 
-  set unemployment-list [self] of turtles with [not employed?]
+  set unemployment-list [self] of households with [not employed?]
   
 end
-
-
-to move-employed-households
-
-  ask households with [employed?] [
-
-    let my-firm employer
-
-    if my-firm != nobody [
-      rt random 60
-      lt random 60
-      fd 2
-
-      if distance my-firm > 20 [
-        face my-firm
-        fd 2
-      ]
-    ]
-  ]
-
-end
-
 
 to update-worker-visibility-observer
 
@@ -158,5 +136,15 @@ to update-worker-visibility-observer
       ]
     ]
   ]
+end
 
+; not used rn? didnt work like wanted
+to update-average-income  ; bara för hushållen som jobbar
+  ifelse count households with [employed? = true] > 0 [
+  set average-income mean [income] of households with [employed? = true]
+  print(word "From Observer, Average income: " average-income)
+  ] [
+    set average-income 0
+    print(word "No one with income, set to 0 ")
+  ]
 end
