@@ -123,11 +123,9 @@ end
 to go
   
   ;------- Time updates
-  tick ;- update time
+   ;- update time
        ;timeWrapAround; skips the night from 23:00 to 6:00 ;; Osäker om vi behåller
   ;------ Update of Global Variables
-  update-unemployment-list
-  check-economic-conditions
   
   ;---- Agents ----------------------------------------------------
   ;
@@ -164,8 +162,10 @@ to go
   ; define these functions in the file observer.nls and run them here
   ; simpler observer functions can be directly added in the interface as monitors
   
-  
-  
+  if ticks > 0 and ticks mod 100 = 0 [
+  update-unemployment-list
+  check-economic-conditions
+  ]
   
   
   
@@ -186,6 +186,7 @@ to go
     if Source = "With Interface" [vid:record-interface] ; records the interface
   ]
   
+
   
   ;------- terminal condition to stop the simulation, for example for test cases
   ;------- (needs to be in the go-loop, does not work otherwise)
@@ -194,7 +195,7 @@ to go
   
   ;------- TERMINATE is a global variable, default = false
   ;if TERMINATE [stop]
-  
+  tick
 end ; - to go part
     ;***************************end to go part ******************************************************************************************************************
     ;************************************************************************************************************************************************************;
@@ -1168,6 +1169,14 @@ end ; - to go part
   <experiments>
     <experiment name="test-government" repetitions="1" sequentialRunOrder="true" runMetricsEveryStep="true">
       <go>test-government-run</go>
+      <exitCondition>true</exitCondition>
+    </experiment>
+    <experiment name="test-firm" repetitions="1" sequentialRunOrder="true" runMetricsEveryStep="true">
+      <go>test-firm-run</go>
+      <exitCondition>true</exitCondition>
+    </experiment>
+    <experiment name="test-household" repetitions="1" sequentialRunOrder="true" runMetricsEveryStep="true">
+      <go>test-household-run</go>
       <exitCondition>true</exitCondition>
     </experiment>
   </experiments>

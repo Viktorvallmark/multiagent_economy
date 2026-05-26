@@ -75,11 +75,7 @@ end
 ; ; Testfunctions to be called in the to-go part, 
 ; ; after the ask turtles, in the observer-section 
 ; ;
-to monitor_testagents
-  
-  
-  
-end
+
 
 to monitor-government-test
   ask governments [
@@ -99,10 +95,33 @@ end
 ; ;****************** end specific testfunctions in agent's code *************************************************************************************************
 
 
+to setup-firm-test
+end
+
+to monitor-firm-test
+end
+
+to setup-household-test
+end
+
+to monitor-household-test
+end
+
+
 ;; Wrapper functions that executes all tests when pushing to GitHub
-to test-government
+to test-government-run
   setup-test-government
   monitor-government-test
+end
+
+to test-firm-run
+  setup-firm-test
+  monitor-firm-test
+end
+
+to test-household-run
+  setup-household-test
+  monitor-household-test
 end
 
 
