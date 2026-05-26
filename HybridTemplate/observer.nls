@@ -55,19 +55,6 @@
 
 
 to update-world
-
-  ; update firm memory and demand
-  ask firms [
-    set last-profit profit
-    set last-demand demand
-
-    set demand demand + random 5 - random 5
-
-    if demand < 0 [
-      set demand 0
-    ]
-  ]
-
   ; movement and display are controlled by observer
   move-employed-households
   update-worker-visibility-observer
