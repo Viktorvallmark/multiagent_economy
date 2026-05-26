@@ -146,7 +146,7 @@ end
 ; PROACTIVE LAYER
 ; ============================================================
 to proactive_government                                                   ; GLÖM INTE: KOLLA SATSERNAS PRIORITET OCH PLACERING
-  if ticks mod 30 = 0 [
+  if ticks > 0 and ticks mod 30 = 0 [
     
     if not empty? firm-profits and not empty? household-incomes [
       foreach firm-profits [
@@ -184,7 +184,7 @@ to proactive_government                                                   ; GLÖ
   ]
   
   if gov-budget > 1000 [
-    if ticks mod 365 = 0 [                                                            ;KOLLA TRÖSKELVÄRDE
+    if ticks > 0 and ticks mod 365 = 0 [                                                            ;KOLLA TRÖSKELVÄRDE
       let rebate gov-budget * redistribution-rate                          ; KOLLA ÖVER DISTRIBUTION
       let per-household rebate / count households
       foreach [who] of households [
@@ -460,7 +460,7 @@ to reactive_government                                                    ; GLÖ
     stop
   ]
   
-  ; --- Distribuera återbäring om flaggan är sann ---                     ; SKA DET VARA 1 GÅNG PER 365 TICK?
+  ; --- Distribuera återbäring om flaggan är sann ---                    
   if chosen-action = "redistribute" [
     foreach redistribution-decisions [
       decision ->
