@@ -8,7 +8,7 @@
 ; --Date--- |-----Description--------------------------------------------------------------------------------|---Person(s)-------------------------------
 ; 20250423    Initial template of some dummy reporters                                                            Gion
 ; 20260514    Added world update, firm/household coordination, movement, and visibility logic                     Said
-; 20260521    Added economic crisis logic                                                                         Viktor
+; 20260521    Added economic crisis logic, added employment list                                                  Viktor
 ; ********************end logbook ************************************************************************************************************************
 
 
@@ -111,7 +111,6 @@ to update-unemployment-list
   set unemployment-list [self] of turtles with [not employed?]
   
 end
-
 
 
 to move-employed-households
