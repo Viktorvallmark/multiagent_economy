@@ -238,30 +238,30 @@ to reactive-firm
     
     if performative = "propose" and msg-type = "counter-job-offer" [
 
-      let household-id item 1 content
+      let household-who item 1 content
       let requested-income item 2 content
 
       ifelse requested-income <= offered-income + 2 [
 
         let reply create-message "accept-proposal"
         set reply add-content (list "counter-accepted" requested-income) reply
-        set reply add-receiver household-id reply
+        set reply add-receiver household-who reply
         send reply
 
-        if not member? household-id employed-households [
-          set employed-households lput household-id employed-households
+        if not member? household-who employed-households [
+          set employed-households lput household-who employed-households
         ]
 
-        print (word "Firm accepted counter offer from household " household-id)
+        print (word "Firm accepted counter offer from household " household-who)
 
       ] [
 
         let reply create-message "inform"
         set reply add-content (list "counter-rejected") reply
-        set reply add-receiver household-id reply
+        set reply add-receiver [who] of household-who reply
         send reply
 
-        print (word "Firm rejected counter offer from household " household-id)
+        print (word "Firm rejected counter offer from household " household-who)
       ]
     ]
     ;; recieve productivity level
@@ -425,7 +425,7 @@ end
 
 to decide-investment-method
 
-  let household-productivity 0
+  let household-productivity 8
 
   if not empty? productivity-reports [
     set household-productivity mean map [r -> item 1 r] productivity-reports
@@ -518,16 +518,14 @@ to send-paychecks
 
     foreach employed-households [
 
-      household-id ->
-
-      let current-household turtle household-id
+      current-household ->
 
       let msg create-message "inform"
 
       set msg add-content
         (list "paycheck" [income] of current-household) msg
 
-      set msg add-receiver household-id msg
+      set msg add-receiver [who] of current-household msg
 
       send msg
     ]

@@ -75,22 +75,21 @@ to updateEnvironmentInfo_government
     let msg get-message
     let performative get-performative msg
     let content get-content msg
+    let msg-type item 0 content
     
     if performative = "inform" [
-      let msg-type item 0 content
       ;if msg-type = "longterm-unemployed" [
       ;  let household-who item 1 content
       ;  set longterm-unemployed-households lput household-who longterm-unemployed-households
       ;]
       if msg-type = "satisfaction-report" [
-        let household-who item 0 content
-        let happiness-received item 1 content
+        let household-who item 1 content
+        let happiness-received item 2 content
         set household-satisfaction lput (list household-who happiness-received) household-satisfaction
       ]
     ]
     
     if performative = "request" [
-      let msg-type item 0 content
       if msg-type = "want-to-expand" [
         let firm-who item 1 content
         let expansion-budget item 2 content
@@ -133,10 +132,10 @@ to proactive_government                                                   ; GLÖ
       current-household ->
       let current-household-who item 0 current-household
       let current-household-happiness item 1 current-household
-      ifelse happiness > 100 [                                                   ;KOLLA TRÖSKELVÄRDE
-        print ("Household happy")                                                ;VAD SKA GÖRAS NÄR HUSHÅLL ÄR NÖJD? STOPP?
+      ifelse current-household-happiness > 80 [                                                   ;KOLLA TRÖSKELVÄRDE
+        ; print ("Household happy")                                                ;VAD SKA GÖRAS NÄR HUSHÅLL ÄR NÖJD? STOPP?
       ] [
-        print ("Household not happy")                                            ;VAD SKA GÖRAS NÄR HUSHÅLL ÄR MISSNÖJD? KOPPLING TILL POLICY CHANGE?
+        ; print ("Household not happy")                                            ;VAD SKA GÖRAS NÄR HUSHÅLL ÄR MISSNÖJD? KOPPLING TILL POLICY CHANGE?
       ]
     ]
   ]
