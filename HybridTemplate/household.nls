@@ -53,8 +53,13 @@ households-own [
   pending-warning?
   pending-warning-threshold
   
+  ; bargaining with Firm on job-offer variables
   rejected-counter-offer?
   amount-rejections
+  
+  ; paycheck logic variables
+  pending-paycheck?
+  pending-paycheck-amount 
   
 ] 
 
@@ -100,6 +105,9 @@ to setup-household ; det som händer när man trycker "setup" knappen i interfac
     set rejected-counter-offer? false
     set amount-rejections 0
     
+    set pending-paycheck? false
+    set pending-paycheck-amount 0
+    
     ; --- Interface inställningar ---
     set shape "person" ; person symbol på kartan
     set color green ; grön = har pengar
@@ -135,7 +143,6 @@ to updateEnvironmentInfo_households
         set pending-offer-income item 1 content
         set pending-offering-firm item 2 content
         print (word "Tick " ticks ": Household " who " accepterade jobb offret")
-        
       ]
       
       ; GOVERNMENT AID
@@ -157,10 +164,10 @@ to updateEnvironmentInfo_households
 
       ; PAYCHECK
       if msg-type = "paycheck" [
-        let amount item 1 content
-        let old-income income ; previous salary
-        set income amount
-        receive-money amount
+        let old-income income 
+        set income item 1 content
+        set pending-paycheck? true
+        set pending-paycheck-amount income
         
         if income != old-income [
           set pension-goal income * 30 ; updated pension goal
@@ -238,6 +245,10 @@ to updateEnvironmentInfo_households
         set happiness happiness + 10 ; blir glad att motofferten blev accepterad
         
         print (word "Tick " ticks ": Household " who " got accepted counter-offer")
+      
+      if msg-type = "taxed-income" [
+        let amount item 1 content 
+        receive-money amount
       ]
     ]
   ]
@@ -520,5 +531,17 @@ to evaluate-messages-proactively
     
     set pending-warning? false
     set pending-warning-threshold 0
+  ]
+  
+  if pending-paycheck? [
+    let msg create-message "inform"
+    set msg add-content (list "income" who pending-paycheck-amount) msg
+    
+    if any? governments [
+      set msg add-receiver [who] of one-of governments msg
+      send msg
+    ]
+    set pending-paycheck? false
+    set pending-paycheck-amount 0
   ]
 end
