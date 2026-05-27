@@ -117,7 +117,6 @@ to updateEnvironmentInfo_government
   ]
 end
 
-
 ; ============================================================
 ; GOVERNMENT HYBRID AGENT
 ; PROACTIVE LAYER
@@ -296,17 +295,7 @@ to reactive_government                                                    ; GLÖ
     set expansion-decisions []
     stop
   ]
-  
-  ; --- Uppmuntra till arbetssökande om det finns långtidssarbetslösa hushåll ---
-  ;if chosen-action = "encourage-work" [                                ; CHOSEN ACTION FIRE VID CHECK AV UNEMPLOYMENT I OBSERVER
-  ;  let msg create-message "propose"                                   ; PROPOSE ELLER INFORM?
-  ;  set msg add-content (list "seek-work") msg
-  ;  set msg add-multiple-receivers longterm-unemployed-households msg
-  ;  send msg
-  ;  set longterm-unemployed-households []
-  ;  stop
-  ;]
-  
+
   ; --- Dela ut ekonomiskt bistånd till fattiga hushåll ---
   if chosen-action = "give-household-aid" [
     foreach household-aid-decisions [
