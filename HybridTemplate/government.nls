@@ -9,7 +9,7 @@
 ; ; 20260521    Changed the structure for the proactive, reactive and update environment layer                   Nicolas, Mimoza
 ; ; 20260521    Changing calculation of tax rebate                                                               Nicolas
 ; ; 20260526    Changing structure and calculation of income tax                                                 Mimoza
-; ; 20260527 
+; ; 20260527    Attempting to match message types and integer values between all agents                          Mimoza
 ; ;
 ; ;********************end logbook ************************************************************************************************************************
 
@@ -247,7 +247,7 @@ if not empty? household-satisfaction [
     ] [
       if current-household-happiness <= 30 [
         print ("Household not happy")       
-      ]                                                                        ;VAD SKA GÖRAS NÄR HUSHÅLL ÄR MISSNÖJD? KOPPLING TILL POLICY CHANGE?
+      ]                                                                        ;VAD SKA GÖRAS NÄR HUSHÅLL ÄR MISSNÖJD? KOPPLING TILL POLICY CHANGE? SKRIV REACTIVE-DELEN
     ]
   ]
 ]
