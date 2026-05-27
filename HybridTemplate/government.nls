@@ -9,7 +9,7 @@
 ; ; 20260521    Changed the structure for the proactive, reactive and update environment layer                   Nicolas, Mimoza
 ; ; 20260521    Changing calculation of tax rebate                                                               Nicolas
 ; ; 20260526    Changing structure and calculation of income tax                                                 Mimoza
-; ; 
+; ; 20260527 
 ; ;
 ; ;********************end logbook ************************************************************************************************************************
 
@@ -21,59 +21,47 @@
 ; ============================================================
 
 governments-own [ 
-  gov-budget                ; Statens budget, vi får in skatt och lägger in det här, sedan delar vi eventuellt ut pengar.
-  spending                  ; Informationsvariabel som håller koll på hur mycket vi har spenderat på skatteåterbäring   
-  redistribution-rate       ; Rate variabel: Hur "generösa" government är vid återbäring. Desto högre desto högre bidrag får hushållen.
-  observed-firm-profit      ; Variabel som innehåller mängden profit från firm.
-  observed-household-wage   ; Variabel som innehåller mängden wage från household.
-  observed-firm-tax         ; Beräknad avdragen skatt från firm.
-  observed-household-tax    ; Beräknad avdragen skatt från household.
-  planned-tax-rate-firms
-  planned-tax-rate-households
   chosen-action
-  ;longterm-unemployed-households
-  households-needing-aid
+  gov-budget                ; Statens budget, vi får in skatt och lägger in det här, sedan delar vi eventuellt ut pengar. 
+  redistribution-rate       ; Rate variabel: Hur "generösa" government är vid återbäring. Desto högre desto högre bidrag får hushållen.
+  redistribution-decisions
+  expansion-decisions
   firms-needing-aid
   firms-wanting-expansion
-  expansion-decisions
-  household-aid-decisions
-  firm-aid-decisions
-  redistribution-decisions
-  household-satisfaction
-  household-incomes
-  household-tax-decisions
   firm-profits
   firm-tax-decisions
   firm-tax
+  firm-aid-decisions
+  households-needing-aid
+  household-aid-decisions
+  household-satisfaction
+  household-incomes
+  household-tax-decisions
 ]
 
 
 to setup-government
   create-governments 1 [
+    set gov-budget 0
+    set redistribution-decisions []
+    set redistribution-rate 0.2
+    set expansion-decisions []
     set firm-tax 0
-    set household-incomes []
-    set household-tax-decisions []
     set firm-profits []
     set firm-tax-decisions []
-    set household-satisfaction []
-    ;set longterm-unemployed-households []
-    set households-needing-aid []
     set firms-needing-aid []
     set firms-wanting-expansion []
-    set incoming-queue []
-    set expansion-decisions []
-    set household-aid-decisions []
     set firm-aid-decisions []
-    set redistribution-decisions []
-    set gov-budget 0
-    set spending 0
-    set redistribution-rate 0.2
+    set household-incomes []
+    set household-tax-decisions []
+    set household-satisfaction []
+    set households-needing-aid []
+    set household-aid-decisions []
     set shape "house"
     set color white
     set size 3
     setxy 10 10
   ]
-  
 end
 
 ; ============================================================
@@ -88,10 +76,6 @@ to updateEnvironmentInfo_government
     
     if performative = "inform" [
       let msg-type item 0 content
-      ;if msg-type = "longterm-unemployed" [
-      ;  let household-who item 1 content
-      ;  set longterm-unemployed-households lput household-who longterm-unemployed-households
-      ;]
       if msg-type = "satisfaction-report" [
         let household-who item 1 content
         let happiness item 2 content
@@ -105,9 +89,8 @@ to updateEnvironmentInfo_government
       if msg-type = "tax-payment" [
         set firm-tax item 1 content
       ]
-      
     ]
-    
+  
     if performative = "request" [
       let msg-type item 0 content
       if msg-type = "want-to-expand" [
@@ -141,7 +124,6 @@ end
 ; ============================================================
 to proactive_government                                                   ; GLÖM INTE: KOLLA SATSERNAS PRIORITET OCH PLACERING
   if ticks mod 30 = 0 [
-    
     if not empty? firm-profits and not empty? household-incomes [
       ; --- Justera företagens skattesats ---
       foreach firm-profits [
