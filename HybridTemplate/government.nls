@@ -135,7 +135,7 @@ to proactive_government                                                   ; GLÖ
           ifelse profit >= 500 [
             set new-firm-tax-rate 0.25
           ] [
-            set new-firm-tax-rate 0.20
+            set new-firm-tax-rate 0 ; Betalar ingen skatt om ingen tillräcklig vinst
           ]
         ]
         set firm-tax-decisions lput (list firm-who new-firm-tax-rate) firm-tax-decisions 
