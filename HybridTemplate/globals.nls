@@ -39,7 +39,8 @@ globals [
   average-income ; not used rn?
   
   ; Simplicity 
-  month ; used for instead of 30 
+  week ; used instead of 7
+  month ; used instead of 30 
   year ; used instead of 365
   
   ;----- Time variables, using the time extension, see https://ccl.northwestern.edu/netlogo/docs/time.html

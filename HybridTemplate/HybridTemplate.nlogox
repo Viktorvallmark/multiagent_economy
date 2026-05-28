@@ -87,6 +87,7 @@ to setup
   set unprofitable-firms-list []
   
   ; simplicity variables
+  set week 7
   set month 30
   set year 365
 
@@ -240,14 +241,6 @@ end ; - to go part
         <update>plot count households with [proState = "Stocking-up"]</update>
       </pen>
     </plot>
-    <plot x="328" autoPlotX="true" yMax="10.0" autoPlotY="true" y="502" xMin="0.0" height="220" legend="false" xMax="10.0" yMin="0.0" width="314" display="Average Household Wealth">
-      <setup></setup>
-      <update></update>
-      <pen interval="1.0" mode="0" display="default" color="-16777216" legend="true">
-        <setup></setup>
-        <update>plot mean [wealth] of households</update>
-      </pen>
-    </plot>
     <monitor x="9" precision="17" y="134" height="100" fontSize="20" width="632" display="Gov Budget">[gov-budget] of one-of governments</monitor>
     <plot x="10" autoPlotX="true" yMax="10.0" autoPlotY="true" y="240" xMin="0.0" height="219" legend="false" xMax="10.0" yMin="0.0" width="311" display="Government Budget">
       <setup></setup>
@@ -296,6 +289,38 @@ end ; - to go part
       </pen>
     </plot>
     <button x="449" y="14" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="67" display="setup">setup</button>
+    <plot x="328" autoPlotX="true" yMax="10.0" autoPlotY="true" y="502" xMin="0.0" height="220" legend="false" xMax="10.0" yMin="0.0" width="314" display="Average Household Wealth">
+      <setup></setup>
+      <update></update>
+      <pen interval="1.0" mode="0" display="default" color="-16777216" legend="true">
+        <setup></setup>
+        <update>plot mean [wealth] of households</update>
+      </pen>
+    </plot>
+    <plot x="657" autoPlotX="true" yMax="10.0" autoPlotY="true" y="644" xMin="0.0" height="220" legend="false" xMax="10.0" yMin="0.0" width="314" display="Average Firm Demand">
+      <setup></setup>
+      <update></update>
+      <pen interval="1.0" mode="0" display="default" color="-16777216" legend="true">
+        <setup></setup>
+        <update>plot mean [demand] of firms</update>
+      </pen>
+    </plot>
+    <plot x="660" autoPlotX="true" yMax="10.0" autoPlotY="true" y="870" xMin="0.0" height="220" legend="false" xMax="10.0" yMin="0.0" width="314" display="Average Food Price">
+      <setup></setup>
+      <update></update>
+      <pen interval="1.0" mode="0" display="default" color="-16777216" legend="true">
+        <setup></setup>
+        <update>plot mean [food-price] of firms</update>
+      </pen>
+    </plot>
+    <plot x="984" autoPlotX="true" yMax="10.0" autoPlotY="true" y="870" xMin="0.0" height="220" legend="false" xMax="10.0" yMin="0.0" width="314" display="Average Supplies Price">
+      <setup></setup>
+      <update></update>
+      <pen interval="1.0" mode="0" display="default" color="-16777216" legend="true">
+        <setup></setup>
+        <update>plot mean [supplies-price] of firms</update>
+      </pen>
+    </plot>
   </widgets>
   <info>## WHAT IS IT?
 

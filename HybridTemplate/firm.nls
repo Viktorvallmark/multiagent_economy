@@ -25,7 +25,7 @@ tax-paid
   price
   chosen-method
   demand
-  last-demand
+  demand-history
   expected-demand
   target-production
   current-production 
@@ -82,8 +82,8 @@ to setup-firm
     set price 10
     set chosen-method "household"
 
-    set demand 20
-    set last-demand 20
+    set demand 0
+    set demand-history []
     set expected-demand 20
     set target-production 20
 
@@ -131,7 +131,7 @@ to reactive-firm
   create-store-products
 
 
-  if ticks > 0 and ticks mod 30 = 0 [
+  if ticks > 0 and ticks mod month = 0 [
     send-paychecks
   ]
 
@@ -147,13 +147,13 @@ to reactive-firm
 
     if performative = "inform" and msg-type = "warning-acknowledged" [
 
-      let household-id item 1 content
+      let household-who item 1 content
 
-      if not member? household-id warned-households [
-        set warned-households lput household-id warned-households
+      if not member? household-who warned-households [
+        set warned-households lput household-who warned-households
       ]
 
-      print (word "Tick " ticks ": Firm received warning acknowledgement from household " household-id)
+      print (word "Tick " ticks ": Firm received warning acknowledgement from household " household-who)
     ]
 
     ;; if expanison denied
@@ -452,8 +452,8 @@ create-store-products
       ifelse requested-income <= offered-income + 2 [
 
         let reply create-message "accept-proposal"
-        set reply add-content (list "counter-accepted" requested-income) reply
-        set reply add-receiver household-who reply
+        set reply add-content (list "counter-accepted" self requested-income) reply
+        set reply add-receiver [who] of household-who reply
         send reply
 
         if not member? household-who employed-households [
@@ -465,7 +465,7 @@ create-store-products
       ] [
 
         let reply create-message "inform"
-        set reply add-content (list "counter-rejected") reply
+        set reply add-content (list "counter-rejected" self) reply
         set reply add-receiver [who] of household-who reply
         send reply
 
@@ -505,6 +505,8 @@ create-store-products
       let supplies-wanted item 3 content
       let money-sent item 4 content
 
+      set demand demand + food-wanted + supplies-wanted
+
       if food-stock >= food-wanted and supplies-stock >= supplies-wanted [
 
         set food-stock food-stock - food-wanted
@@ -537,7 +539,6 @@ create-store-products
         send reply
 
         ;; remember that demand was higher than stock
-        set demand demand + food-wanted + supplies-wanted
         set target-production target-production + food-wanted + supplies-wanted
 
         ;; calculate how much stock was missing
@@ -582,7 +583,7 @@ end
 
 to proactive-firm
 
-  decide-dynamic-price
+  ; decide-dynamic-price
   update-store-prices
   decide-production-amount
   decide-investment-method
@@ -590,8 +591,8 @@ to proactive-firm
   decide-fire-hire
   request-expansion
   request-aid
-
- if ticks > 0 and ticks mod 7 = 0 [
+  
+ if ticks > 0 and ticks mod week = 0 [
   send-advertisement
 ]
 ;   if ticks mod 5 = 0 [
@@ -840,13 +841,13 @@ end
 
 to decide-dynamic-price
 
-  if demand > production [
-    set price price + 1
-  ]
+  ;if demand > production [
+  ;  set price price + 1
+  ;]
 
-  if demand < production [
-    set price price - 1
-  ]
+  ;if demand < production [
+  ;  set price price - 1
+  ;]
 
   if price < 1 [
     set price 1
@@ -856,7 +857,7 @@ end
 
 to decide-production-amount
 
-  set expected-demand (0.7 * demand + 0.3 * last-demand)
+  set expected-demand mean demand-history
 
   set target-production expected-demand
 
@@ -955,7 +956,7 @@ to decide-fire-hire
      and target-production < current-production
      and profit < last-profit [
 
-    if current-machines > 1 [
+    if count current-machines >= 1 [
 
       let machine-to-sell one-of machine-workers with [
         employer = myself
@@ -984,23 +985,23 @@ to check-household-productivity
 
     if reported-productivity < productivity-threshold [
        ;; if worker has been warned before
-      ifelse member? worker-id warned-households [
+      ifelse member? worker-who warned-households [
 
         ;; second time low productivity + acknowledged warning = fire
         let fire-msg create-message "inform"
 
         set fire-msg add-content (list "fired") fire-msg
-        set fire-msg add-receiver worker-id fire-msg
+        set fire-msg add-receiver [who] of worker-who fire-msg
 
         send fire-msg
 
-        set warned-households remove worker-id warned-households
-        set employed-households remove worker-id employed-households
+        set warned-households remove worker-who warned-households
+        set employed-households remove worker-who employed-households
 
         print (word
           "Tick " ticks
           ": Firm fired household "
-          worker-id
+          worker-who
           " after low productivity report"
         )
 
@@ -1010,14 +1011,14 @@ to check-household-productivity
         let warning-msg create-message "inform"
 
         set warning-msg add-content (list "productivity-warning" productivity-threshold) warning-msg
-        set warning-msg add-receiver worker-id warning-msg
+        set warning-msg add-receiver [who] of worker-who warning-msg
 
         send warning-msg
 
         print (word
           "Tick " ticks
           ": Firm sent productivity warning to household "
-          worker-id
+          worker-who
         )
       ]
     ]
@@ -1104,17 +1105,37 @@ end
 
 to update-environment-firm
 
-  set last-profit profit
-  set last-demand demand
+  if demand < 0 [
+    set demand 0
+  ]
 
-  update-demand
+  set last-profit profit
+  set demand-history lput demand demand-history
+  if length demand-history > 30 [
+    set demand-history but-first demand-history
+  ]
+  set demand (mean demand-history) / 2
 
 end
 
 to update-store-prices
 
-  set food-price price * 1.5
-  set supplies-price price * 1.2
+  ; set food-price price * 1.5
+  ; set supplies-price price * 1.2
+
+  ; depend on demand and stock levels
+  ;set food-price price * (1 + (demand - food-stock) / 20)
+  ;set supplies-price price * (1 + (demand - supplies-stock) / 20)
+
+  set food-price 5 * (1 + ((mean demand-history) - food-stock) / 20)
+  set supplies-price 3 * (1 + ((mean demand-history) - supplies-stock) / 20)
+
+  if food-price < 0.1 [
+    set food-price 0.1
+  ]
+  if supplies-price < 0.1 [
+    set supplies-price 0.1
+  ]
 
 end
 
@@ -1551,5 +1572,3 @@ end
 ;   ]
 
 ; end
-
-

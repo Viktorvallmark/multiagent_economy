@@ -53,6 +53,14 @@ households-own [
   pending-warning?
   pending-warning-threshold
   
+  ; bargaining with Firm on job-offer variables
+  rejected-counter-offer?
+  amount-rejections
+  
+  ; paycheck logic variables
+  pending-paycheck?
+  pending-paycheck-amount 
+  
 ] 
 
 to setup-household ; det som händer när man trycker "setup" knappen i interfacet
@@ -94,6 +102,12 @@ to setup-household ; det som händer när man trycker "setup" knappen i interfac
     set prev-total-price food-price + supplies-price ; start totalpris
     set price-trend 0 ; startar inte med någon trend i pris
     
+    set rejected-counter-offer? false
+    set amount-rejections 0
+    
+    set pending-paycheck? false
+    set pending-paycheck-amount 0
+    
     ; --- Interface inställningar ---
     set shape "person" ; person symbol på kartan
     set color green ; grön = har pengar
@@ -104,7 +118,7 @@ end
 
 ; PASS 1 UPPÅT--- Observera världen o uppdatera variabler
 to updateEnvironmentInfo_households
-  set should-purchase? (ticks mod 7 != 0)
+  set should-purchase? (ticks mod week != 0)
 
   ; Läs igenom alla meddelanden
   while [not empty? incoming-queue] [
@@ -129,8 +143,6 @@ to updateEnvironmentInfo_households
         set pending-offer-income item 1 content
         set pending-offering-firm item 2 content
         print (word "Tick " ticks ": Household " who " accepterade jobb offret")
-        
-        ; offer för bargaining? ska det vara här? -10% av goverment aid?
       ]
       
       ; GOVERNMENT AID
@@ -152,10 +164,10 @@ to updateEnvironmentInfo_households
 
       ; PAYCHECK
       if msg-type = "paycheck" [
-        let amount item 1 content
-        let old-income income ; previous salary
-        set income amount
-        receive-money amount
+        let old-income income 
+        set income item 1 content
+        set pending-paycheck? true
+        set pending-paycheck-amount income
         
         if income != old-income [
           set pension-goal income * 30 ; updated pension goal
@@ -199,6 +211,8 @@ to updateEnvironmentInfo_households
         let order-cost item 4 content
 
         set wealth wealth - order-cost
+        set food-amount food-amount + order-food-amount
+        set supplies-amount supplies-amount + order-supply-amount
         ; set happiness happiness + 3
       ]
 
@@ -206,6 +220,36 @@ to updateEnvironmentInfo_households
         let firm-who item 1 content
         set should-purchase? true
         ; set happiness happiness - 3
+      ]
+      
+      if msg-type = "counter-rejected" [
+        set rejected-counter-offer? true 
+        set pending-job-offer? false
+        set pending-offer-income 0
+        set pending-offering-firm nobody
+        set happiness happiness - 5
+        set amount-rejections amount-rejections + 1
+        
+        print (word "Tick " ticks ": Household " who " got rejected counter-offer")
+      ]
+
+      if msg-type = "counter-accepted" [
+        set employer item 1 content
+        set income item 2 content
+        set employed? true
+        set pension-goal income * 30
+        set pending-job-offer? false
+        set pending-offer-income 0
+        set pending-offering-firm nobody
+        set amount-rejections 0
+        set happiness happiness + 10 ; blir glad att motofferten blev accepterad
+        
+        print (word "Tick " ticks ": Household " who " got accepted counter-offer")
+      ]
+      
+      if msg-type = "taxed-income" [
+        let amount item 1 content 
+        receive-money amount
       ]
     ]
   ]
@@ -280,6 +324,20 @@ end
 
 ; PASS 2 NERÅT
 to reactive_households
+
+  ifelse food-amount > 0 [
+    set food-amount food-amount - 1
+    set happiness happiness + 0.5 ; äter mat, blir lite gladare
+  ] [
+    set happiness happiness - 1 ; ingen mat, mindre glad
+  ]
+
+  ifelse supplies-amount > 0 [
+    set supplies-amount supplies-amount - 1
+    set happiness happiness + 0.2 ; använder förnödenheter, blir lite gladare
+  ] [
+    set happiness happiness - 0.5 ; inga förnödenheter, mindre glad
+  ]
 
   ;; Lager 1 — sätt budget utifrån financial-state
   budget-household
@@ -376,7 +434,13 @@ to limit-purchases
   ; ]
 
   let food-wanted floor ((spending-limit * 0.75) / food-price)
+  if food-amount > 10 [
+    set food-wanted 10 ; max 10 mat per handling
+  ]
   let supplies-wanted floor ((spending-limit * 0.25) / supplies-price)
+  if supplies-amount > 10 [
+    set supplies-wanted 10 ; max 10 förnödenheter per handling
+  ]
   let total-cost (food-wanted * food-price) + (supplies-wanted * supplies-price)
   
   if total-cost = 0 [stop] ; Inte lönt att köpa ingenting
@@ -405,7 +469,7 @@ end
 
 to save-pension ; pensionssparande
   if financial-state != "har-pengar" [stop] ; pensionssparar bara om man har pengar till det
-  if (ticks mod 30 != 0) [stop] ; sparar bara om 30:e dag, alltså varje månad
+  if (ticks mod month != 0) [stop] ; sparar bara om 30:e dag, alltså varje månad
 
   let pension-rate 0.1
   if proState = "Saving" [
@@ -421,7 +485,9 @@ end
 
 to evaluate-messages-proactively
   if pending-job-offer? [
-    if not employed? and pending-offer-income >= reservation-income [
+    set reservation-income (food-price * month + supplies-price * month * 0.25 + (productivity * 3)) * (1 - (amount-rejections * 0.1)) ; reservation income baseras på levnadskostnader + produktivitet, minskar med 10% för varje avvisad motoffer
+
+    ifelse not employed? and pending-offer-income >= reservation-income [
       set employer pending-offering-firm
       set employed? true
       set income pending-offer-income
@@ -432,11 +498,24 @@ to evaluate-messages-proactively
       set reply add-receiver [who] of pending-offering-firm reply
       send reply
       
+      set pending-job-offer? false
+      set pending-offer-income 0
+      set pending-offering-firm nobody
+      set amount-rejections 0
+      
       print (word "Tick " ticks ": Household " who " proactively evaluated and accepted job offer")
+    ] [
+      let counter-income reservation-income
+      
+      let reply create-message "propose" 
+      set reply add-content (list "counter-job-offer" self counter-income) reply
+      set reply add-receiver [who] of pending-offering-firm reply
+      send reply
+      
+      set pending-job-offer? false
+      set pending-offer-income 0
+      set pending-offering-firm nobody
     ]
-    set pending-job-offer? false
-    set pending-offer-income 0
-    set pending-offering-firm nobody
   ]
   
   if pending-warning? [
@@ -453,5 +532,17 @@ to evaluate-messages-proactively
     
     set pending-warning? false
     set pending-warning-threshold 0
+  ]
+  
+  if pending-paycheck? [
+    let msg create-message "inform"
+    set msg add-content (list "income" who pending-paycheck-amount) msg
+    
+    if any? governments [
+      set msg add-receiver [who] of one-of governments msg
+      send msg
+    ]
+    set pending-paycheck? false
+    set pending-paycheck-amount 0
   ]
 end
