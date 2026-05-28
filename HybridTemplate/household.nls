@@ -146,7 +146,7 @@ to updateEnvironmentInfo_households
       ]
       
       ; GOVERNMENT AID
-      if msg-type = "aid" [
+      if msg-type = "social-aid" [
         let amount item 1 content ; Mängden pengar; 
         
         receive-money amount
@@ -485,7 +485,7 @@ end
 
 to evaluate-messages-proactively
   if pending-job-offer? [
-    set reservation-income (food-price * month + supplies-price * month * 0.25 + (productivity * 3)) * (1 - (amount-rejections * 0.1)) ; reservation income baseras på levnadskostnader + produktivitet, minskar med 10% för varje avvisad motoffer
+    set reservation-income (food-price * month + supplies-price * month * 0.25 + (productivity * 3)) * (1 - (amount-rejections * 0.05)) ; reservation income baseras på levnadskostnader + produktivitet, minskar med 5% för varje avvisad motoffer
 
     ifelse not employed? and pending-offer-income >= reservation-income [
       set employer pending-offering-firm

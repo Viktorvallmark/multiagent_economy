@@ -203,16 +203,6 @@ end ; - to go part
 ]]></code>
   <widgets>
     <view x="646" wrappingAllowedX="true" y="21" frameRate="60.0" minPycor="0" height="599" showTickCounter="true" patchSize="17.5224" fontSize="10" wrappingAllowedY="true" width="1178" tickCounterLabel="ticks" maxPycor="33" updateMode="0" maxPxcor="66" minPxcor="0"></view>
-    <note x="1594" y="652" backgroundDark="0" fontSize="13" width="240" markdown="false" height="27" textColorDark="-1" textColorLight="-16777216" backgroundLight="0">_________ Simulation Recorder________</note>
-    <button x="1592" y="680" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="67" display="start">start-recorder</button>
-    <button x="1593" y="726" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="68" display="reset">reset-recorder</button>
-    <button x="1594" y="774" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="68" display="save">save-recording</button>
-    <monitor x="1684" precision="3" y="761" height="60" fontSize="11" width="146">vid:recorder-status</monitor>
-    <chooser x="1681" y="683" height="60" variable="Source" current="0" width="147" display="Source">
-      <choice type="string" value="Only View"></choice>
-      <choice type="string" value="With Interface"></choice>
-    </chooser>
-    <switch x="1395" y="651" height="40" on="false" variable="show-intentions" width="161" display="show-intentions"></switch>
     <switch x="18" y="18" height="40" on="false" variable="Debug" width="69" display="Debug"></switch>
     <switch x="97" y="17" height="40" on="true" variable="ActivateTestCase" width="123" display="ActivateTestCase"></switch>
     <button x="530" y="14" height="40" disableUntilTicks="false" forever="true" kind="Observer" width="63" display="go">go</button>
@@ -276,33 +266,12 @@ end ; - to go part
         <update>plot count households with [financial-state = "har-inga-pengar"]</update>
       </pen>
     </plot>
-    <plot x="14" autoPlotX="true" yMax="10.0" autoPlotY="true" y="959" xMin="0.0" height="219" legend="false" xMax="10.0" yMin="0.0" width="311" display="Household Employment Rate">
-      <setup></setup>
-      <update></update>
-      <pen interval="1.0" mode="0" display="Unemployed" color="-612749" legend="true">
-        <setup></setup>
-        <update>plot count households with [employed? = false]</update>
-      </pen>
-      <pen interval="1.0" mode="0" display="Employed" color="-8330359" legend="true">
-        <setup></setup>
-        <update>plot count households with [employed? = true]</update>
-      </pen>
-    </plot>
-    <button x="449" y="14" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="67" display="setup">setup</button>
     <plot x="328" autoPlotX="true" yMax="10.0" autoPlotY="true" y="502" xMin="0.0" height="220" legend="false" xMax="10.0" yMin="0.0" width="314" display="Average Household Wealth">
       <setup></setup>
       <update></update>
       <pen interval="1.0" mode="0" display="default" color="-16777216" legend="true">
         <setup></setup>
         <update>plot mean [wealth] of households</update>
-      </pen>
-    </plot>
-    <plot x="657" autoPlotX="true" yMax="10.0" autoPlotY="true" y="644" xMin="0.0" height="220" legend="false" xMax="10.0" yMin="0.0" width="314" display="Average Firm Demand">
-      <setup></setup>
-      <update></update>
-      <pen interval="1.0" mode="0" display="default" color="-16777216" legend="true">
-        <setup></setup>
-        <update>plot mean [demand] of firms</update>
       </pen>
     </plot>
     <plot x="660" autoPlotX="true" yMax="10.0" autoPlotY="true" y="870" xMin="0.0" height="220" legend="false" xMax="10.0" yMin="0.0" width="314" display="Average Food Price">
@@ -319,6 +288,73 @@ end ; - to go part
       <pen interval="1.0" mode="0" display="default" color="-16777216" legend="true">
         <setup></setup>
         <update>plot mean [supplies-price] of firms</update>
+      </pen>
+    </plot>
+    <plot x="660" autoPlotX="true" yMax="10.0" autoPlotY="true" y="1100" xMin="0.0" height="220" legend="false" xMax="10.0" yMin="0.0" width="314" display="Average Food Stock">
+      <setup></setup>
+      <update></update>
+      <pen interval="1.0" mode="0" display="default" color="-16777216" legend="true">
+        <setup></setup>
+        <update>plot mean [food-stock] of firms</update>
+      </pen>
+    </plot>
+    <plot x="984" autoPlotX="true" yMax="10.0" autoPlotY="true" y="1098" xMin="0.0" height="220" legend="false" xMax="10.0" yMin="0.0" width="314" display="Average Supplies Stock">
+      <setup></setup>
+      <update></update>
+      <pen interval="1.0" mode="0" display="default" color="-16777216" legend="true">
+        <setup></setup>
+        <update>plot mean [supplies-stock] of firms</update>
+      </pen>
+    </plot>
+    <button x="449" y="14" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="67" display="setup">setup</button>
+    <plot x="14" autoPlotX="true" yMax="10.0" autoPlotY="true" y="959" xMin="0.0" height="219" legend="false" xMax="10.0" yMin="0.0" width="311" display="Household Employment Rate">
+      <setup></setup>
+      <update></update>
+      <pen interval="1.0" mode="0" display="Unemployed" color="-612749" legend="true">
+        <setup></setup>
+        <update>plot count households with [employed? = false]</update>
+      </pen>
+      <pen interval="1.0" mode="0" display="Employed" color="-8330359" legend="true">
+        <setup></setup>
+        <update>plot count households with [employed? = true]</update>
+      </pen>
+    </plot>
+    <plot x="984" autoPlotX="true" yMax="10.0" autoPlotY="true" y="644" xMin="0.0" height="220" legend="false" xMax="10.0" yMin="0.0" width="314" display="Firm Workers">
+      <setup></setup>
+      <update></update>
+      <pen interval="1.0" mode="0" display="Machine Workers" color="-11053225" legend="true">
+        <setup></setup>
+        <update>plot count machine-workers</update>
+      </pen>
+      <pen interval="1.0" mode="0" display="Household Workers" color="-13345367" legend="true">
+        <setup></setup>
+        <update>plot length [employed-households] of one-of firms</update>
+      </pen>
+    </plot>
+    <switch x="1930" y="534" height="40" on="false" variable="show-intentions" width="161" display="show-intentions"></switch>
+    <chooser x="2216" y="566" height="60" variable="Source" current="0" width="147" display="Source">
+      <choice type="string" value="Only View"></choice>
+      <choice type="string" value="With Interface"></choice>
+    </chooser>
+    <monitor x="2218" precision="3" y="644" height="60" fontSize="11" width="146">vid:recorder-status</monitor>
+    <button x="2128" y="656" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="68" display="save">save-recording</button>
+    <button x="2128" y="608" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="68" display="reset">reset-recorder</button>
+    <button x="2126" y="562" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="67" display="start">start-recorder</button>
+    <note x="2128" y="534" backgroundDark="0" fontSize="13" width="240" markdown="false" height="27" textColorDark="-1" textColorLight="-16777216" backgroundLight="0">_________ Simulation Recorder________</note>
+    <plot x="657" autoPlotX="true" yMax="10.0" autoPlotY="true" y="644" xMin="0.0" height="220" legend="false" xMax="10.0" yMin="0.0" width="314" display="Average Firm Demand">
+      <setup></setup>
+      <update></update>
+      <pen interval="1.0" mode="0" display="default" color="-16777216" legend="true">
+        <setup></setup>
+        <update>plot mean [demand] of firms</update>
+      </pen>
+    </plot>
+    <plot x="1306" autoPlotX="true" yMax="10.0" autoPlotY="true" y="644" xMin="0.0" height="220" legend="false" xMax="10.0" yMin="0.0" width="314" display="Average Firm Money">
+      <setup></setup>
+      <update></update>
+      <pen interval="1.0" mode="0" display="default" color="-16777216" legend="true">
+        <setup></setup>
+        <update>plot mean [money] of firms</update>
       </pen>
     </plot>
   </widgets>
