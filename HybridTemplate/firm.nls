@@ -6,6 +6,7 @@
 ; ; 20260515   fixed a social agent                                                                      Said
 ; ; 20260522    added a store, made demand dynamic, added food and supplies, store revenue               Said
 ; ; 20260524    fixed any error, and redundant stuff. added some simple test code to see that all logic is okay              Said
+; ; 20260528   Refactor code                                                              Elliot
 
 ; ;********************end logbook ************************************************************************************************************************
 
@@ -32,7 +33,7 @@ firms-own [
   income-cost
   offered-income
   machine-cost
-  tax-paid
+tax-paid
   profit
   last-profit
   chosen-method
@@ -129,6 +130,8 @@ to reactive-firm
 
   if ticks > 0 and ticks mod month = 0 [
     send-paychecks
+    request-tax-rate
+
   ]
 
   while [not empty? incoming-queue] [
@@ -329,6 +332,73 @@ to reactive-firm
         " because stock was too low. Firm increased production planning."
       )
     ]
+
+    print (word "Firm accepted counter offer from household " household-id)
+
+  ] [
+
+    let reply create-message "inform"
+    set reply add-content (list "counter-rejected") reply
+    set reply add-receiver household-id reply
+    send reply
+
+    print (word "Firm rejected counter offer from household " household-id)
+  ]
+]
+      ;; recieve productivity level
+    if performative = "inform" and msg-type = "productivity-level" [
+
+  let household-id item 1 content
+  let reported-productivity item 2 content
+
+  ;; remove old report from same household
+  set productivity-reports filter [r -> item 0 r != household-id] productivity-reports
+
+
+  ;; add newest report
+  set productivity-reports
+    lput (list household-id reported-productivity)
+    productivity-reports
+
+;   print (word
+;     "Tick " ticks
+;     ": Firm received productivity "
+;     reported-productivity
+;     " from household "
+;     household-id
+;   )
+]
+    
+    ;; if order okay 
+    
+    if performative = "request" and msg-type = "purchase-order" [
+
+  let buyer-id item 1 content
+  let food-wanted item 2 content
+  let supplies-wanted item 3 content
+  let money-sent item 4 content
+
+  if food-stock >= food-wanted and supplies-stock >= supplies-wanted [
+
+    set food-stock food-stock - food-wanted
+    set supplies-stock supplies-stock - supplies-wanted
+
+    ;;set firm-money firm-money + money-sent
+      set store-revenue store-revenue + money-sent
+
+    let reply create-message "inform"
+    set reply add-content (list "order-approved" food-wanted supplies-wanted money-sent) reply
+    set reply add-receiver buyer-id reply
+    send reply
+
+    print (word
+      "Tick " ticks
+      ": Firm approved order from household "
+      buyer-id
+      ". Food: " food-wanted
+      " Supplies: " supplies-wanted
+      " Money received: " money-sent
+    )
   ]
 
   ;; recieve tax rate
@@ -381,7 +451,6 @@ to calculate-production
 
   foreach productivity-reports [
 
-
     r ->
 
     set household-output
@@ -395,6 +464,7 @@ to calculate-production
 
   ;; total production
   set production household-output + machine-output
+  set production-stock production-stock + production
 
 end
 
@@ -617,6 +687,11 @@ to decide-production-amount
   if demand < production [
     set productivity-threshold productivity-threshold - 1
   ]
+  
+  ;; dynamic productivity threshold
+if demand > production [
+  set productivity-threshold productivity-threshold + 1
+]
 
   ;; minimum threshold
   if productivity-threshold < 1 [
@@ -745,7 +820,14 @@ to decide-offered-income
 
 end
 
-to update-environment-firm
+  ;; price to high low demand
+  if price > 15 [
+    set demand demand - 2
+  ]
+    ;; price low high demand
+  if price < 8 [
+    set demand demand + 2
+  ]
 
   if demand < 0 [
     set demand 0
