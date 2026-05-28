@@ -245,6 +245,7 @@ to updateEnvironmentInfo_households
         set happiness happiness + 10 ; blir glad att motofferten blev accepterad
         
         print (word "Tick " ticks ": Household " who " got accepted counter-offer")
+      ]
       
       if msg-type = "taxed-income" [
         let amount item 1 content 
