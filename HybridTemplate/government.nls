@@ -200,7 +200,7 @@ to proactive_government                                                   ; GLÖ
   ]
   
   ; --- Sätt flagga om budgeten överstiger tröskel för återbäring ---
-  if gov-budget > 200 [                                                            ;KOLLA TRÖSKELVÄRDE
+  if gov-budget > 2000 and ticks mod year = 0 [                                                            ;KOLLA TRÖSKELVÄRDE
     let rebate gov-budget * redistribution-rate
     let per-household rebate / count households
     foreach [who] of households [
@@ -284,11 +284,13 @@ to reactive_government                                                    ; GLÖ
       decision ->
       let household-who item 0 decision
       let aid-amount item 1 decision
-      let msg create-message "propose"
-      set msg add-content (list "social-aid" aid-amount) msg
-      set msg add-receiver household-who msg
-      send msg
-      set gov-budget gov-budget - aid-amount
+      if gov-budget >= (aid-amount * 10) [
+        let msg create-message "propose"
+        set msg add-content (list "social-aid" aid-amount) msg
+        set msg add-receiver household-who msg
+        send msg
+        set gov-budget gov-budget - aid-amount
+      ]
     ]
     set households-needing-aid []
     set household-aid-decisions []
