@@ -26,8 +26,6 @@ globals [
   
   
   ; Firm Variables
-  tax-rate   ; bör använda governments variabel ovan. ; Outdated and will be removed
-  machine-fixed-cost
   governemnt-money ; government cut från firm till gov.
   
   

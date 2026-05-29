@@ -65,10 +65,10 @@ households-own [
 
 to setup-household ; det som händer när man trycker "setup" knappen i interfacet
   
-  create-households 10 [ ; skapar 10 hushåll
+  create-households 50 [ ; skapar 10 hushåll
     set incoming-queue []
 
-    set wealth 50 + random 50 ; random startpengar för variation
+    set wealth 1000 + random 500 ; random startpengar för variation
     set income 0 ; lön
     set pension-savings 0 ; börjar med inget pensionsparande
     set spending-limit 999 ; inte lagt någon budget gräns
@@ -232,7 +232,14 @@ to updateEnvironmentInfo_households
         
         print (word "Tick " ticks ": Household " who " got rejected counter-offer")
       ]
+      
+      if msg-type = "taxed-income" [
+        let amount item 1 content 
+        receive-money amount
+      ]
+    ]
 
+    if performative = "accept-proposal" [
       if msg-type = "counter-accepted" [
         set employer item 1 content
         set income item 2 content
@@ -246,11 +253,6 @@ to updateEnvironmentInfo_households
         
         print (word "Tick " ticks ": Household " who " got accepted counter-offer")
       ]
-      
-      if msg-type = "taxed-income" [
-        let amount item 1 content 
-        receive-money amount
-      ]
     ]
   ]
 
@@ -260,10 +262,17 @@ to updateEnvironmentInfo_households
     set unemployed-time 0
   ]
 
-  let msg create-message "inform"
-  set msg add-content (list "satisfaction-report" self happiness) msg
-  set msg add-receiver [who] of one-of governments msg
-  send msg
+  let satisfaction-msg create-message "inform"
+  set satisfaction-msg add-content (list "satisfaction-report" self happiness) satisfaction-msg
+  set satisfaction-msg add-receiver [who] of one-of governments satisfaction-msg
+  send satisfaction-msg
+
+  if employed? [
+    let productivity-msg create-message "inform"
+    set productivity-msg add-content (list "productivity-level" self productivity) productivity-msg
+    set productivity-msg add-receiver [who] of employer productivity-msg
+    send productivity-msg
+  ]
   
   ; räknar ut pristrend
   let current-total food-price + supplies-price
@@ -326,8 +335,23 @@ end
 to reactive_households
 
   ifelse food-amount > 0 [
-    set food-amount food-amount - 1
-    set happiness happiness + 0.5 ; äter mat, blir lite gladare
+    ; set food-amount food-amount - 1
+    ; set happiness happiness + 0.5 ; äter mat, blir lite gladare
+
+    ; ät 3 måltider om du kan, annars 2 eller 1
+    let food-for-month food-amount / ((month - (ticks mod month)) / month) ; beräknar hur mycket mat som finns kvar per dag i månaden
+    ifelse food-for-month >= 3 [
+      set food-amount food-amount - 3
+      set happiness happiness + 1 ; äter 3 måltider, blir gladare
+    ] [
+      ifelse food-for-month >= 2 [
+        set food-amount food-amount - 2
+        set happiness happiness + 0.5 ; äter 2 måltider, blir lite gladare
+      ] [
+        set food-amount food-amount - 1
+        set happiness happiness + 0 ; äter 1 måltid, blir lite gladare
+      ]
+    ]
   ] [
     set happiness happiness - 1 ; ingen mat, mindre glad
   ]
@@ -398,7 +422,7 @@ end
 ; --- REACTIVE FUNKTIONER ---
 to receive-money [amount] ; sätt in pengar på kontot
   set wealth wealth + amount
-  set happiness happiness + ((amount / income) * 5) ; får pengar, glädje ökar
+  set happiness happiness + ((amount / max (list 1 income)) * 5) ; får pengar, glädje ökar
 end
 
 to budget-household ; budgetterar pengarna för hushållet
@@ -433,14 +457,14 @@ to limit-purchases
   ;   set spending-limit food-price
   ; ]
 
-  let food-wanted floor ((spending-limit * 0.75) / food-price)
-  if food-amount > 10 [
-    set food-wanted 10 ; max 10 mat per handling
-  ]
-  let supplies-wanted floor ((spending-limit * 0.25) / supplies-price)
-  if supplies-amount > 10 [
-    set supplies-wanted 10 ; max 10 förnödenheter per handling
-  ]
+  let food-affordable floor ((spending-limit * 0.75) / food-price)
+  let food-wanted min (list food-affordable (30 - food-amount)) ; köp så att man har 30 i lager, eller mindre om man inte har råd
+  set food-wanted max (list food-wanted 0) ; kan inte köpa negativ mängd
+
+  let supplies-affordable floor ((spending-limit * 0.25) / supplies-price)
+  let supplies-wanted min (list supplies-affordable (30 - supplies-amount)) ; köp så att man har 30 i lager, eller mindre om man inte har råd
+  set supplies-wanted max (list supplies-wanted 0) ; kan inte köpa negativ mängd
+  
   let total-cost (food-wanted * food-price) + (supplies-wanted * supplies-price)
   
   if total-cost = 0 [stop] ; Inte lönt att köpa ingenting
@@ -477,13 +501,15 @@ to save-pension ; pensionssparande
   ]
   
   let pension-contribution wealth * pension-rate 
-  if pension-contribution > 1 [ ; inte lönt o spara mindre än 1 kr
-    set wealth wealth - pension-contribution ; tar bort pengar från nuvarande pengar pga spara
-    set pension-savings pension-savings + pension-contribution ; lägger till sparandet i nuvarande pensionssparande
-  ]
+  set wealth wealth - pension-contribution ; tar bort pengar från nuvarande pengar pga spara
+  set pension-savings pension-savings + pension-contribution ; lägger till sparandet i nuvarande pensionssparande
 end
 
 to evaluate-messages-proactively
+  if not employed? [
+    set pending-warning? false
+  ]
+
   if pending-job-offer? [
     set reservation-income (food-price * month + supplies-price * month * 0.25 + (productivity * 3)) * (1 - (amount-rejections * 0.05)) ; reservation income baseras på levnadskostnader + produktivitet, minskar med 5% för varje avvisad motoffer
 
