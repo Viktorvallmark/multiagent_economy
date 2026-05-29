@@ -29,7 +29,6 @@ governments-own [
   planned-tax-rate-firms
   planned-tax-rate-households
   chosen-action
-  ;longterm-unemployed-households
   households-needing-aid
   firms-needing-aid
   firms-wanting-expansion
@@ -45,7 +44,6 @@ to setup-government
   
   create-governments 1 [
     set household-satisfaction []
-    ;set longterm-unemployed-households []
     set households-needing-aid []
     set firms-needing-aid []
     set firms-wanting-expansion []
@@ -78,10 +76,7 @@ to updateEnvironmentInfo_government
     let msg-type item 0 content
     
     if performative = "inform" [
-      ;if msg-type = "longterm-unemployed" [
-      ;  let household-who item 1 content
-      ;  set longterm-unemployed-households lput household-who longterm-unemployed-households
-      ;]
+
       if msg-type = "satisfaction-report" [
         let household-who item 1 content
         let happiness-received item 2 content
@@ -143,27 +138,24 @@ to proactive_government                                                   ; GLÖ
   
   ; --- Sätt flagga om det finns företag i behov av utökning ---
   if not empty? firms-wanting-expansion [
-    ;set expansion-decisions []
+    
     foreach firms-wanting-expansion [
       current-firm ->
       let current-firm-who item 0 current-firm
       let current-expansion-budget item 1 current-firm
       let current-expected-production item 2 current-firm
       ifelse current-expansion-budget >= 10000 and current-expected-production >= 100 [             ;KOLLA TRÖSKELVÄRDEN
-        set expansion-decisions lput (list current-firm-who "approved") expansion-decisions
+        set expansion-decisions lput (list current-firm-who "approved-expansion") expansion-decisions
       ] [
-        set expansion-decisions lput (list current-firm-who "denied") expansion-decisions
+        set expansion-decisions lput (list current-firm-who "denied-expansion") expansion-decisions
       ]
     ]
     set chosen-action "evaluate-expansion"
     stop
   ]
   
-  ; --- Sätt flagga om det finns långtidsarbetslösa hushåll ---
-  ;if not empty? longterm-unemployed-households [
-  ;  set chosen-action "encourage-work"
-  ;  stop
-  ;]
+
+
   
   ; --- Sätt flagga om det finns hushåll i behov av ekonomiskt bistånd ---
   if not empty? households-needing-aid [
@@ -267,16 +259,6 @@ to reactive_government                                                    ; GLÖ
     set expansion-decisions []
     stop
   ]
-  
-  ; --- Uppmuntra till arbetssökande om det finns långtidssarbetslösa hushåll ---
-  ;if chosen-action = "encourage-work" [                                ; CHOSEN ACTION FIRE VID CHECK AV UNEMPLOYMENT I OBSERVER
-  ;  let msg create-message "propose"                                   ; PROPOSE ELLER INFORM?
-  ;  set msg add-content (list "seek-work") msg
-  ;  set msg add-multiple-receivers longterm-unemployed-households msg
-  ;  send msg
-  ;  set longterm-unemployed-households []
-  ;  stop
-  ;]
   
   ; --- Dela ut ekonomiskt bistånd till fattiga hushåll ---
   if chosen-action = "give-household-aid" [

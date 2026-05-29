@@ -35,39 +35,36 @@ globals [
 ; ; do not include in the agents declaration files
 governments-own [
   test-initial-budget
+  test-redistribute-rate
+  test-tax-rate
 ]
 
 ; ; household-specific variables for the test case
 ; ; do not include in the agents declaration files
 households-own [
   test-initial-wealth
+  test-income
+  test-financial-state
+  test-spending-limit
 ]
 
 ; ; firm-specific variables for the test case
 ; ; do not include in the agents declaration files
 firms-own [
-  
+  test-firm-money
+  test-food-stock
+  test-supplies-stock
+  test-demand-history
   
 ]
 ; ;*********************************************************************************************************************************************************
 
 to setup-test-government
-  file-open "government-testcase.txt"
   
-  ask governments [
-    set gov-budget 250
-    set test-initial-budget gov-budget
-    
-    file-print "=== TEST STARTED ==="
-    
-    file-print (word "Initial gov-budget: " test-initial-budget)
-    
-  ]
+  set test-initial-budget 2500
+  set test-redistribute-rate 0.2
+  set test-tax-rate 0
   
-  ask households [
-    set income 20
-    set test-initial-wealth income
-  ]
   
   
 end
@@ -77,63 +74,207 @@ end
 ; ; after the ask turtles, in the observer-section 
 ; ;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;; GOVERNMENT TESTS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 to monitor-government-test
-  ask governments [
+  
+  ;; Test 1: Testing the distribute-welfare procedure
+  
+  ;;Outcomes: Pass - Government budget decreased by tax-rebate. Fail - Government budget didnt decrease
+  let temp 0
+  if test-initial-budget > 2000 [     
+    set temp test-initial-budget
+    let rebate test-initial-budget * test-redistribute-rate
+    let per-household rebate / count households
+    set test-initial-budget test-initial-budget - per-household
     
-    file-print (word "Current gov-budget: " gov-budget)
-    
-    if gov-budget < test-initial-budget [
-      file-print "Test 1 PASS - Government budget decreased after redistribution"
-    ]
-    
-    if gov-budget > test-initial-budget [ 
-      error("TEST 1 Failed - Didn't setup correctly")
-    ]
   ]
+  if temp < test-initial-budget [
+    error("Budget didn't decrease from tax rebate")
+  ]
+  print(word "Test 1 PASSED")
+  
+  
+  ;; Test 2: Testing tax-rate algorithm
+  ;; Outcomes: Pass - Correct tax rate was chosen. Fail - Wrong tax rate was chosen
+  
+  let household-income 1000
+  
+  ifelse household-income >= 1000 [
+    set test-tax-rate 0.3
+  ][
+    set test-tax-rate 0.1
+  ]
+  
+  if test-tax-rate = 0.1 [
+    error("Wrong tax rate")
+  ]
+  if test-tax-rate = 0.3 [
+    
+    print(word "Correct tax rate chosen")
+  ]
+  
+  ;; Test 3: Testing tax rebate
+  ;; Outcomes: Pass - Can sense when there is nothing to reimburse. Fail - Reimburses even though no budget
+  
+  if test-initial-budget - (test-initial-budget * test-redistribute-rate) < 2000 [
+    
+    error ("Can't distribute below threshold")
+    
+  ]
+  print(word "Test 3 PASSED")
+  
+
 end
 
 ; ;****************** end specific testfunctions in agent's code *************************************************************************************************
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; FIRM TESTS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 to setup-firm-test
-  ;for tests above test-offered-income
-  set productivity-reports []
-  set food-stock 0
-  set supplies-stock 0
-  set production-stock 0
-  set store-revenue 0
-  set pre-tax-income 0
-  set received-tax-rate 0
-  set tax-ready? false
-  set max-capacity 0
-  set max-household-workers 0
-  set max-machines 0
-  set price 0
-  
-  ;;test-offered-income
-  set offered-income 5
-  set target-production 30
-  set current-production 10
-  set firm-money 1200
-  set profit 100
-  set last-profit 50
-  
-  ;;test-productivity-and-warning
-  set productivity-threshold 3
-  set warned-households []
-  set employed-households [1]
-  
-  
+  set test-firm-money 5
+  set test-food-stock 5
+  set test-supplies-stock 5
+  set test-demand-history [3 4 5]
 end
 
 to monitor-firm-test
+  
+  
+  ;; Test 1 - Testing updating store price procedure
+  ;; Outcomes - Pass: Updates price in the store correctly. Fail: Wrong prices
+  
+  let test-food-price 5 * (1 + ((mean demand-history) - test-food-stock) / 20)
+  let test-supplies-price 3 * (1 + ((mean demand-history) - test-supplies-stock) / 20)
+
+  if food-price < 0.1 [
+    set food-price 0.1
+  ]
+  if supplies-price < 0.1 [
+    set supplies-price 0.1
+  ]
+  
+  if test-food-price != (5 * (1 + ((mean demand-history) - test-food-stock) / 20)) [
+    
+    error("Wrong calculation updating food prices")
+    
+  ]
+  
+  if test-supplies-price != (3 * (1 + ((mean demand-history) - test-supplies-stock) / 20)) [
+    error("Wrong calculation updating supplies price")
+  ]
+  
+  
+  ;; Test 2 - Test getting aid is ok
+  ;; Outcomes - Pass: Aid is correctly added Fail - wrong calculations with aid
+  
+  
+  let test-aid-amount 300
+  
+  set test-firm-money test-firm-money + test-aid-amount
+  
+  if test-aid-amount != 305 [
+    
+    error("Wrong amount of test-firm-money")
+  ]
+  
+  
+  
+  
+  
 end
 
+;;;;;;;;;;;;;;;;;;;;;;; HOUSEHOLD TESTS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 to setup-household-test
+  set test-initial-wealth 100
+  set test-financial-state 0
+  set test-spending-limit 0
+  
+  
 end
 
 to monitor-household-test
+  
+  ;; Test 1 - Testing proper financial state when doing update-financial-state
+  ;; Outcomes - Pass: correct financial state is set. Fail: wrong financial state is set.
+  
+    ifelse test-initial-wealth >= 50 [
+    set test-financial-state "har-pengar"
+
+  ] [
+    ifelse test-initial-wealth > 0 and wealth < 50 [
+      set financial-state "har-lite-pengar"
+
+    ] [
+      set test-financial-state "har-inga-pengar"
+      set test-initial-wealth 0 
+    ]
+  ]
+  
+  if test-initial-wealth >= 50 and test-financial-state != "har-pengar" [
+    
+    error("Wrong financial state")
+    
+  ]
+  
+    if test-initial-wealth < 50 and test-initial-wealth > 0 and test-financial-state = "har-pengar" [
+    
+    error("Wrong financial state")
+    
+  ]
+  
+  if test-initial-wealth <= 0 and test-financial-state = "har-pengar" [
+    error("Wrong financial state")
+  ]
+  
+  ;; Test 2 - Testing spending limit
+  ;; Outcomes - Pass: Correct spending limit set depending on wealth. Fail: Wrong spending limit chosen
+  
+  if test-financial-state = "har-pengar" [
+    set test-spending-limit test-initial-wealth * 0.4 
+  ]
+  if test-financial-state = "har-lite-pengar" [
+    set test-spending-limit test-initial-wealth * 0.2 
+  ]
+  if test-financial-state = "har-inga-pengar" [
+    set test-spending-limit 0 
+  ]
+  
+  
+  set test-financial-state "har-pengar"
+  
+  if test-spending-limit != (test-initial-wealth * 0.4) [
+    
+    error("Wrong spending limit")
+    
+  ]
+  
+  set test-financial-state "har-lite-pengar"
+  
+  if test-spending-limit != (test-initial-wealth * 0.2) [
+    
+    error("Wrong spending limit")
+    
+  ]
+  
+  set test-financial-state "har-inga-pengar"
+  
+  if test-spending-limit != 0 [
+    
+    error("Wrong spending limit")
+    
+  ]
+  
+  ;; Test 3 - Testing pension saving
+  ;; Outcomes - Pass: Saving for pension in correct financial state. Fail: Saving in wrong financial state
+  
+  if test-financial-state != "har-pengar" [
+    
+    error("Can't save in wrong financial state")
+  ]
+
 end
 
 

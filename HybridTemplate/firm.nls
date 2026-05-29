@@ -165,20 +165,20 @@ to reactive-firm
     if performative = "propose" and msg-type = "partial-expansion" [
 
 
-  let expansion-amount item 1 content
+      let expansion-amount item 1 content
 
-  ifelse expansion-amount >= 5 [
+      ifelse expansion-amount >= 5 [
 
-    set max-capacity max-capacity + expansion-amount
-    set max-household-workers max-household-workers + 5
-    set max-machines max-machines + 5
+      set max-capacity max-capacity + expansion-amount
+      set max-household-workers max-household-workers + 5
+      set max-machines max-machines + 5
 
-    let reply create-message "accept-proposal"
-    set reply add-content (list "expansion-accepted" expansion-amount) reply
-    set reply add-receiver [who] of one-of governments reply
-    send reply
+      let reply create-message "accept-proposal"
+      set reply add-content (list "expansion-accepted" expansion-amount) reply
+      set reply add-receiver [who] of one-of governments reply
+      send reply
 
-    print (word "Firm accepted partial expansion: " expansion-amount)
+      print (word "Firm accepted partial expansion: " expansion-amount)
 
   ] [
 
@@ -205,32 +205,7 @@ to reactive-firm
         max-capacity
       )
     ]
-      ;; if aid sent
-    if performative = "propose" and msg-type = "aid" [
 
-  let aid-amount item 1 content
-
-  ifelse aid-amount >= 300 [
-
-    set firm-money firm-money + aid-amount
-
-    let reply create-message "accept-proposal"
-    set reply add-content (list "aid-accepted" aid-amount) reply
-    set reply add-receiver [who] of one-of governments reply
-    send reply
-
-    print (word "Firm accepted government aid: " aid-amount)
-
-  ] [
-
-    let reply create-message "propose"
-    set reply add-content (list "counter-aid-request" who 500) reply
-    set reply add-receiver [who] of one-of governments reply
-    send reply
-
-    print "Firm counter-offered aid request: 500"
-  ]
-]
     ;; if jobb acceptefd
     if performative = "accept-proposal" and msg-type = "job-accepted" [
 
@@ -284,13 +259,7 @@ to reactive-firm
     lput (list household-id reported-productivity)
     productivity-reports
 
-;   print (word
-;     "Tick " ticks
-;     ": Firm received productivity "
-;     reported-productivity
-;     " from household "
-;     household-id
-;   )
+
 ]
 
     ;; if order okay
@@ -366,51 +335,9 @@ create-store-products
   set received-tax-rate item 1 content
   set tax-ready? true
 
-;   print (word "Firm received tax rate: " received-tax-rate)
 ]
 
-  
-
-;      let expansion-amount item 1 content
-
- ;     ifelse expansion-amount >= 5 [
-
- ;       set max-capacity max-capacity + expansion-amount
-  ;      set max-household-workers max-household-workers + 5
- ;       set max-machines max-machines + 5
-
-  ;      let reply create-message "accept-proposal"
-  ;      set reply add-content (list "expansion-accepted" expansion-amount) reply
-  ;      set reply add-receiver [who] of one-of governments reply
-  ;      send reply
-
-   ;     print (word "Firm accepted partial expansion: " expansion-amount)
-
-  ;    ] [
-
-  ;      let reply create-message "propose"
-  ;      set reply add-content (list "counter-expansion-request" who 10) reply
-  ;      set reply add-receiver [who] of one-of governments reply
-  ;      send reply
-
-  ;      print "Firm counter-offered expansion request: 10"
-  ;    ]
     
-    
-    ;; if expansion approved
-    if performative = "inform" and msg-type = "approved-expansion" [
-      print (word "Tick " ticks ": building new firm")
-      
-      set max-capacity max-capacity + 10
-      set max-household-workers max-household-workers + 5
-      set max-machines max-machines + 5
-
-      print (word
-        "Tick " ticks
-        ": Firm expansion request was approved by government. New max-capacity: "
-        max-capacity
-      )
-    ]
     ;; if aid sent 
     if performative = "propose" and msg-type = "aid" [
 
@@ -447,34 +374,6 @@ create-store-products
       ]
     ]
     
-    if performative = "propose" and msg-type = "counter-job-offer" [
-
-      let household-who item 1 content
-      let requested-income item 2 content
-
-      ifelse requested-income <= offered-income + 2 [
-
-        let reply create-message "accept-proposal"
-        set reply add-content (list "counter-accepted" self requested-income) reply
-        set reply add-receiver [who] of household-who reply
-        send reply
-
-        if not member? household-who employed-households [
-          set employed-households lput household-who employed-households
-        ]
-
-        print (word "Firm accepted counter offer from household " household-who)
-
-      ] [
-
-        let reply create-message "inform"
-        set reply add-content (list "counter-rejected" self) reply
-        set reply add-receiver [who] of household-who reply
-        send reply
-
-        print (word "Firm rejected counter offer from household " household-who)
-      ]
-    ]
     ;; recieve productivity level
     if performative = "inform" and msg-type = "productivity-level" [
 
@@ -490,13 +389,7 @@ create-store-products
         lput (list household-id reported-productivity)
         productivity-reports
 
-    ;   print (word
-    ;     "Tick " ticks
-    ;     ": Firm received productivity "
-    ;     reported-productivity
-    ;     " from household "
-    ;     household-id
-    ;   )
+
     ]
     
     ;; if order okay 
@@ -1125,12 +1018,6 @@ end
 
 to update-store-prices
 
-  ; set food-price price * 1.5
-  ; set supplies-price price * 1.2
-
-  ; depend on demand and stock levels
-  ;set food-price price * (1 + (demand - food-stock) / 20)
-  ;set supplies-price price * (1 + (demand - supplies-stock) / 20)
 
   set food-price 5 * (1 + ((mean demand-history) - food-stock) / 20)
   set supplies-price 3 * (1 + ((mean demand-history) - supplies-stock) / 20)

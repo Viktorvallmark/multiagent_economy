@@ -153,10 +153,6 @@ to updateEnvironmentInfo_households
         print (word "Tick " ticks ": Household " who " tog emot " amount " kr i bidrag. ")
       ]
       
-      ;; JOB-SEEKING ENCOURAGEMENT FROM GOVERNMENT
-      ;if msg-type = "seek-work" [
-        ; happiness
-      ;]
     ]
   
     ;; ---------------- INFORM MESSAGES ----------------
@@ -277,7 +273,7 @@ to updateEnvironmentInfo_households
   update-productivity
   
 end
-
+; PROACTIVE LAYER
 ; --- Bestämma strategi, FSM 3 states, proState som reactive använder sen ---
 to proactive_households
   
@@ -353,12 +349,12 @@ end
 ; --- ENVIRONMENT FUNKTIONER--- 
 
 to update-financial-state
-  ifelse wealth > 50 [
+  ifelse wealth >= 50 [
     set financial-state "har-pengar"
     set color green ; grön = bra pengarsituation
     set happiness happiness + 0.1 ; ökar happiness om "har-pengar"
   ] [
-    ifelse wealth > 0 [
+    ifelse wealth > 0 and wealth < 50 [
       set financial-state "har-lite-pengar"
       set color yellow ; gul = tight pengarsituation
       ; happiness stannar samma i denna state
@@ -428,10 +424,7 @@ to limit-purchases
   if proState = "Stocking-up" [
     set spending-limit spending-limit * 1.5
   ]
-  
-  ; if proState = "Saving" [
-  ;   set spending-limit food-price
-  ; ]
+
 
   let food-wanted floor ((spending-limit * 0.75) / food-price)
   if food-amount > 10 [
@@ -450,21 +443,7 @@ to limit-purchases
   set msg add-receiver [who] of one-of firms msg
   send msg
   
-  ; let total-cost food-price + supplies-price ; kostnad för handlingen
 
-  ; ifelse total-cost > spending-limit [ ; inte råd med båda
-  ;   ifelse food-price <= spending-limit [ ; finns pengar till mat
-  ;     set wealth wealth - food-price 
-  ;     set happiness happiness - 1 ; mindre glad pga. köp bara mat
-  ;   ] [
-      ; Inga pengar för ens mat, köp inget
-  ;     set happiness happiness - 5 ; köpte inget, inte glad
-  ;   ]
-  ; ] [
-    ; råd med båda
-  ;   set wealth wealth - total-cost ; köp allt
-  ;   set happiness happiness + 1 ; köper båda, blir gladare
-  ; ]
 end
 
 to save-pension ; pensionssparande
