@@ -43,6 +43,7 @@ to receive [msg]
    set incoming-queue lput msg incoming-queue
 end 
 
+
 ;; This reporter returns the next message in the list and removes it from the queue.
 to-report get-message
   if empty? incoming-queue [report "no_message"]
@@ -81,7 +82,7 @@ to-report create-message [performative]
 end 
 
 to-report create-reply [performative msg]
-let msgOut 0
+ let msgOut 0
     
  set msgOut create-message performative
  set msgOut add-receiver (get-sender msg) msgOut

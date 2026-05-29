@@ -307,6 +307,9 @@ to reactive-firm
     set food-stock food-stock - food-wanted
     set supplies-stock supplies-stock - supplies-wanted
 
+        
+    
+        
     ;;set firm-money firm-money + money-sent
       set store-revenue store-revenue + money-sent
 
@@ -653,6 +656,7 @@ to decide-investment-method
 end
 
 to calculate-revenue
+  
   set revenue store-revenue
 
 end
@@ -753,6 +757,7 @@ to send-paychecks
   ]
 
 end
+
 to request-expansion
 
   ;; if production is maxed out and firm has enough money

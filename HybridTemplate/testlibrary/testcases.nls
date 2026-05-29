@@ -47,6 +47,7 @@ households-own [
 ; ; do not include in the agents declaration files
 firms-own [
   
+  
 ]
 ; ;*********************************************************************************************************************************************************
 
@@ -86,7 +87,7 @@ to monitor-government-test
       file-print "Test 1 PASS - Government budget decreased after redistribution"
     ]
     
-    if gov-budget > test-initial-budget [
+    if gov-budget > test-initial-budget [ 
       error("TEST 1 Failed - Didn't setup correctly")
     ]
   ]
@@ -96,6 +97,34 @@ end
 
 
 to setup-firm-test
+  ;for tests above test-offered-income
+  set productivity-reports []
+  set food-stock 0
+  set supplies-stock 0
+  set production-stock 0
+  set store-revenue 0
+  set pre-tax-income 0
+  set received-tax-rate 0
+  set tax-ready? false
+  set max-capacity 0
+  set max-household-workers 0
+  set max-machines 0
+  set price 0
+  
+  ;;test-offered-income
+  set offered-income 5
+  set target-production 30
+  set current-production 10
+  set firm-money 1200
+  set profit 100
+  set last-profit 50
+  
+  ;;test-productivity-and-warning
+  set productivity-threshold 3
+  set warned-households []
+  set employed-households [1]
+  
+  
 end
 
 to monitor-firm-test
