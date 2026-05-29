@@ -65,7 +65,7 @@ households-own [
 
 to setup-household ; det som händer när man trycker "setup" knappen i interfacet
   
-  create-households 50 [ ; skapar 10 hushåll
+  create-households 100 [ ; skapar 10 hushåll
     set incoming-queue []
 
     set wealth 1000 + random 500 ; random startpengar för variation
@@ -349,7 +349,7 @@ to reactive_households
         set happiness happiness + 0.5 ; äter 2 måltider, blir lite gladare
       ] [
         set food-amount food-amount - 1
-        set happiness happiness + 0 ; äter 1 måltid, blir lite gladare
+        set happiness happiness + 0.1 ; äter 1 måltid, blir lite gladare
       ]
     ]
   ] [
@@ -473,7 +473,7 @@ to limit-purchases
   
   let total-cost (food-wanted * food-price) + (supplies-wanted * supplies-price)
   
-  if total-cost = 0 [stop] ; Inte lönt att köpa ingenting
+  ; if total-cost = 0 [stop] ; Inte lönt att köpa ingenting
 
   let msg create-message "request"
   set msg add-content (list "purchase-order" who food-wanted supplies-wanted total-cost) msg

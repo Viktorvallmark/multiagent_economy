@@ -345,7 +345,11 @@ to reactive-firm
     send-paychecks
     request-tax-rate
 
-    spend-money machine-cost
+    let machine-list [self] of machine-workers with [
+      employer = myself
+    ]
+
+    spend-money machine-maintenance-cost * length machine-list
   ]
 
   decide-fire-hire
@@ -399,8 +403,6 @@ to calculate-production
 end
 
 to create-store-products
-
-  let products-produced production / 4 ; each worker produces 0.25 units per tick, so divide by 4 to get number of products
 
   ;; convert production into stock
   set food-stock food-stock + floor production / 2
