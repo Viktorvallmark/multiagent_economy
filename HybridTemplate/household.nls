@@ -377,7 +377,7 @@ end
 ; --- ENVIRONMENT FUNKTIONER--- 
 
 to update-financial-state
-  ifelse wealth > 50 [
+  ifelse wealth > 100 [
     set financial-state "har-pengar"
     set color green ; grön = bra pengarsituation
     set happiness happiness + 0.1 ; ökar happiness om "har-pengar"
@@ -442,6 +442,12 @@ to budget-household ; budgetterar pengarna för hushållet
       set msg add-receiver [who] of one-of governments msg
       send msg
     ]
+  ]
+  if financial-state = "har-inga-pengar" or financial-state = "har-lite-pengar" [
+    ; ta ut 10% av sparandet som hjälp i nöd
+    let aid-amount pension-savings * 0.1
+    set pension-savings pension-savings - aid-amount
+    receive-money aid-amount
   ]
 end
 
